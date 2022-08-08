@@ -96,6 +96,6 @@ export let postBook = (data) => async(dispatch)=>{
     try {
         await axios.post('https://findbook-api.herokuapp.com/books', data)
     } catch (error) {
-        alert(error)
+        console.log(error)
     }
 }
