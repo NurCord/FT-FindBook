@@ -16,6 +16,7 @@ export default function Detail() {
     }, [])
 
     useEffect(() => {
+        console.log(state)
         if(state?.hasOwnProperty('generos')){
             dispatch(getBooksGenres(state?.generos[0]?.genre))
         }

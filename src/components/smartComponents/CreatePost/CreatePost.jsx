@@ -4,6 +4,7 @@ import { useNavigate } from "react-router-dom";
 import { useDispatch } from "react-redux";
 import { useState } from "react";
 import { postBook } from "../../../redux/actions/actions";
+import Swal from "sweetalert2";
 
 
 // lógica validación
@@ -130,19 +131,39 @@ export default function CreatePost() {
         setForbidden(validator(form))
         e.preventDefault();
         if(Object.keys(forbidden).length !== 0 || form === state){
-            alert('Todos los campos son obligatorios')
-            return 
+            return Swal.fire({
+                icon: 'error',
+                title: 'Oops...',
+                text: 'Todos los campos son obligatorios!',
+              })
         }
-        alert(`Libro ${form.name} posteado`)
-        form.category = form.category[0];
-        form.pages = Number(form.pages);
-        form.rating = Number(form.rating[0]);
-        form.price = Number(form.price);
-        form.released = form.released + '';
-        form.language = form.language[0];
-        dispatch(postBook(form));
-        setForm(state)
-        navigate('/');
+        return Swal.fire({
+            title: 'Estas seguro?',
+            text: "No podrás revertirlo",
+            icon: 'warning',
+            showCancelButton: true,
+            confirmButtonColor: '#3085d6',
+            cancelButtonColor: '#d33',
+            confirmButtonText: 'Si, Confirmar!'
+          }).then((result) => {
+            if (result.isConfirmed) {
+                form.category = form.category[0];
+                form.pages = Number(form.pages);
+                form.rating = Number(form.rating[0]);
+                form.price = Number(form.price);
+                form.released = form.released + '';
+                form.language = form.language[0];
+                console.log(form)
+                dispatch(postBook(form));
+                setForm(state)
+                navigate('/');
+                Swal.fire(
+                    'Confirmar!',
+                    `El libro ${form.name} fue publicado`,
+                    'success'
+                )
+            }
+          })
     }
     // useEffect(() => {
     //     dispatch(getGenres());
