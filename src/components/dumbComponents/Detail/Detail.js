@@ -1,3 +1,4 @@
+/* eslint-disable react-hooks/exhaustive-deps */
 import React , {useEffect}from 'react'
 import {ButtonDetail, H1Detail, DivDetail, TextDetail, DivTableDetail, DivTableColDetail, H1DetailSwiper} from './stayleComponentDetail'
 import { useDispatch, useSelector } from 'react-redux';
@@ -8,8 +9,8 @@ import { getBookByID, getBooksGenres } from '../../../redux/actions/actions';
 
 export default function Detail() {
     let state = useSelector(s => s.root.bookById)
-    let dispatch = useDispatch()
     let {id} = useParams()
+    let dispatch = useDispatch()
     useEffect(() => {
         dispatch(getBookByID(parseInt(id)))
     }, [])

@@ -32,6 +32,21 @@ function validator(form) {
     return forbidden;
 }
 
+let state = {
+    name: '',
+    author: '',
+    genre: [],
+    category: '',
+    pages: '',
+    publisher: '',
+    description: '',
+    image: '',
+    rating: '',
+    price: '',
+    released: '',
+    language: ''
+}
+
 export default function CreatePost() {
     // const { register, handleSubmit, errors } = useForm({
     //     resolver: yupResolver(bookSchema),
@@ -112,11 +127,13 @@ export default function CreatePost() {
         }))
     }; 
     function handleFormSubmit (e) {
-        if (form.name === '') {
-            alert('No ha ingresado ninguna información para publicar');
-            return;
-        }
+        setForbidden(validator(form))
         e.preventDefault();
+        if(Object.keys(forbidden).length !== 0 || form === state){
+            alert('Todos los campos son obligatorios')
+            return 
+        }
+        alert(`Libro ${form.name} posteado`)
         form.category = form.category[0];
         form.pages = Number(form.pages);
         form.rating = Number(form.rating[0]);
@@ -124,20 +141,7 @@ export default function CreatePost() {
         form.released = form.released + '';
         form.language = form.language[0];
         dispatch(postBook(form));
-        setForm({
-            name: '',
-            author: '',
-            genre: [],
-            category: [],
-            pages: '',
-            publisher: '',
-            description: '',
-            image: '',
-            rating: [],
-            price: '',
-            released: '',
-            language: []
-        })
+        setForm(state)
         navigate('/');
     }
     // useEffect(() => {

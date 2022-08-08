@@ -14,7 +14,6 @@ export default function CardImag() {
     let data = res[0]?.libros
     const dispatch = useDispatch()
     const navigate = useNavigate()
-    let hola;
     function handleOnClick(id) {
         dispatch(getBookByID(parseInt(id)))
         window.scroll(0,100)
