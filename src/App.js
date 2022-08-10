@@ -1,7 +1,7 @@
 import {Routes, Route} from 'react-router-dom'
 import Detail from './components/dumbComponents/Detail/Detail';
 import Shop from './components/dumbComponents/Shop/Shop';
-import Loggin from './components/smartComponents/Loggin/Loggin';
+import Login from './components/smartComponents/Login/Login';
 import Contact from './components/smartComponents/Contact/Contact';
 import ThanksPage from './components/dumbComponents/ThanksPage/ThanksPage';
 import SearchByName from './components/dumbComponents/SearchByName/SearchByName';
@@ -34,7 +34,7 @@ function App() {
           <Route path='detail/:id' element={<Detail/>}/>
           <Route path='shop' element={<Shop/>}/>
           <Route path='postbook' element={<CreatePost/>}/>
-          <Route path='loggin' element={<Loggin/>}/>
+          <Route path='login' element={<Login/>}/>
           <Route path='contacto' element={<Contact/>}/>
           <Route path='contacto/agradecimiento' element={<ThanksPage/>}/>
           <Route path='busqueda/:name' element={<SearchByName/>}/>
