@@ -1,4 +1,4 @@
-import { GET_ALL_BOOKS, GET_BOOK_BY_ID, GET_BOOKS_BY_NAME, GET_BOOK_BY_GENRE, GET_GENRE, GET_YEARS, GET_BOOKS_BY_YEARS} from "./variables";
+import { GET_ALL_BOOKS, GET_BOOK_BY_ID, GET_BOOKS_BY_NAME, GET_BOOK_BY_GENRE, GET_GENRE, GET_YEARS, GET_BOOKS_BY_YEARS, GET_BOOKS_RATING} from "./variables";
 import axios from "axios";
 
 
@@ -95,6 +95,18 @@ export let getBooksByYears = (yearsToFilter) => async (dispatch) =>{
 export let postBook = (data) => async(dispatch)=>{
     try {
         await axios.post('https://findbook-api.herokuapp.com/books', data)
+    } catch (error) {
+        console.log(error)
+    }
+}
+
+export let getForRating = () => async(dispatch)=>{
+    try {
+        let res = (await axios.get('https://findbook-api.herokuapp.com/books?size=57')).data;
+        dispatch({
+            type: GET_BOOKS_RATING,
+            payload: res.content
+        })
     } catch (error) {
         console.log(error)
     }
