@@ -1,11 +1,18 @@
-import React from 'react'
+import React, { useEffect } from 'react'
 import Publicity from '../../dumbComponents/Publicity/Publicity';
 import SwiperCard from '../Card/SwiperCard';
 import { useSelector } from "react-redux";
-
+import { useDispatch } from 'react-redux';
+import {getForRating} from '../../../redux/actions/actions'
 
 export default function Home() {
-    let state = useSelector(s => s.root.allBooks)
+    const dispatch = useDispatch()
+    useEffect(() => {
+        dispatch(getForRating())
+    // eslint-disable-next-line react-hooks/exhaustive-deps
+    }, [])
+    
+    let state = useSelector(s => s.root.allBoksByRating)
     let data = state.slice(0, 10)
     return (
         <div className='w-full h-screen bg-greyBlack-100'>

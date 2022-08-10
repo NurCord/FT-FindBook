@@ -10,7 +10,7 @@ import Home from './components/dumbComponents/Home/Home';
 import CreatePost from './components/smartComponents/CreatePost/CreatePost';
 import {useEffect} from 'react'
 import { useDispatch } from 'react-redux';
-import {getAllBooks, getGenres, getYears} from  './redux/actions/actions'
+import {getAllBooks, getGenres, getYears, getForRating} from  './redux/actions/actions'
 import SearchByCategory from './components/dumbComponents/SearchByCategory/SearchByCategory';
 import SearchByReleased from './components/dumbComponents/SearchByReleased/SearchByReleased';
 function App() {
