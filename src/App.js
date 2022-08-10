@@ -34,7 +34,7 @@ function App() {
           <Route path='detail/:id' element={<Detail/>}/>
           <Route path='shop' element={<Shop/>}/>
           <Route path='postbook' element={<CreatePost/>}/>
-          <Route path='loggin' element={<Loggin/>}/>
+          <Route path='login' element={<Login/>}/>
           <Route path='contacto' element={<Contact/>}/>
           <Route path='contacto/agradecimiento' element={<ThanksPage/>}/>
           <Route path='busqueda/:name' element={<SearchByName/>}/>
