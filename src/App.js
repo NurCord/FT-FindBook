@@ -1,4 +1,3 @@
-import NavBar from './components/dumbComponents/NavBar/NavBar';
 import {Routes, Route} from 'react-router-dom'
 import Detail from './components/dumbComponents/Detail/Detail';
 import Shop from './components/dumbComponents/Shop/Shop';
@@ -16,6 +15,8 @@ import SearchByReleased from './components/dumbComponents/SearchByReleased/Searc
 import AdminBooK from './componentsAdmin/DumbComponents/AdminBook/AdminBooK';
 import AdminHome from './componentsAdmin/DumbComponents/AdminHome/AdminHome';
 import AdminUser from './componentsAdmin/DumbComponents/AdminUser/AdminUser';
+import Layout from './components/dumbComponents/Layout/Layout';
+import LayoutAdmin from './componentsAdmin/DumbComponents/LayoutAdmin/LayoutAdmin';
 
 function App() {
   let dispatch = useDispatch()
@@ -27,21 +28,24 @@ function App() {
 
   return (
     <div className='w-full h-full bg-greyBlack-100'>
-      <NavBar/>
       <Routes>
-        <Route path='/' element={<Home/>}/>
-        <Route path='/detail/:id' element={<Detail/>}/>
-        <Route path='/shop' element={<Shop/>}/>
-        <Route path='/postbook' element={<CreatePost/>}/>
-        <Route path='/loggin' element={<Loggin/>}/>
-        <Route path='/contacto' element={<Contact/>}/>
-        <Route path='/contacto/agradecimiento' element={<ThanksPage/>}/>
-        <Route path='/busqueda/:name' element={<SearchByName/>}/>
-        <Route path='/categoria/:genre' element={<SearchByCategory/>}/>
-        <Route path='/released/:date' element={<SearchByReleased/>}/>
-        <Route path='/admin/home' element={<AdminHome/>}/>
-        <Route path='/admin/book/:id' element={<AdminBooK/>}/> 
-        <Route path='/admin/user/:id' element={<AdminUser/>}/>
+        <Route path='/' element={<Layout/>}>
+          <Route path='' element={<Home/>}/>
+          <Route path='detail/:id' element={<Detail/>}/>
+          <Route path='shop' element={<Shop/>}/>
+          <Route path='postbook' element={<CreatePost/>}/>
+          <Route path='loggin' element={<Loggin/>}/>
+          <Route path='contacto' element={<Contact/>}/>
+          <Route path='contacto/agradecimiento' element={<ThanksPage/>}/>
+          <Route path='busqueda/:name' element={<SearchByName/>}/>
+          <Route path='categoria/:genre' element={<SearchByCategory/>}/>
+          <Route path='released/:date' element={<SearchByReleased/>}/>
+        </Route>
+        <Route path='/layoutAdmin/' element={<LayoutAdmin/>}>
+          <Route path='home' element={<AdminHome/>}/>
+          <Route path='book/:id' element={<AdminBooK/>}/> 
+          <Route path='user/:id' element={<AdminUser/>}/>
+        </Route>
       </Routes>
     </div>
   );
