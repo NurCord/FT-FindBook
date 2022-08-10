@@ -42,7 +42,7 @@ function App() {
           <Route path='released/:date' element={<SearchByReleased/>}/>
         </Route>
         <Route path='/layoutAdmin/' element={<LayoutAdmin/>}>
-          <Route path='home' element={<AdminHome/>}/>
+          <Route path='' element={<AdminHome/>}/>
           <Route path='book/:id' element={<AdminBooK/>}/> 
           <Route path='user/:id' element={<AdminUser/>}/>
         </Route>
