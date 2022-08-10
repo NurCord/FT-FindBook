@@ -10,9 +10,13 @@ import Home from './components/dumbComponents/Home/Home';
 import CreatePost from './components/smartComponents/CreatePost/CreatePost';
 import {useEffect} from 'react'
 import { useDispatch } from 'react-redux';
-import {getAllBooks, getGenres, getYears, getForRating} from  './redux/actions/actions'
+import {getAllBooks, getGenres, getYears} from  './redux/actions/actions'
 import SearchByCategory from './components/dumbComponents/SearchByCategory/SearchByCategory';
 import SearchByReleased from './components/dumbComponents/SearchByReleased/SearchByReleased';
+import AdminBooK from './componentsAdmin/DumbComponents/AdminBook/AdminBooK';
+import AdminHome from './componentsAdmin/DumbComponents/AdminHome/AdminHome';
+import AdminUser from './componentsAdmin/DumbComponents/AdminUser/AdminUser';
+
 function App() {
   let dispatch = useDispatch()
   useEffect(() => async()=> {
@@ -35,6 +39,9 @@ function App() {
         <Route path='/busqueda/:name' element={<SearchByName/>}/>
         <Route path='/categoria/:genre' element={<SearchByCategory/>}/>
         <Route path='/released/:date' element={<SearchByReleased/>}/>
+        <Route path='/admin/home' element={<AdminHome/>}/>
+        <Route path='/admin/book/:id' element={<AdminBooK/>}/> 
+        <Route path='/admin/user/:id' element={<AdminUser/>}/>
       </Routes>
     </div>
   );
