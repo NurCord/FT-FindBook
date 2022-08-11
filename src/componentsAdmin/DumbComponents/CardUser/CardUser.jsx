@@ -9,16 +9,14 @@ function CardUser({data}) {
   }
 
   return (
-    <div className='grid grid-cols-1 grid-rows-2 rounded-sm w-52 h-80 bg-greyBlack-200'>
-      <div className='flex items-center justify-center m-4'>
-        <img alt='Not Found' 
-        src={data.img}
-        className='h-32 rounded-full'  
-        />      
-        </div>
-      <div className='grid content-center grid-rows-2 m-4'>
-        <button className='my-2 rounded-lg bg-cream-300' onClick={() => handleOnClick(data.id)}>Editar</button>
-        <button className='my-2 bg-red-400 rounded-lg'>Eliminar</button>
+    <div className="w-full max-w-sm duration-500 ease-in border rounded-lg shadow-md scale-70 bg-cream-300 border-cream-200 hover:scale-105">
+      <div className="flex flex-col items-center pb-10">
+          <img className="w-24 h-24 mt-6 mb-3 rounded-full shadow-lg" src={data.img} alt='Not Found'/>
+          <h5 className="mb-1 text-xl font-medium text-white">{data.name}</h5>
+          <div className="flex mt-4 space-x-3 md:mt-6">
+            <button className='inline-flex items-center px-4 py-2 text-sm font-medium text-center text-gray-800 duration-300 rounded-lg bg-cream-100 hover:bg-gray-800 hover:text-cream-100' onClick={() => handleOnClick(data.id)}>Editar</button>
+            <button className='inline-flex items-center px-4 py-2 text-sm font-medium text-center duration-300 bg-gray-800 rounded-lg text-cream-200 hover:bg-cream-100 hover:text-gray-800 focus:ring-gray-800'>Eliminar</button>
+          </div>
       </div>
     </div>
   )
