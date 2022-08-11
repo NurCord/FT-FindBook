@@ -4,9 +4,13 @@ import NavBarAdmin from '../NavBarAdmin/NavBarAdmin'
 
 function LayoutAdmin() {
   return (
-    <div>
-        <NavBarAdmin/>
+    <div className='grid w-full h-screen grid-cols-6'>
+      <div className='col-span-1'>
+        <NavBarAdmin />
+      </div>
+      <div className='col-span-5'>
         <Outlet/>
+      </div>
     </div>
   )
 }
