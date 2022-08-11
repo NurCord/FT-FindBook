@@ -1,3 +1,4 @@
+import { useState } from 'react';
 import {Routes, Route} from 'react-router-dom'
 import Detail from './components/dumbComponents/Detail/Detail';
 import Shop from './components/dumbComponents/Shop/Shop';
@@ -26,6 +27,8 @@ function App() {
     dispatch(getYears())
   }, [dispatch])
 
+  const [HomeAdmin, SetHomeAdmin] = useState('Users')
+
   return (
     <div className='w-full h-full bg-greyBlack-100'>
       <Routes>
@@ -41,8 +44,8 @@ function App() {
           <Route path='categoria/:genre' element={<SearchByCategory/>}/>
           <Route path='released/:date' element={<SearchByReleased/>}/>
         </Route>
-        <Route path='/layoutAdmin/' element={<LayoutAdmin/>}>
-          <Route path='' element={<AdminHome/>}/>
+        <Route path='/layoutAdmin/' element={<LayoutAdmin SetHomeAdmin={SetHomeAdmin} />}>
+          <Route path='' element={<AdminHome HomeAdmin={HomeAdmin} />}/>
           <Route path='book/:id' element={<AdminBooK/>}/> 
           <Route path='user/:id' element={<AdminUser/>}/>
         </Route>

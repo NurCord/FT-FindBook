@@ -1,5 +1,7 @@
 import React from 'react'
+import { useSelector } from 'react-redux'
 import CardUser from '../CardUser/CardUser'
+import CardBooks from '../CardBooks/CardBooks'
 import NavHome from '../NavHome/NavHome'
 
 let array = [
@@ -53,17 +55,40 @@ let array = [
   }
 ]
 
-function AdminHome() {
-  return (
-    <div className='w-full h-full'>
-      <NavHome/>
-      <div className='grid grid-cols-4 gap-4 justify-items-center '>
-        {
-          array?.map(e => <CardUser data={e}/>)
-        }
+function AdminHome({HomeAdmin}) {
+  const Books = useSelector(s => s.root.allBooks)
+  if(HomeAdmin === 'Users'){
+    return (
+      <div className='w-full h-full'>
+        <NavHome/>
+        <div className='grid grid-cols-4 gap-4 justify-items-center '>
+          {
+            array?.map(e => <CardUser data={e}/>)
+          }
+        </div>
       </div>
-    </div>
-  )
+    )
+  }else if(HomeAdmin === 'Books'){
+    return (
+      <div className='w-full h-full'>
+        <NavHome/>
+        <div className='grid grid-cols-4 gap-4 justify-items-center '>
+          {
+            Books?.map(b => <CardBooks data={b}/>)
+          }
+        </div>
+      </div>
+    )
+  }else{
+    return (
+      <div className='w-full h-full'>
+        <NavHome/>
+        <div className='grid grid-cols-4 gap-4 justify-items-center '>
+          <h1>Cupones</h1>
+        </div>
+      </div>
+    )
+  }
 }
 
 export default AdminHome
