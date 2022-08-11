@@ -1,6 +1,7 @@
 import React, { useState } from 'react';
 import { useNavigate } from "react-router-dom";
-// import { useDispatch } from "react-redux";
+import { useDispatch } from "react-redux";
+import { registerUser, loginUser } from '../../../redux/actions/actions';
 import Swal from "sweetalert2";
 
 function createUserValidator (createUserForm) {
@@ -33,7 +34,7 @@ let userState = {
 export default function Login() {
     const [ showLogin, setShowLogin ] = useState(true);
     const [ showSignUp, setShowSignUp ] = useState(false);
-    // const dispatch = useDispatch();
+    const dispatch = useDispatch();
     const navigate = useNavigate();
     const [ createUserForm, setCreateUserForm ] = useState({
         username: '',
@@ -91,14 +92,20 @@ export default function Login() {
         }).then((result) => {
             if (result.isConfirmed) {
                 console.log(createUserForm)
-                //dispatch(algoUser(userForm));
+                dispatch(registerUser({
+                    username: createUserForm.username,
+                    email: createUserForm.mail,
+                    password: createUserForm.password,
+                    url: 'url',
+                    name: 'Mauricio',
+                    lastname: 'Castilla'
+                }));
                 setCreateUserForm(createUserState)
-                navigate('/');
                 Swal.fire(
                     'Confirmar!',
                     `Bienvenido ${createUserForm.username}`,
                     'success'
-                )
+                ).then(()=>window.location.reload())
             }
         })
     }
@@ -107,7 +114,14 @@ export default function Login() {
         e.preventDefault();
         setUserForm(userState)
         navigate('/');
-        console.log(userForm);
+        console.log({
+            email: userForm.username,
+            password: userForm.password
+        });
+        dispatch(loginUser({
+            email: userForm.username,
+            password: userForm.password
+        }))
         Swal.fire({
             title: `Bienvenido ${userForm.username}`,
             showClass: {
@@ -116,7 +130,7 @@ export default function Login() {
             hideClass: {
                 popup: 'animate__animated animate__fadeOutUp'
             }
-        })
+        }).then(()=>window.location.reload())
     }
     
     if (showSignUp) {
@@ -131,9 +145,9 @@ export default function Login() {
                             <label>E-mail</label><br></br>
                             <input type = 'text' name = 'mail' value = {createUserForm.mail} onChange={e => handleCreateUserFormChange (e)} className = 'text-center rounded-lg text-slate-600' /><br></br>
                             <label>Contraseña</label><br></br>
-                            <input type = 'text' name = 'password' value = {createUserForm.password} onChange={e => handleCreateUserFormChange (e)} className = 'text-center rounded-lg text-slate-600'/><br></br>
+                            <input type = 'password' name = 'password' value = {createUserForm.password} onChange={e => handleCreateUserFormChange (e)} className = 'text-center rounded-lg text-slate-600'/><br></br>
                             <label>Confirmar contraseña</label><br></br>
-                            <input type = 'text' name = 'password2' value = {createUserForm.password2} onChange={e => handleCreateUserFormChange (e)} className = 'text-center rounded-lg text-slate-600'/><br></br>
+                            <input type = 'password' name = 'password2' value = {createUserForm.password2} onChange={e => handleCreateUserFormChange (e)} className = 'text-center rounded-lg text-slate-600'/><br></br>
                             <input type = 'submit' value = 'Crear cuenta'  onClick = { (e) => handleCreateUserFormSubmit(e) }className = 'font-sans bg-sky-500 text-slate-50 border-none font-normal px-2 py-2 my-3 rounded cursor-pointer hover:text-white hover:border-solid hover:border-slate-50 hover:bg-stone-400'/>
                             <label className = 'flex justify-center'>¿Ya tienes cuenta?</label><br></br>
                             <input type = 'submit' value = 'Inicia sesión pulsando aquí' onClick = { (e) => handleClick(e) } className = 'font-sans bg-sky-500 text-slate-50 border-none font-normal px-2 py-2 my-3 rounded cursor-pointer hover:text-white hover:border-solid hover:border-slate-50 hover:bg-stone-400'></input>
@@ -154,7 +168,7 @@ export default function Login() {
                             <label>Usuario</label><br></br>
                             <input type = 'text' name = 'username' value = {userForm.username} onChange={e => handleUserFormChange (e)} className = 'text-center rounded-lg text-slate-600'/><br></br>
                             <label>Contraseña</label><br></br>
-                            <input type = 'text' name = 'password' value = {userForm.password} onChange={e => handleUserFormChange (e)} className = 'text-center rounded-lg text-slate-600'/><br></br>
+                            <input type = 'password' name = 'password' value = {userForm.password} onChange={e => handleUserFormChange (e)} className = 'text-center rounded-lg text-slate-600'/><br></br>
                             <input type = 'submit' value = 'Ingresar' className = 'font-sans bg-sky-500 text-slate-50 border-none font-normal px-2 py-2 my-3 rounded cursor-pointer hover:text-white hover:border-solid hover:border-slate-50 hover:bg-stone-400'/>
                             <label className = 'flex justify-center'>¿Aún no tienes cuenta?</label><br></br>
                             <label className = 'flex justify-center'>Puedes registrarte gratis</label><br></br>
