@@ -1,6 +1,8 @@
 import React from 'react'
 import { useParams } from 'react-router-dom';
-//import img1 from '../../../assets/adminfondo.jpg';
+import img2 from '../../../assets/fondoAdmin.jpg'
+import Swipers from '../../SmartComponents/Swiper/Swiper';
+import { UilEditAlt } from '@iconscout/react-unicons'
 //import img2 from '../../../assets/adminfondo2.jpg'
 
 let array = [
@@ -58,18 +60,53 @@ export default function AdminUser() {
   let {id} = useParams()
 
   let user = array.find(e => e.id === parseInt(id))
-  console.log(user);
   return (
-    <div className='h-full bg-greyBlack-200'>
-      <div>
-        <div>
-          <img src={user?.img} alt='Not found'/>
+    <div className='w-full h-full p-8 bg-cream-200'>
+      <div className='grid w-full h-full grid-cols-3'>
+        <div className="absolute z-10 flex justify-end px-4 pt-4 right-10">
+          <button id="dropdownButton" data-dropdown-toggle="dropdown" className="inline-block text-gray-500 dark:text-gray-400 hover:bg-gray-100 dark:hover:bg-gray-700 focus:ring-4 focus:outline-none focus:ring-gray-200 dark:focus:ring-gray-700 rounded-lg text-sm p-1.5" type="button">
+            <span className="sr-only">Open dropdown</span>
+            <UilEditAlt className="w-6 h-6" aria-hidden="true" fill="currentColor" viewBox="0 0 20 20"/>
+          </button>
+          <div id="dropdown" className="z-10 hidden text-base list-none bg-white divide-y divide-gray-100 rounded shadow w-44 dark:bg-gray-700">
+            <ul className="py-1" aria-labelledby="dropdownButton">
+              <li>
+                <a href="#" className="block px-4 py-2 text-sm text-gray-700 hover:bg-gray-100 dark:hover:bg-gray-600 dark:text-gray-200 dark:hover:text-white">Nombre</a>
+              </li>
+              <li>
+                <a href="#" className="block px-4 py-2 text-sm text-gray-700 hover:bg-gray-100 dark:hover:bg-gray-600 dark:text-gray-200 dark:hover:text-white">Apellido</a>
+              </li>
+              <li>
+                <a href="#" className="block px-4 py-2 text-sm text-red-600 hover:bg-gray-100 dark:hover:bg-gray-600 dark:text-gray-200 dark:hover:text-white">Nombre De Usuario</a>
+              </li>
+            </ul>
+          </div>
         </div>
-        <div>
-          <h1>{user?.name}</h1>
-          <h1>{user?.surname}</h1>
-          <h1>{user?.nameUser}</h1>
-          <h1>{user?.email}</h1>
+        <div style={{backgroundImage: `url(${img2})`}} className='relative w-full h-full col-span-1 bg-cover'>
+          <img src={user?.img} alt='Not found' className='absolute duration-500 ease-in rounded-full top-48 left-16 scale-70 hover:scale-105'/>
+        </div>
+        <div className='grid content-center w-full col-span-2 grid-rows-2 py-6 justify-items-center bg-zinc-300'>
+          <div className='grid self-center grid-rows-4 row-span-1 gap-4 w-96'>
+            <div className='grid grid-cols-2'>
+              <h1 className='font-semibold'>Nombre: </h1>
+              <h1>{user?.name}</h1>
+            </div>
+            <div className='grid grid-cols-2'>
+              <h1 className='font-semibold'>Apellido: </h1>
+              <h2>{user?.surname}</h2>
+            </div>
+            <div className='grid grid-cols-2'>
+              <h1 className='font-semibold'>Nombre de usuario: </h1>
+              <h2>{user?.nameUser}</h2>
+            </div>
+            <div className='grid grid-cols-2'>
+              <h1 className='font-semibold'>Email: </h1>
+              <h2>{user?.email}</h2>
+            </div>
+          </div>
+          <div className='self-center h-full row-span-1'>
+            <Swipers/>
+          </div>
         </div>
       </div>
     </div>
