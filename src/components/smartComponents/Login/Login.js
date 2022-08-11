@@ -32,17 +32,19 @@ function userValidator (userForm) {
 }
 
 let createUserState = {
-    username: '',
+    name: '',
+    lastname: '',
     mail: '',
     password: '',
     password2: '',
+    username: '',
+    url: '',
 };
 
 let userState = {
     username: '',
     mail: '',
-    password: '',
-    password2: '',
+    password: ''
 };
 
 export default function Login() {
@@ -115,7 +117,7 @@ export default function Login() {
                     username: createUserForm.username,
                     email: createUserForm.mail,
                     password: createUserForm.password,
-                    url: createUserForm.url,
+                    url: `https://ui-avatars.com/api/?name=${createUserForm.name}+${createUserForm.lastname}?background=F0EDE5`,
                     name: createUserForm.name,
                     lastname: createUserForm.lastname
                 }));
@@ -134,7 +136,7 @@ export default function Login() {
         setUserForm(userState)
         navigate('/');
         console.log({
-            email: userForm.username,
+            email: userForm.mail,
             password: userForm.password
         });
         dispatch(loginUser({
@@ -154,41 +156,62 @@ export default function Login() {
     
     if (showSignUp) {
         return (
-            <div className = 'bg-cream-100 w-11/12 m-auto max-w-sm rounded-2xl px-14 py-6'>
-                <div >
+            <div className = 'bg-cream-100 w-11/12 m-auto max-w-xl rounded-2xl px-14 py-6'>
+                <div>
                     <div>
                         <form className = 'flex flex-col justify-center' onSubmit={e => handleCreateUserFormSubmit (e)}>
-                            <h1 className = 'flex justify-center'>Registrarse</h1>
-                            <label>Nombre</label><br></br>
-                            <input type = 'text' name = 'name' value = {createUserForm.name} onChange={e => handleCreateUserFormChange (e)} className = 'text-center rounded-lg text-slate-600' /><br></br>                            
-                            <label>Apellido</label><br></br>
-                            <input type = 'text' name = 'lastname' value = {createUserForm.lastname} onChange={e => handleCreateUserFormChange (e)} className = 'text-center rounded-lg text-slate-600' /><br></br>                            
-                            <label>Nick Usuario</label><br></br>
-                            <input type = 'text' name = 'username' value = {createUserForm.username} onChange={e => handleCreateUserFormChange (e)} className = 'text-center rounded-lg text-slate-600' /><br></br>
-                            <label>E-mail</label><br></br>
-                            <input type = 'email' name = 'mail' value = {createUserForm.mail} onChange={e => handleCreateUserFormChange (e)} className = 'text-center rounded-lg text-slate-600' /><br></br>
-                            {createUserForbidden.mail && ( <p key = 'mailError' className = "flex text-orange-600">{createUserForbidden.mail}</p> )}
-                            <label>Avatar</label><br></br>
-                            <input type = 'url' name = 'url' value = {createUserForm.url} onChange={e => handleCreateUserFormChange (e)} className = 'text-center rounded-lg text-slate-600' /><br></br>                            
-                            <label>Contraseña</label><br></br>
-                            <input type = 'password' name = 'password' value = {createUserForm.password} onChange={e => handleCreateUserFormChange (e)} className = 'text-center rounded-lg text-slate-600'/><br></br>
-                            <label>Confirmar contraseña</label><br></br>
-                            <input type = 'password' name = 'password2' value = {createUserForm.password2} onChange={e => handleCreateUserFormChange (e)} className = 'text-center rounded-lg text-slate-600'/><br></br>
-                            {createUserForbidden.password2 && ( <p key = 'passwordError' className = "flex text-orange-600">{createUserForbidden.password2}</p> )}
-                            <input type = 'submit' value = 'Crear cuenta'  onClick = { (e) => handleCreateUserFormSubmit(e) }className = 'font-sans bg-sky-500 text-slate-50 border-none font-normal px-2 py-2 my-3 rounded cursor-pointer hover:text-white hover:border-solid hover:border-slate-50 hover:bg-stone-400'/>
-                            <label className = 'flex justify-center'>¿Ya tienes cuenta?</label><br></br>
-                            <input type = 'submit' value = 'Iniciar sesión' onClick = { (e) => handleClick(e) } className = 'font-sans bg-sky-500 text-slate-50 border-none font-normal px-2 py-2 my-3 rounded cursor-pointer hover:text-white hover:border-solid hover:border-slate-50 hover:bg-stone-400'></input>
+                            <h1 className = 'flex justify-center pb-1'>Registrarse</h1>
+                            <div className = 'flex flex-row'>
+                                <div className = 'px-2'>
+                                    <label>Nombre</label><br></br>
+                                    <input type = 'text' name = 'name' value = {createUserForm.name} onChange={e => handleCreateUserFormChange (e)} className = 'text-center rounded-lg text-slate-600' /><br></br>
+                                </div>
+                                <div className = 'px-2'>
+                                    <label>Apellido</label><br></br>
+                                    <input type = 'text' name = 'lastname' value = {createUserForm.lastname} onChange={e => handleCreateUserFormChange (e)} className = 'text-center rounded-lg text-slate-600' /><br></br>
+                                </div>
+                            </div>
+                            <div className = 'flex flex-row'>
+                                <div className = 'px-2'>
+                                    <label>Nick Usuario</label><br></br>
+                                    <input type = 'text' name = 'username' value = {createUserForm.username} onChange={e => handleCreateUserFormChange (e)} className = 'text-center rounded-lg text-slate-600' /><br></br>
+                                </div>
+                                <div className = 'px-2'>
+                                    <label>E-mail</label><br></br>
+                                    <input type = 'email' name = 'mail' value = {createUserForm.mail} onChange={e => handleCreateUserFormChange (e)} className = 'text-center rounded-lg text-slate-600' /><br></br>
+                                </div>
+                            </div>
+                            {createUserForbidden.mail && ( <p key = 'mailError' className = "text-center text-orange-600">{createUserForbidden.mail}</p> )}
+                            <div className = 'flex flex-row'>
+                                <div className = 'px-2'>
+                                    <label>Contraseña</label><br></br>
+                                    <input type = 'password' name = 'password' value = {createUserForm.password} onChange={e => handleCreateUserFormChange (e)} className = 'text-center rounded-lg text-slate-600'/><br></br>
+                                </div>
+                                <div className = 'px-2'>
+                                    <label>Confirmar contraseña</label><br></br>
+                                    <input type = 'password' name = 'password2' value = {createUserForm.password2} onChange={e => handleCreateUserFormChange (e)} className = 'text-center rounded-lg text-slate-600'/><br></br>
+                                </div>
+                            </div>
+                            {createUserForbidden.password2 && ( <p key = 'passwordError' className = "text-center text-orange-600">{createUserForbidden.password2}</p> )}
+                            <div className = 'flex flex-col items-center justify-centerpy-5'>
+                                <label>Avatar</label><br></br>
+                                <img id='avatar' src = {`https://ui-avatars.com/api/?name=${createUserForm.name ? createUserForm.name : ' '}+${createUserForm.lastname ? createUserForm.lastname : ' '}${createUserForm.lastname ? '?background=F0EDE5' : ' '}`} alt = 'Avatar' className = 'rounded-3xl'/>
+                                {/* <input type = 'url' name = 'url' value = {createUserForm.url} onChange={e => handleCreateUserFormChange (e)} className = 'text-center rounded-lg text-slate-600' /><br></br> */}
+                                <input type = 'submit' value = 'Crear cuenta'  onClick = { (e) => handleCreateUserFormSubmit(e) }className = 'w-1/2 font-sans bg-sky-500 text-slate-50 border-none font-normal px-2 py-2 my-3 rounded cursor-pointer hover:text-white hover:border-solid hover:border-slate-50 hover:bg-stone-400'/>
+                                <label className = 'flex justify-center'>¿Ya tienes cuenta?</label><br></br>
+                                <input type = 'submit' value = 'Iniciar sesión' onClick = { (e) => handleClick(e) } className = 'w-1/2 font-sans bg-sky-500 text-slate-50 border-none font-normal px-2 py-2 my-3 rounded cursor-pointer hover:text-white hover:border-solid hover:border-slate-50 hover:bg-stone-400'></input>
+                            </div>
                         </form>
                     </div>
                 </div>
             </div>
-        )    
+        )
     }
 
     if (showLogin) {
         return (
             <div className = 'bg-cream-100 w-11/12 m-auto max-w-sm rounded-2xl px-14 py-6'>
-                <div >
+                <div>
                     <div>
                         <form className = 'flex flex-col justify-center' onSubmit={e => handleUserFormSubmit (e)}>
                             <h1 className = 'flex justify-center'>Iniciar sesión</h1>
@@ -201,7 +224,7 @@ export default function Login() {
                             <label className = 'flex justify-center'>¿Aún no tienes cuenta?</label><br></br>
                             <label className = 'flex justify-center'>Puedes registrarte gratis</label><br></br>
                             <input type = 'submit' value = 'Crear cuenta' onClick = { (e) => handleClick(e) } className = 'font-sans bg-sky-500 text-slate-50 border-none font-normal px-2 py-2 my-3 rounded cursor-pointer hover:text-white hover:border-solid hover:border-slate-50 hover:bg-stone-400'></input>
-                        </form>                    
+                        </form>
                     </div>
                 </div>
             </div>
