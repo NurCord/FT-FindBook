@@ -7,6 +7,8 @@ import CardImag from '../Card/CardImag';
 import { useParams } from 'react-router-dom';
 import { getBookByID, getBooksGenres } from '../../../redux/actions/actions';
 import AddToList from './AddToList';
+import Buy from './Buy';
+import AddToCar from './AddToCar';
 
 export default function Detail() {
     let state = useSelector(s => s.root.bookById)
@@ -43,12 +45,11 @@ export default function Detail() {
                                 className='w-48 rounded-md'
                                 />
                                 <AddToList id={id}/>
-                            {/* <ButtonDetail>Agregar a una lista</ButtonDetail> */}
                         </div>
                         <div className='grid content-center h-40 grid-rows-3 rounded-md bg-cream-200 justify-items-center'>
                             <h1 className='m-auto'>US${state.price}</h1>                      
-                            <ButtonDetail>Comprar ahora</ButtonDetail>
-                            <ButtonDetail style={{background: '#bababa'}}>Agregar al carrito</ButtonDetail>
+                            <Buy id={id}/>
+                            <AddToCar id={id}/>
                         </div>
                     </div>
                     <DivDetail>
