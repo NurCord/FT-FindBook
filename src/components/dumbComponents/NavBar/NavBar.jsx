@@ -39,7 +39,7 @@ export default function NavBar() {
                 <path strokeLinecap="round" strokeLinejoin="round" d="M16 11V7a4 4 0 00-8 0v4M5 9h14l1 12H4L5 9z" />
                 </svg>
                 <Link to={'/shop'}>
-                  <h1 className='duration-700 border-b-2 border-cream-100 hover:border-cream-300'>Comprar</h1>
+                  <h1 className='duration-700 border-b-2 border-cream-100 hover:border-cream-300'>Carrito</h1>
                 </Link>
               </div>
 
@@ -67,7 +67,7 @@ export default function NavBar() {
 			c0.01,0.005,0.022,0.006,0.034,0.009c0.062,0.022,0.125,0.043,0.19,0.046c0.077,0.007,0.155-0.003,0.234-0.025
 			c0.002-0.001,0.003-0.001,0.003-0.001c0.021-0.005,0.042-0.001,0.063-0.01c0.111-0.042,0.196-0.113,0.269-0.196l2.718-2.307
 			C17.474,6.173,17.352,5.743,17.109,5.454z" />
-                </svg><h1>Cerrar sesión</h1></div>}
+                </svg><h1 className='duration-700 border-b-2 border-cream-100 hover:border-cream-300'>Cerrar sesión</h1></div>}
         </div>
       </div>
     </div>

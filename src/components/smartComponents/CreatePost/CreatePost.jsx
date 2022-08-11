@@ -182,9 +182,10 @@ export default function CreatePost() {
                     {/* <input type = 'text' value = {form.rating} name = 'rating'/> */}
                 </select>
                 <div>
-                            <div className = 'text-slate-400'>
-                                <p>Puntaje asignado: &nbsp;{form.rating}</p>
-                            </div>
+                    {form.rating &&
+                        (<div className = 'text-slate-400'>
+                            <p>Puntaje asignado: &nbsp;{form.rating}</p>
+                        </div>)}
                 </div>
             </div>
         )
@@ -202,9 +203,10 @@ export default function CreatePost() {
                     {/* <input type = 'text' value = {form.category} name = 'category'/> */}
                 </select>
                 <div>
-                            <div className = "text-slate-400">
-                                <p>Categoría asignada: &nbsp; {form.category}</p>
-                            </div>
+                {form.category &&
+                        (<div className = "text-slate-400">
+                            <p>Categoría asignada: &nbsp; {form.category}</p>
+                        </div>)}
                 </div>
             </div>
         )
@@ -222,9 +224,10 @@ export default function CreatePost() {
                     {/* <input type = 'text' value = {form.language} name = 'language'/> */}
                 </select>
                 <div className = "flex justify-center">
-                            <div className = "flex items-center no-underline text-slate-400">
-                                <p>Lenguaje seleccionado: &nbsp; {form.language}</p>
-                            </div>
+                    {form.language &&
+                        (<div className = "flex items-center no-underline text-slate-400">
+                            <p>Lenguaje seleccionado: &nbsp; {form.language}</p>
+                        </div>)}
                 </div>
             </div>
         )
@@ -239,7 +242,7 @@ export default function CreatePost() {
         ];
         return (
             <div>
-                <select multiple value = {form.genre} name = 'genre' className = "w-56 text-center rounded-lg text-slate-600" onChange = {(e) => handleSelectGenre(e)}> {/*GenreSelector*/}
+                <select multiple value = {form.genre} name = 'genre' className = "h-10 align-top w-56 text-center rounded-lg text-slate-600 focus:h-auto" onChange = {(e) => handleSelectGenre(e)}> {/*GenreSelector*/}
                     <option /*disabled={true}*/ value="disabled">--Seleccionar--</option>
                     {
                         possibleGenres.map((gen, i)  => ( <option key = {i} value = {gen}>{gen}</option> ))
