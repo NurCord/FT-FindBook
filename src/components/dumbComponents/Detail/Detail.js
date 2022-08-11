@@ -46,7 +46,7 @@ export default function Detail() {
                                 />
                                 <AddToList id={id}/>
                         </div>
-                        <div className='grid content-center h-40 grid-rows-3 rounded-md bg-cream-200 justify-items-center'>
+                        <div className='grid content-center min-h-min min-w-min grid-rows-3 rounded-md bg-cream-200 justify-items-center'>
                             <h1 className='m-auto'>US${state.price}</h1>                      
                             <Buy id={id}/>
                             <AddToCar id={id}/>

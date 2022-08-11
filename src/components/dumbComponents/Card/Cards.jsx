@@ -1,6 +1,7 @@
 import React from 'react'
 import { useDispatch } from 'react-redux'
 import { Link, useNavigate } from "react-router-dom"
+import Swal from 'sweetalert2'
 import { getBookByName , getBookByID} from '../../../redux/actions/actions'
 
 export default function Cards({ data }) {
@@ -18,6 +19,26 @@ export default function Cards({ data }) {
         if(index <= colorStar) arrayColor.push('text-yellow-300')
         else{
             arrayColor.push('text-greyBlack-100')
+        }
+    }
+    const handleBuy = (e) => {
+        e.preventDefault();
+        if(!window.localStorage.getItem("token")){
+            Swal.fire({
+                title: 'Debes estar conectado',
+                text: "¿Deseas conectarte?",
+                icon: 'warning',
+                showCancelButton: true,
+                confirmButtonColor: '#3085d6',
+                cancelButtonColor: '#d33',
+                confirmButtonText: 'Conectar'
+              }).then((result) => {
+                if (result.isConfirmed) {
+                  navigate('/login')
+                }
+              })
+        }else{
+            navigate('/shop')
         }
     }
     
@@ -43,11 +64,11 @@ export default function Cards({ data }) {
                     </h4>
                     <div className="flex items-center justify-between w-full">
                         <span className="mx-2 text-xl font-bold min-text-sm text-greyBlack-300">${data?.price}</span>
-                        <Link to='/shop'>
+                        <div onClick={handleBuy} className="cursor-pointer">
                             <svg xmlns="http://www.w3.org/2000/svg" className="w-6 h-6 mx-2" fill="none" stroke="currentColor" strokeWidth={1}>
                                 <path strokeLinecap="round" strokeLinejoin="round" d="M16 11V7a4 4 0 00-8 0v4M5 9h14l1 12H4L5 9z" />
                             </svg>
-                        </Link>
+                        </div>
                     </div>
                 </div>
             </div>
