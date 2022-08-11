@@ -1,5 +1,7 @@
 import React from 'react'
 import { useParams } from 'react-router-dom';
+//import img1 from '../../../assets/adminfondo.jpg';
+//import img2 from '../../../assets/adminfondo2.jpg'
 
 let array = [
   {
@@ -59,12 +61,16 @@ export default function AdminUser() {
   console.log(user);
   return (
     <div className='h-full bg-greyBlack-200'>
-      <img src={user?.img} alt='Not found'/>
       <div>
-        <h1>{user?.name}</h1>
-        <h1>{user?.surname}</h1>
-        <h1>{user?.nameUser}</h1>
-        <h1>{user?.email}</h1>
+        <div>
+          <img src={user?.img} alt='Not found'/>
+        </div>
+        <div>
+          <h1>{user?.name}</h1>
+          <h1>{user?.surname}</h1>
+          <h1>{user?.nameUser}</h1>
+          <h1>{user?.email}</h1>
+        </div>
       </div>
     </div>
   )
