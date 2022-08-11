@@ -1,8 +1,12 @@
-import React from 'react'
+import React, { useState } from 'react'
 import { useParams } from 'react-router-dom';
 import img2 from '../../../assets/fondoAdmin.jpg'
 import Swipers from '../../SmartComponents/Swiper/Swiper';
 import { UilEditAlt } from '@iconscout/react-unicons'
+import { UilArrowCircleLeft } from '@iconscout/react-unicons'
+import { useForm } from 'react-hook-form';
+import { yupResolver } from '@hookform/resolvers/yup';
+import * as yup from 'yup';
 //import img2 from '../../../assets/adminfondo2.jpg'
 
 let array = [
@@ -56,32 +60,96 @@ let array = [
   }
 ]
 
+const schema = yup.object().shape({
+  name: yup.string().max(100).strict(),
+  surname: yup.string().max(100).strict(),
+  username: yup.string().max(100).strict(),
+})
+
 export default function AdminUser() {
   let {id} = useParams()
+  let [state, setState] = useState('hidden')
 
+  /* let navigate = useNavigate()
+  let dispatch = useDispatch() */
+
+  const { register, handleSubmit, formState: {errors} } = useForm({
+    resolver: yupResolver(schema),
+  })
+
+  let handleHidden = () => {
+    setState(state === 'hidden' ? ' ' : 'hidden')
+    console.log(state);
+  }
+
+  const handleOnClick = () => {
+    window.history.back()
+  }
+
+  function onSubmit(data){
+    console.log(data)
+    //dispatch()
+    //navigate('') 
+  } 
+  
   let user = array.find(e => e.id === parseInt(id))
+
   return (
     <div className='w-full h-full p-8 bg-cream-200'>
       <div className='grid w-full h-full grid-cols-3'>
-        <div className="absolute z-10 flex justify-end px-4 pt-4 right-10">
-          <button id="dropdownButton" data-dropdown-toggle="dropdown" className="inline-block text-gray-500 dark:text-gray-400 hover:bg-gray-100 dark:hover:bg-gray-700 focus:ring-4 focus:outline-none focus:ring-gray-200 dark:focus:ring-gray-700 rounded-lg text-sm p-1.5" type="button">
-            <span className="sr-only">Open dropdown</span>
-            <UilEditAlt className="w-6 h-6" aria-hidden="true" fill="currentColor" viewBox="0 0 20 20"/>
+        <div className="absolute left-0 z-10 flex justify-end w-full h-full px-4 pt-4">
+          <button onClick={handleOnClick}>
+            <UilArrowCircleLeft/>
           </button>
-          <div id="dropdown" className="z-10 hidden text-base list-none bg-white divide-y divide-gray-100 rounded shadow w-44 dark:bg-gray-700">
-            <ul className="py-1" aria-labelledby="dropdownButton">
-              <li>
-                <a href="#" className="block px-4 py-2 text-sm text-gray-700 hover:bg-gray-100 dark:hover:bg-gray-600 dark:text-gray-200 dark:hover:text-white">Nombre</a>
-              </li>
-              <li>
-                <a href="#" className="block px-4 py-2 text-sm text-gray-700 hover:bg-gray-100 dark:hover:bg-gray-600 dark:text-gray-200 dark:hover:text-white">Apellido</a>
-              </li>
-              <li>
-                <a href="#" className="block px-4 py-2 text-sm text-red-600 hover:bg-gray-100 dark:hover:bg-gray-600 dark:text-gray-200 dark:hover:text-white">Nombre De Usuario</a>
-              </li>
-            </ul>
-          </div>
         </div>
+        <div className="absolute z-10 flex justify-end w-full h-full px-4 pt-4 right-10">
+          <button onClick={() => handleHidden()} className="w-12 h-12 bg-slate-400">
+              <UilEditAlt className="w-6 h-6" aria-hidden="true" fill="currentColor" viewBox="0 0 20 20"/>
+          </button>
+        </div>
+
+          <div className='absolute flex w-full h-full'>
+            <div className={`${state} z-30 m-auto bg-greyBlack-200`}>
+              <form onSubmit={handleSubmit(onSubmit)}>
+                <div>
+                  <label>Nombre</label>
+                  <input 
+                      key='name' 
+                      type='text' 
+                      name='name' 
+                      placeholder={`${user.name}...`}
+                      {...register("name")} 
+                      isRigth={errors.name ? errors.name : false}
+                      />
+                </div>
+                <div>
+                  <label>Apellido</label>
+                  <input 
+                      key='surname' 
+                      type='text' 
+                      name='surname' 
+                      placeholder={`${user.surname}...`}
+                      {...register("surname")} 
+                      isRigth={errors.surname ? errors.surname : false}
+                      />
+                </div>
+                <div>
+                  <label>Nombre de usuario</label>
+                  <input 
+                      key='nameUser' 
+                      type='text' 
+                      name='nameUser' 
+                      placeholder={`${user.nameUser}...`}
+                      {...register("username")} 
+                      isRigth={errors.nameUser ? errors.nameUser : false}
+                      />
+                </div>
+                <button type="submit">Confirmar</button>
+              </form>
+            </div>
+          </div>
+
+
         <div style={{backgroundImage: `url(${img2})`}} className='relative w-full h-full col-span-1 bg-cover'>
           <img src={user?.img} alt='Not found' className='absolute duration-500 ease-in rounded-full top-48 left-16 scale-70 hover:scale-105'/>
         </div>
@@ -108,7 +176,7 @@ export default function AdminUser() {
             <Swipers/>
           </div>
         </div>
-      </div>
+      </div> 
     </div>
   )
 }

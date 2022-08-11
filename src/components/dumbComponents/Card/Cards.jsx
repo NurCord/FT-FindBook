@@ -22,7 +22,7 @@ export default function Cards({ data }) {
     }
     
     return (
-        <div className="flex justify-center w-56 bg-white rounded-sm shadow-2xl h-96 min-h-72">
+        <div className="flex justify-center w-56 bg-white rounded-sm shadow-lg h-96 min-h-72">
             <div>
                 <div className='flex justify-center'>
                     <button onClick={() => handleOnClick(data?.id)}>
