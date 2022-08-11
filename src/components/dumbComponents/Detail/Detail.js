@@ -6,6 +6,7 @@ import { useDispatch, useSelector } from 'react-redux';
 import CardImag from '../Card/CardImag';
 import { useParams } from 'react-router-dom';
 import { getBookByID, getBooksGenres } from '../../../redux/actions/actions';
+import AddToList from './AddToList';
 
 export default function Detail() {
     let state = useSelector(s => s.root.bookById)
@@ -41,7 +42,8 @@ export default function Detail() {
                                 <img src={state.image} alt='Not found'
                                 className='w-48 rounded-md'
                                 />
-                            <ButtonDetail>Agregar a una lista</ButtonDetail>
+                                <AddToList id={id}/>
+                            {/* <ButtonDetail>Agregar a una lista</ButtonDetail> */}
                         </div>
                         <div className='grid content-center h-40 grid-rows-3 rounded-md bg-cream-200 justify-items-center'>
                             <h1 className='m-auto'>US${state.price}</h1>                      
