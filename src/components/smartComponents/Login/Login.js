@@ -101,34 +101,35 @@ export default function Login() {
                 title: 'Oops...',
                 text: 'Todos los campos son obligatorios!',
             })
+        } else {
+            return Swal.fire({
+                title: 'Estas seguro?',
+                text: "No podrás revertirlo",
+                icon: 'warning',
+                showCancelButton: true,
+                confirmButtonColor: '#3085d6',
+                cancelButtonColor: '#d33',
+                confirmButtonText: 'Si, Confirmar!'
+            }).then((result) => {
+                if (result.isConfirmed) {
+                    console.log(createUserForm)
+                    dispatch(registerUser({
+                        username: createUserForm.username,
+                        email: createUserForm.mail,
+                        password: createUserForm.password,
+                        url: `https://ui-avatars.com/api/?name=${createUserForm.name}+${createUserForm.lastname}?background=F0EDE5`,
+                        name: createUserForm.name,
+                        lastname: createUserForm.lastname
+                    }));
+                    setCreateUserForm(createUserState)
+                    Swal.fire(
+                        'Confirmar!',
+                        `Bienvenido ${createUserForm.username}`,
+                        'success'
+                    ).then(()=>window.location.reload())
+                }
+            })
         }
-        return Swal.fire({
-            title: 'Estas seguro?',
-            text: "No podrás revertirlo",
-            icon: 'warning',
-            showCancelButton: true,
-            confirmButtonColor: '#3085d6',
-            cancelButtonColor: '#d33',
-            confirmButtonText: 'Si, Confirmar!'
-        }).then((result) => {
-            if (result.isConfirmed) {
-                console.log(createUserForm)
-                dispatch(registerUser({
-                    username: createUserForm.username,
-                    email: createUserForm.mail,
-                    password: createUserForm.password,
-                    url: `https://ui-avatars.com/api/?name=${createUserForm.name}+${createUserForm.lastname}?background=F0EDE5`,
-                    name: createUserForm.name,
-                    lastname: createUserForm.lastname
-                }));
-                setCreateUserForm(createUserState)
-                Swal.fire(
-                    'Confirmar!',
-                    `Bienvenido ${createUserForm.username}`,
-                    'success'
-                ).then(()=>window.location.reload())
-            }
-        })
     }
 
     function handleUserFormSubmit (e) {
@@ -196,8 +197,10 @@ export default function Login() {
                             <div className = 'flex flex-col items-center justify-centerpy-5'>
                                 <label>Avatar</label><br></br>
                                 <img id='avatar' src = {`https://ui-avatars.com/api/?name=${createUserForm.name ? createUserForm.name : ' '}+${createUserForm.lastname ? createUserForm.lastname : ' '}${createUserForm.lastname ? '?background=F0EDE5' : ' '}`} alt = 'Avatar' className = 'rounded-3xl'/>
-                                {/* <input type = 'url' name = 'url' value = {createUserForm.url} onChange={e => handleCreateUserFormChange (e)} className = 'text-center rounded-lg text-slate-600' /><br></br> */}
+                                {Object.entries(createUserForbidden).length === 0 ? 
                                 <input type = 'submit' value = 'Crear cuenta'  onClick = { (e) => handleCreateUserFormSubmit(e) }className = 'w-1/2 font-sans bg-sky-500 text-slate-50 border-none font-normal px-2 py-2 my-3 rounded cursor-pointer hover:text-white hover:border-solid hover:border-slate-50 hover:bg-stone-400'/>
+                                :
+                                <input type = 'submit' value = 'Crear cuenta'  onClick = { (e) => handleCreateUserFormSubmit(e) }className = 'text-gray-800 no-underline pointer-events-none bg-zinc-600 w-1/2 font-sans border-none font-normal px-2 py-2 my-3 rounded'/>}
                                 <label className = 'flex justify-center'>¿Ya tienes cuenta?</label><br></br>
                                 <input type = 'submit' value = 'Iniciar sesión' onClick = { (e) => handleClick(e) } className = 'w-1/2 font-sans bg-sky-500 text-slate-50 border-none font-normal px-2 py-2 my-3 rounded cursor-pointer hover:text-white hover:border-solid hover:border-slate-50 hover:bg-stone-400'></input>
                             </div>
