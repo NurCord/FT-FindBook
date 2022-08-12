@@ -1,4 +1,4 @@
-import { GET_ALL_BOOKS, GET_BOOK_BY_ID, GET_BOOKS_BY_NAME, GET_BOOK_BY_GENRE, GET_GENRE, GET_YEARS, GET_BOOKS_BY_YEARS, GET_BOOKS_RATING, USER_ROLE} from "./variables";
+import { GET_ALL_BOOKS, GET_BOOK_BY_ID, GET_BOOKS_BY_NAME, GET_BOOK_BY_GENRE, GET_GENRE, GET_YEARS, GET_BOOKS_BY_YEARS, GET_BOOKS_RATING, USER_ROLE, GET_ALL_USERS, GET_USERS_BY_NAME} from "./variables";
 import axios from "axios";
 
 
@@ -164,6 +164,67 @@ export const userRole = (token) => async(dispatch) =>{
     }
 }
 
+export let getAllUsers = ()=> async(dispatch)=>{
+    try {
+        // let getAllUsers = (await axios.get('https://findbook-api.herokuapp.com/admin/users')).data;
+        let getAllUsers = (await axios.get('http://localhost:3001/admin/users')).data;
+        dispatch({
+            type: GET_ALL_USERS,
+            payload: getAllUsers
+        })
+    } catch (error) {
+        alert(error)
+    }
+}
+
+export let getUserByName = (name)=> async(dispatch)=>{
+    try {
+        // let bookByName = (await axios.get(`https://findbook-api.herokuapp.com/admin/users?name=${name}`)).data;
+        let userByName = (await axios.get(`http://localhost:3001/admin/users?name=${name}`)).data;
+        dispatch({
+            type: GET_USERS_BY_NAME,
+            payload: userByName 
+        })
+    } catch (error) {
+        alert(error)
+    }
+}
+
+export let putUser = (id) => async(dispatch)=>{
+    try {
+        // await axios.post(`https://findbook-api.herokuapp.com/admin/putuser/${id}`, data)
+        await axios.put(`http://localhost:3001/admin/putuser/${id}`)
+    } catch (error) {
+        console.log(error)
+    }
+}
+
+export let putBook = (id) => async(dispatch)=>{
+    try {
+        // await axios.post(`https://findbook-api.herokuapp.com/admin/putbook/${id}`, data)
+        await axios.put(`http://localhost:3001/admin/putbook/${id}`)
+    } catch (error) {
+        console.log(error)
+    }
+}
+
+export let deleteUser = (id) => async(dispatch)=>{
+    try {
+        // await axios.post(`https://findbook-api.herokuapp.com/admin/deleteuser/${id}`, data)
+        await axios.delete(`http://localhost:3001/admin/deleteuser/${id}`)
+    } catch (error) {
+        console.log(error)
+    }
+}
+
+export let deleteBook = (id) => async(dispatch)=>{
+    try {
+        // await axios.post(`https://findbook-api.herokuapp.com/admin/deletebook/${id}`, data)
+        await axios.delete(`http://localhost:3001/admin/deletebook/${id}`)
+    } catch (error) {
+        console.log(error)
+    }
+}
 
 //Carrito de compra - Logearse
 //

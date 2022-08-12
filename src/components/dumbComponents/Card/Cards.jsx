@@ -1,8 +1,8 @@
 import React from 'react'
 import { useDispatch } from 'react-redux'
-import { Link, useNavigate } from "react-router-dom"
+import { useNavigate } from "react-router-dom"
 import Swal from 'sweetalert2'
-import { getBookByName , getBookByID} from '../../../redux/actions/actions'
+import { getBookByName, getBookByID } from '../../../redux/actions/actions'
 
 export default function Cards({ data }) {
     let colorStar = data.rating
@@ -16,14 +16,14 @@ export default function Cards({ data }) {
 
     let arrayColor = []
     for (let index = 1; index < 6; index++) {
-        if(index <= colorStar) arrayColor.push('text-yellow-300')
-        else{
+        if (index <= colorStar) arrayColor.push('text-yellow-300')
+        else {
             arrayColor.push('text-greyBlack-100')
         }
     }
     const handleBuy = (e) => {
         e.preventDefault();
-        if(!window.localStorage.getItem("token")){
+        if (!window.localStorage.getItem("token")) {
             Swal.fire({
                 title: 'Debes estar conectado',
                 text: "¿Deseas conectarte?",
@@ -32,16 +32,16 @@ export default function Cards({ data }) {
                 confirmButtonColor: '#3085d6',
                 cancelButtonColor: '#d33',
                 confirmButtonText: 'Conectar'
-              }).then((result) => {
+            }).then((result) => {
                 if (result.isConfirmed) {
-                  navigate('/login')
+                    navigate('/login')
                 }
-              })
-        }else{
+            })
+        } else {
             navigate('/shop')
         }
     }
-    
+
     return (
         <div className="flex justify-center w-56 bg-white rounded-sm shadow-lg h-96 min-h-72">
             <div>
