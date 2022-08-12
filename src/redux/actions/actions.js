@@ -5,10 +5,8 @@ import axios from "axios";
 
 export let getAllBooks = ()=> async(dispatch)=>{
     try {
-        // let result = (await axios.get('https://findbook-api.herokuapp.com/books?size=1')).data;
-        // let getAllBooks = (await axios.get(`https://findbook-api.herokuapp.com/books?size=${result.totalBooks}`)).data;
-        let result = (await axios.get('http://localhost:3001/books?size=1')).data;
-        let getAllBooks = (await axios.get(`http://localhost:3001/books?size=${result.totalBooks}`)).data;
+        let result = (await axios.get('/books?size=1')).data;
+        let getAllBooks = (await axios.get(`/books?size=${result.totalBooks}`)).data;
         dispatch({
             type: GET_ALL_BOOKS,
             payload: getAllBooks.content
@@ -20,8 +18,7 @@ export let getAllBooks = ()=> async(dispatch)=>{
 
 export let getBookByID = (id)=> async(dispatch)=>{
     try {
-        // let bookByID = (await axios.get(`https://findbook-api.herokuapp.com/books/${id}`)).data;
-        let bookByID = (await axios.get(`http://localhost:3001/books/${id}`)).data;
+        let bookByID = (await axios.get(`/books/${id}`)).data;
         dispatch({
             type: GET_BOOK_BY_ID,
             payload: bookByID
@@ -33,8 +30,7 @@ export let getBookByID = (id)=> async(dispatch)=>{
 
 export let getBookByName = (name)=> async(dispatch)=>{
     try {
-        // let bookByName = (await axios.get(`https://findbook-api.herokuapp.com/books?name=${name}`)).data;
-        let bookByName = (await axios.get(`http://localhost:3001/books?name=${name}`)).data;
+        let bookByName = (await axios.get(`/books?name=${name}`)).data;
         dispatch({
             type: GET_BOOKS_BY_NAME,
             payload: {Books: bookByName.content, name} 
@@ -46,8 +42,7 @@ export let getBookByName = (name)=> async(dispatch)=>{
 
 export let getBooksGenres = (genre)=> async(dispatch)=>{
     try {
-        // let getGenresDB = (await axios.get(`https://findbook-api.herokuapp.com/genres?genre=${genre}`)).data;
-        let getGenresDB = (await axios.get(`http://localhost:3001/genres?genre=${genre}`)).data;
+        let getGenresDB = (await axios.get(`/genres?genre=${genre}`)).data;
         dispatch({
             type: GET_BOOK_BY_GENRE,
             payload: getGenresDB.content
@@ -59,8 +54,7 @@ export let getBooksGenres = (genre)=> async(dispatch)=>{
 
 export let getGenres = ()=> async(dispatch)=>{
     try {
-        // let getGenresDB = (await axios.get('https://findbook-api.herokuapp.com/genres')).data;
-        let getGenresDB = (await axios.get('http://localhost:3001/genres')).data;
+        let getGenresDB = (await axios.get('/genres')).data;
         dispatch({
             type: GET_GENRE,
             payload: getGenresDB
@@ -72,8 +66,7 @@ export let getGenres = ()=> async(dispatch)=>{
 
 export let getYears = () => async(dispatch)=>{
     try {
-        // let getyears = (await axios.get(`https://findbook-api.herokuapp.com/books?size=57`)).data;
-        let getyears = (await axios.get(`http://localhost:3001/books?size=57`)).data;
+        let getyears = (await axios.get(`/books?size=57`)).data;
         dispatch({
             type: GET_YEARS,
             payload: getyears.content
@@ -84,8 +77,7 @@ export let getYears = () => async(dispatch)=>{
 }
 
 export let getBooksByYears = (yearsToFilter) => async (dispatch) =>{
-    // let getAllBooks = (await axios.get(`https://findbook-api.herokuapp.com/books?size=57`)).data;
-    let getAllBooks = (await axios.get(`http://localhost:3001/books?size=57`)).data;
+     let getAllBooks = (await axios.get(`/books?size=57`)).data;
     let filterBooks = [];
     let yearsToNumber = yearsToFilter.split('-').map(y => Number(y));
     for (let i = 0; i < getAllBooks.content.length; i++) {
@@ -102,8 +94,7 @@ export let getBooksByYears = (yearsToFilter) => async (dispatch) =>{
 
 export let postBook = (data) => async(dispatch)=>{
     try {
-        // await axios.post('https://findbook-api.herokuapp.com/books', data)
-        await axios.post('http://localhost:3001/books', data)
+        await axios.post('/books', data)
     } catch (error) {
         console.log(error)
     }
@@ -111,8 +102,7 @@ export let postBook = (data) => async(dispatch)=>{
 
 export let getForRating = () => async(dispatch)=>{
     try {
-        // let res = (await axios.get('https://findbook-api.herokuapp.com/books?size=57')).data;
-        let res = (await axios.get('http://localhost:3001/books?size=57')).data;
+        let res = (await axios.get('/books?size=57')).data;
         dispatch({
             type: GET_BOOKS_RATING,
             payload: res.content
@@ -124,7 +114,7 @@ export let getForRating = () => async(dispatch)=>{
 
 export const registerUser = (user) => async()=>{
     try{
-        await axios.post('http://localhost:3001/auth/register',user)
+        await axios.post('/auth/register',user)
             .then(({data})=>console.log(data))
     }
     catch(error){
@@ -134,7 +124,7 @@ export const registerUser = (user) => async()=>{
 
 export const loginUser = (user) => async()=>{
     try{
-        await axios.post('http://localhost:3001/auth/login',user)
+        await axios.post('/auth/login',user)
             .then(({data})=>window.localStorage.setItem('token',data.token))
     }
     catch(error){
@@ -148,7 +138,7 @@ export const userRole = (token) => async(dispatch) =>{
         if(token === undefined || token === null){
             action = 'invalid'
         }else{
-            const { data } = await axios.get('http://localhost:3001/auth/user',{
+            const { data } = await axios.get('/auth/user',{
                 headers:{
                     Authorization: `Bearer ${token}`
                 }
@@ -166,8 +156,7 @@ export const userRole = (token) => async(dispatch) =>{
 
 export let getAllUsers = ()=> async(dispatch)=>{
     try {
-        // let getAllUsers = (await axios.get('https://findbook-api.herokuapp.com/admin/users')).data;
-        let getAllUsers = (await axios.get('http://localhost:3001/admin/users')).data;
+        let getAllUsers = (await axios.get('/admin/users')).data;
         dispatch({
             type: GET_ALL_USERS,
             payload: getAllUsers
@@ -179,8 +168,7 @@ export let getAllUsers = ()=> async(dispatch)=>{
 
 export let getUserByName = (name)=> async(dispatch)=>{
     try {
-        // let bookByName = (await axios.get(`https://findbook-api.herokuapp.com/admin/users?name=${name}`)).data;
-        let userByName = (await axios.get(`http://localhost:3001/admin/users?name=${name}`)).data;
+        let userByName = (await axios.get(`/admin/users?name=${name}`)).data;
         dispatch({
             type: GET_USERS_BY_NAME,
             payload: userByName 
@@ -192,8 +180,7 @@ export let getUserByName = (name)=> async(dispatch)=>{
 
 export let putUser = (id) => async(dispatch)=>{
     try {
-        // await axios.post(`https://findbook-api.herokuapp.com/admin/putuser/${id}`, data)
-        await axios.put(`http://localhost:3001/admin/putuser/${id}`)
+        await axios.put(`/admin/putuser/${id}`)
     } catch (error) {
         console.log(error)
     }
@@ -201,8 +188,7 @@ export let putUser = (id) => async(dispatch)=>{
 
 export let putBook = (id) => async(dispatch)=>{
     try {
-        // await axios.post(`https://findbook-api.herokuapp.com/admin/putbook/${id}`, data)
-        await axios.put(`http://localhost:3001/admin/putbook/${id}`)
+        await axios.put(`/admin/putbook/${id}`)
     } catch (error) {
         console.log(error)
     }
@@ -210,8 +196,7 @@ export let putBook = (id) => async(dispatch)=>{
 
 export let deleteUser = (id) => async(dispatch)=>{
     try {
-        // await axios.post(`https://findbook-api.herokuapp.com/admin/deleteuser/${id}`, data)
-        await axios.delete(`http://localhost:3001/admin/deleteuser/${id}`)
+        await axios.delete(`/admin/deleteuser/${id}`)
     } catch (error) {
         console.log(error)
     }
@@ -219,8 +204,7 @@ export let deleteUser = (id) => async(dispatch)=>{
 
 export let deleteBook = (id) => async(dispatch)=>{
     try {
-        // await axios.post(`https://findbook-api.herokuapp.com/admin/deletebook/${id}`, data)
-        await axios.delete(`http://localhost:3001/admin/deletebook/${id}`)
+        await axios.delete(`/admin/deletebook/${id}`)
     } catch (error) {
         console.log(error)
     }

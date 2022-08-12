@@ -6,15 +6,10 @@ import reportWebVitals from './reportWebVitals';
 import { Provider } from 'react-redux';
 import store from './redux/store'
 import {BrowserRouter} from "react-router-dom";
-
-/* import dotenv from 'dotenv';
 import axios from 'axios';
 
-dotenv.config();
+axios.defaults.baseURL = process.env.REACT_APP_API || 'http://localhost:3001'
 
-axios.defaults.baseURL = process.env.REACT_APP_API || 'https://findbook-api.herokuapp.com'
-
- */
 
 const root = ReactDOM.createRoot(document.getElementById('root'));
 root.render(
