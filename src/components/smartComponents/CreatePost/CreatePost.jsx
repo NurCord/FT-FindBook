@@ -1,7 +1,7 @@
 import React from "react";
 import { Link } from "react-router-dom";
 import { useNavigate } from "react-router-dom";
-import { useDispatch } from "react-redux";
+import { useDispatch, useSelector } from "react-redux";
 import { useState } from "react";
 import { postBook } from "../../../redux/actions/actions";
 import Swal from "sweetalert2";
@@ -55,7 +55,7 @@ export default function CreatePost() {
     // Declaración de estados
     const dispatch = useDispatch();
     const navigate = useNavigate();
-    //const genres = useSelector(state => state.genres);
+    const role = useSelector(state => state.root.role);
     const [ form, setForm ] = useState({
         name: '',
         author: '',
@@ -263,7 +263,8 @@ export default function CreatePost() {
     }
 
     // Renderizar formulario
-    return (
+    if(role !== "invalid"){
+       return (
         <div className = "flex flex-col items-center justify-center h-full mt-8 text-center"> {/*Container*/}
             <div className = "w-2/3 px-20 rounded bg-cream-100"> {/*Background bg-slate-900*/}
                 <h1 className = "pt-5 text-lg text-zinc-600">PUBLICA TU LIBRO PARA VENTA</h1>
@@ -387,5 +388,22 @@ export default function CreatePost() {
                 </form>
             </div>            
         </div>
-    )
+    ) 
+    }else{
+        Swal.fire({
+            title: 'Debes estar conectado',
+            showDenyButton: true,
+            confirmButtonText: 'Inicio',
+            denyButtonText: `Conectar`,
+            }).then((result) => {
+            /* Read more about isConfirmed, isDenied below */
+            if (result.isConfirmed) {
+                navigate('/')
+            } else if (result.isDenied) {
+                navigate("/login")
+            }
+        })
+        
+    }
+    
 }

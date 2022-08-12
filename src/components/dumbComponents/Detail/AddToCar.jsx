@@ -1,16 +1,18 @@
 import React, { useState } from 'react'
+import { useSelector } from 'react-redux'
 import { useNavigate } from 'react-router-dom'
 import Swal from 'sweetalert2'
 import { ButtonDetail } from './stayleComponentDetail'
 
 export default function AddToCar({ id }) {
     const [added, SetAdded] = useState(false)
+    const role = useSelector(state => state.root.role)
 
     const navigate = useNavigate()
 
     const handleOnClick = (e) => {
         e.preventDefault();
-        if(!window.localStorage.getItem("token")){
+        if(role === "invalid"){
             Swal.fire({
                 title: 'Debes estar conectado',
                 text: "¿Deseas conectarte?",
