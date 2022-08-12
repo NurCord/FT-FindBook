@@ -10,7 +10,7 @@ import Home from './components/dumbComponents/Home/Home';
 import CreatePost from './components/smartComponents/CreatePost/CreatePost';
 import {useEffect} from 'react'
 import { useDispatch } from 'react-redux';
-import {getAllBooks, getGenres, getYears} from  './redux/actions/actions'
+import {getAllBooks, getGenres, getYears, userRole} from  './redux/actions/actions'
 import SearchByCategory from './components/dumbComponents/SearchByCategory/SearchByCategory';
 import SearchByReleased from './components/dumbComponents/SearchByReleased/SearchByReleased';
 import AdminBooK from './componentsAdmin/DumbComponents/AdminBook/AdminBooK';
@@ -25,6 +25,8 @@ function App() {
     dispatch(getAllBooks())
     dispatch(getGenres())
     dispatch(getYears())
+    console.log("este es app ", window.localStorage.getItem('token'))
+    dispatch(userRole(window.localStorage.getItem('token')))
   }, [dispatch])
 
   const [HomeAdmin, SetHomeAdmin] = useState('Users')

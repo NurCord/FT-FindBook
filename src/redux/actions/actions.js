@@ -1,4 +1,4 @@
-import { GET_ALL_BOOKS, GET_BOOK_BY_ID, GET_BOOKS_BY_NAME, GET_BOOK_BY_GENRE, GET_GENRE, GET_YEARS, GET_BOOKS_BY_YEARS, GET_BOOKS_RATING} from "./variables";
+import { GET_ALL_BOOKS, GET_BOOK_BY_ID, GET_BOOKS_BY_NAME, GET_BOOK_BY_GENRE, GET_GENRE, GET_YEARS, GET_BOOKS_BY_YEARS, GET_BOOKS_RATING, USER_ROLE} from "./variables";
 import axios from "axios";
 
 
@@ -139,6 +139,28 @@ export const loginUser = (user) => async()=>{
     }
     catch(error){
         console.log(error);
+    }
+}
+
+export const userRole = (token) => async(dispatch) =>{
+    try {
+        let action;
+        if(token === undefined || token === null){
+            action = 'invalid'
+        }else{
+            const { data } = await axios.get('http://localhost:3001/auth/user',{
+                headers:{
+                    Authorization: `Bearer ${token}`
+                }
+            })
+            action = data
+        }
+        dispatch({
+            type:USER_ROLE,
+            payload: action
+        })
+    } catch (error) {
+        console.log(error)
     }
 }
 
