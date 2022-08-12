@@ -23,7 +23,7 @@ function userValidator (userForm) {
     const userForbidden = {};
     const mailValidator = re.test(userForm.mail);
     Object.keys(userForm).forEach(property => {
-        if (!userForm[property]) {
+        if (!userForm[property] || userForm[property] === '') {
             userForbidden.title = `Todos los campos son obligatorios`;
         }
     })
@@ -42,7 +42,6 @@ let createUserState = {
 };
 
 let userState = {
-    username: '',
     mail: '',
     password: ''
 };
@@ -59,7 +58,7 @@ export default function Login() {
         password2: '',
     });
     const [ userForm, setUserForm ] = useState({
-        username: '',
+        mail: '',
         password: '',
     });
     const [ createUserForbidden, setCreateUserForbidden ] = useState({});
@@ -93,9 +92,13 @@ export default function Login() {
         }))
     };
     function handleCreateUserFormSubmit (e) {
-        setCreateUserForbidden(createUserValidator(createUserForm))
         e.preventDefault();
-        if(Object.keys(createUserForbidden).length !== 0 || createUserForm === createUserState){
+        let voidForm = false;
+        for(const property in createUserForm) {
+            if (createUserForm[property] === '') voidForm = true;
+        }
+        setCreateUserForbidden(createUserValidator(createUserForm))
+        if(Object.keys(createUserForbidden).length !== 0 || voidForm === true){
             return Swal.fire({
                 icon: 'error',
                 title: 'Oops...',
@@ -134,25 +137,32 @@ export default function Login() {
 
     function handleUserFormSubmit (e) {
         e.preventDefault();
-        setUserForm(userState)
-        navigate('/');
-        console.log({
-            email: userForm.mail,
-            password: userForm.password
-        });
-        dispatch(loginUser({
-            email: userForm.mail,
-            password: userForm.password
-        }))
-        Swal.fire({
-            title: `Bienvenido ${userForm.mail}`,
-            showClass: {
-                popup: 'animate__animated animate__fadeInDown'
-            },
-            hideClass: {
-                popup: 'animate__animated animate__fadeOutUp'
-            }
-        }).then(()=>window.location.reload())
+        let voidForm = false;
+        if (userForm.mail === '' || userForm.password === '') voidForm = true;
+        if(Object.keys(userForbidden).length !== 0 || voidForm === true){
+            return Swal.fire({
+                icon: 'error',
+                title: 'Oops...',
+                text: 'Todos los campos son obligatorios!',
+            })
+        } else {
+            dispatch(loginUser({
+                email: userForm.mail,
+                password: userForm.password
+            }))
+            setUserForm(userState)
+            navigate('/');
+            Swal.fire({
+                title: `Bienvenido ${userForm.mail}`,
+                showClass: {
+                    popup: 'animate__animated animate__fadeInDown'
+                },
+                hideClass: {
+                    popup: 'animate__animated animate__fadeOutUp'
+                }
+            })
+            .then(()=>window.location.reload())
+        }
     }
     
     if (showSignUp) {
