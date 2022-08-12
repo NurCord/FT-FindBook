@@ -9,7 +9,7 @@ import SearchByName from './components/dumbComponents/SearchByName/SearchByName'
 import Home from './components/dumbComponents/Home/Home';
 import CreatePost from './components/smartComponents/CreatePost/CreatePost';
 import {useEffect} from 'react'
-import { useDispatch } from 'react-redux';
+import { useDispatch,useSelector } from 'react-redux';
 import {getAllBooks, getGenres, getYears, userRole} from  './redux/actions/actions'
 import SearchByCategory from './components/dumbComponents/SearchByCategory/SearchByCategory';
 import SearchByReleased from './components/dumbComponents/SearchByReleased/SearchByReleased';
@@ -27,9 +27,8 @@ function App() {
     dispatch(getYears())
     dispatch(userRole(window.localStorage.getItem('token')))
   }, [dispatch])
-
+  let role = useSelector(state=>state.root.role)
   const [HomeAdmin, SetHomeAdmin] = useState('Users')
-
   return (
     <div className='w-full h-full bg-greyBlack-100'>
       <Routes>
@@ -45,11 +44,11 @@ function App() {
           <Route path='categoria/:genre' element={<SearchByCategory/>}/>
           <Route path='released/:date' element={<SearchByReleased/>}/>
         </Route>
-        <Route path='/layoutAdmin/' element={<LayoutAdmin SetHomeAdmin={SetHomeAdmin} />}>
+        {role === 'admin'?<Route path='/layoutAdmin/' element={<LayoutAdmin SetHomeAdmin={SetHomeAdmin} />}>
           <Route path='' element={<AdminHome HomeAdmin={HomeAdmin} />}/>
           <Route path='book/:id' element={<AdminBooK/>}/> 
           <Route path='user/:id' element={<AdminUser/>}/>
-        </Route>
+        </Route>:<Route path='/layoutAdmin/' element={<div>FORBIDEN 404</div>}/>}
       </Routes>
     </div>
   );

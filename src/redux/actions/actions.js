@@ -143,7 +143,7 @@ export const userRole = (token) => async(dispatch) =>{
                     Authorization: `Bearer ${token}`
                 }
             })
-            action = data
+            action = data.role
         }
         dispatch({
             type:USER_ROLE,
