@@ -1,11 +1,16 @@
 import React from "react";
-import { Link } from "react-router-dom";
+import { useSelector } from "react-redux";
+import { Link, useNavigate } from "react-router-dom";
+import Swal from "sweetalert2";
 
 export default function Shop() {
+  const role = useSelector(state => state.root.role);
   const onChange = () => {
     console.log('info actualizada')
   }
-  return (
+  const navigate = useNavigate();
+  if(role !== "invalid"){
+    return (
     <div>
       <div className="h-screen bg-gray-300">
         <div className="py-12">
@@ -166,4 +171,20 @@ export default function Shop() {
       </div>
     </div>
   );
+  }else{
+    Swal.fire({
+      title: 'Debes estar conectado',
+      showDenyButton: true,
+      confirmButtonText: 'Inicio',
+      denyButtonText: `Conectar`,
+    }).then((result) => {
+      /* Read more about isConfirmed, isDenied below */
+      if (result.isConfirmed) {
+        navigate('/')
+      } else if (result.isDenied) {
+        navigate("/login")
+      }
+    })
+  }
+  
 }

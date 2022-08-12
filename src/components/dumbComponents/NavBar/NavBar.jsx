@@ -3,8 +3,10 @@ import SearchNavBar from '../../smartComponents/SearchNavBar/SearchNavBar'
 import Logo from '../../../assets/FindBookLogo.png'
 import Filters from '../../smartComponents/Filters/Filters'
 import { Link } from 'react-router-dom'
+import { useSelector } from 'react-redux'
 
 export default function NavBar() {
+  const role = useSelector(state => state.root.role)
   return (
     <>
     <div className='w-full h-20 bg-cream-100'>
@@ -25,14 +27,20 @@ export default function NavBar() {
                 </Link>         
               </div>
 
-              <div className='flex'>
-                <svg xmlns="http://www.w3.org/2000/svg" className="w-6 h-6" fill="none" viewBox="0 0 24 24" stroke="currentColor" strokeWidth={1.5}>
-                <path strokeLinecap="round" strokeLinejoin="round" d="M12 9v3m0 0v3m0-3h3m-3 0H9m12 0a9 9 0 11-18 0 9 9 0 0118 0z" />
-                </svg>  
-                <Link to={'/postbook'}>
-                  <h1 className='duration-700 border-b-2 border-cream-100 hover:border-cream-300'>Publicar</h1>
-                </Link>         
+              <div>
+                {
+                  role !== "invalid" ? 
+                  <div className='flex'>
+                    <svg xmlns="http://www.w3.org/2000/svg" className="w-6 h-6" fill="none" viewBox="0 0 24 24" stroke="currentColor" strokeWidth={1.5}>
+                      <path strokeLinecap="round" strokeLinejoin="round" d="M12 9v3m0 0v3m0-3h3m-3 0H9m12 0a9 9 0 11-18 0 9 9 0 0118 0z" />
+                    </svg>  
+                    <Link to={'/postbook'}>
+                      <h1 className='duration-700 border-b-2 border-cream-100 hover:border-cream-300'>Publicar</h1>
+                    </Link>         
+                  </div> : null
+                }
               </div>
+              
 
               <div className='flex'>
                 <svg xmlns="http://www.w3.org/2000/svg" className="w-6 h-6" fill="none"  stroke="currentColor" strokeWidth={1.5}>
