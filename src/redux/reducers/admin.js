@@ -10,7 +10,7 @@ export default function root(state = initialState, actions){
         case GET_ALL_USERS:
             return {
                 ...state,
-                allBooks: actions.payload
+                allUsers: actions.payload
             }
         case GET_USERS_BY_NAME:
             return {
