@@ -78,7 +78,7 @@ export default function AdminUser() {
   })
 
   let handleHidden = () => {
-    setState(state === 'hidden' ? ' ' : 'hidden')
+    setState(state === 'hidden' ? '' : 'hidden')
     console.log(state);
   }
 
@@ -95,25 +95,24 @@ export default function AdminUser() {
   let user = array.find(e => e.id === parseInt(id))
 
   return (
-    <div className='w-full h-full p-8 bg-cream-200'>
-      <div className='grid w-full h-full grid-cols-3'>
-        <div className="absolute left-0 z-10 flex justify-end w-full h-full px-4 pt-4">
-          <button onClick={handleOnClick}>
-            <UilArrowCircleLeft/>
+    <div className='grid w-full h-full p-8 bg-cream-200'>
+      <div className='grid grid-cols-3'>
+        <div className="absolute z-10 right-8">
+          <button onClick={handleOnClick} className="grid w-12 h-12">
+            <UilArrowCircleLeft className="w-9 h-9 place-self-center text-greyBlack-400"/>
           </button>
-        </div>
-        <div className="absolute z-10 flex justify-end w-full h-full px-4 pt-4 right-10">
-          <button onClick={() => handleHidden()} className="w-12 h-12 bg-slate-400">
-              <UilEditAlt className="w-6 h-6" aria-hidden="true" fill="currentColor" viewBox="0 0 20 20"/>
+          <button onClick={() => handleHidden()} className="grid w-12 h-12">
+              <UilEditAlt className="w-8 h-8 duration-200 place-self-center text-greyBlack-400" aria-hidden="true" fill="currentColor" viewBox="0 0 20 20"/>
           </button>
         </div>
 
-          <div className='absolute flex w-full h-full'>
-            <div className={`${state} z-30 m-auto bg-greyBlack-200`}>
-              <form onSubmit={handleSubmit(onSubmit)}>
-                <div>
-                  <label>Nombre</label>
+          <div className={`${state} absolute flex left-1/2 top-1/3`}>
+            <div className={`z-10 bg-cream-300 w-96 h-80 rounded-md`}>
+              <form onSubmit={handleSubmit(onSubmit)} className='grid h-full grid-cols-1 grid-rows-4 gap-4'>
+                <div className='grid content-center grid-cols-3'>
+                  <label className='col-span-1 font-semibold place-self-center'>Nombre:</label>
                   <input 
+                      className='col-span-2 m-4 rounded-md bg-cream-100'
                       key='name' 
                       type='text' 
                       name='name' 
@@ -122,9 +121,10 @@ export default function AdminUser() {
                       isRigth={errors.name ? errors.name : false}
                       />
                 </div>
-                <div>
-                  <label>Apellido</label>
+                <div className='grid content-center grid-cols-3'>
+                  <label className='col-span-1 font-semibold place-self-center'>Apellido:</label>
                   <input 
+                      className='col-span-2 m-4 rounded-md bg-cream-100'
                       key='surname' 
                       type='text' 
                       name='surname' 
@@ -133,9 +133,10 @@ export default function AdminUser() {
                       isRigth={errors.surname ? errors.surname : false}
                       />
                 </div>
-                <div>
-                  <label>Nombre de usuario</label>
+                <div className='grid content-center grid-cols-3'>
+                  <label className='col-span-1 ml-6 font-semibold place-self-center'>Nombre de usuario:</label>
                   <input 
+                      className='col-span-2 m-4 rounded-md bg-cream-100'
                       key='nameUser' 
                       type='text' 
                       name='nameUser' 
@@ -144,7 +145,7 @@ export default function AdminUser() {
                       isRigth={errors.nameUser ? errors.nameUser : false}
                       />
                 </div>
-                <button type="submit">Confirmar</button>
+                <button type="submit" className='px-4 py-2 m-auto font-semibold duration-200 rounded-md bg-cream-100 hover:bg-greyBlack-400 hover:text-cream-100'>Confirmar</button>
               </form>
             </div>
           </div>
