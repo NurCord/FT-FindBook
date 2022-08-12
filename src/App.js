@@ -25,7 +25,6 @@ function App() {
     dispatch(getAllBooks())
     dispatch(getGenres())
     dispatch(getYears())
-    console.log("este es app ", window.localStorage.getItem('token'))
     dispatch(userRole(window.localStorage.getItem('token')))
   }, [dispatch])
 
