@@ -231,9 +231,37 @@ export let deleteBook = (id) => async(dispatch)=>{
     }
 }
 
-export let addToCart = (id, token) => async(dispatch)=>{
+export let addToCart = (id) => async()=>{
     try {
-        await axios.post(`/user/addtocart`, id, token)
+        const { data } = await axios.post(`/user/addtocart`, {id: id}, {headers:{Authorization: `Bearer ${window.localStorage.getItem("token")}`}})
+        if(data.hasOwnProperty("role")){
+            Swal.fire({
+                icon: 'error',
+                title: 'Usuario invalido',
+                text: 'Vuelve a conectarte',
+              }).then(result=>{
+                if(result.isConfirmed){
+                    window.localStorage.removeItem("token")
+                    window.location.reload()
+                }
+              })
+        }else if(data.message === "El libro fue agregado"){
+            Swal.fire({
+                position: 'top-end',
+                icon: 'success',
+                title: 'Libro agregado al carrito',
+                showConfirmButton: false,
+                timer: 1000
+              })
+        }else{
+            Swal.fire({
+                position: 'top',
+                icon: 'warning',
+                title: 'El libro ya se encuentra en el carrito',
+                showConfirmButton: false,
+                timer: 1500
+              })
+        }
     } catch (error) {
         console.log(error)
     }

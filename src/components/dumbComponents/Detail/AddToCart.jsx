@@ -7,7 +7,6 @@ import { addToCart } from '../../../redux/actions/actions'
 
 export default function AddToCart({ id }) {
     const role = useSelector(state => state.root.role)
-    const token = window.localStorage.getItem("token")
     const dispatch = useDispatch()
 
     const navigate = useNavigate()
@@ -29,7 +28,7 @@ export default function AddToCart({ id }) {
                 }
               })
         }else{
-            dispatch(addToCart(id, token))
+            dispatch(addToCart(id))
         }
     }
   return (
