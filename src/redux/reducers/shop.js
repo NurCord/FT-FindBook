@@ -1,9 +1,10 @@
-import { GET_PRICE_ITEM, LESS_COUNT_ITEM, SUM_COUNT_ITEM } from "../actions/variables";
+import { GET_PRICE_ITEM, LESS_COUNT_ITEM, SUM_COUNT_ITEM, USER_CART } from "../actions/variables";
 
 const initialState = {
     price: 0,
     count: 1,
-    id: 0
+    id: 0,
+    cartBooks: []
 }
 
 export default function shop(state = initialState, actions){
@@ -25,7 +26,12 @@ export default function shop(state = initialState, actions){
             return {
                 ...state,
                 count: state.count - 1
-            }  
+            }
+        case USER_CART:
+            return {
+                ...state,
+                cartBooks: actions.payload
+            }
         default:
             return {
                 ...state
