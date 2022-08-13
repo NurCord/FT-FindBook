@@ -1,5 +1,6 @@
-import { GET_ALL_BOOKS, GET_BOOK_BY_ID, GET_BOOKS_BY_NAME, GET_BOOK_BY_GENRE, GET_GENRE, GET_YEARS, GET_BOOKS_BY_YEARS, GET_BOOKS_RATING, USER_ROLE, GET_ALL_USERS, GET_USERS_BY_NAME} from "./variables";
+import { GET_ALL_BOOKS, GET_BOOK_BY_ID, GET_BOOKS_BY_NAME, GET_BOOK_BY_GENRE, GET_GENRE, GET_YEARS, GET_BOOKS_BY_YEARS, GET_BOOKS_RATING, USER_ROLE, GET_ALL_USERS, GET_USERS_BY_NAME, REGISTER_USER_ERROR} from "./variables";
 import axios from "axios";
+import Swal from "sweetalert2";
 
 
 
@@ -113,13 +114,33 @@ export let getForRating = () => async(dispatch)=>{
 }
 
 export const registerUser = (user) => async()=>{
-    try{
+    // try{
         await axios.post('/auth/register',user)
-            .then(({data})=>console.log(data))
-    }
-    catch(error){
-        console.log(error);
-    }
+            .then(({data})=>{
+                if(typeof data === 'object') {
+                    return Swal.fire({
+                        icon: 'error',
+                        title: 'Oops...',
+                        text: data.error,
+                        })
+                    } else {
+                        return Swal.fire(
+                            'Confirmar!',
+                            `${data}`,
+                            'success'
+                        ).then(()=>window.location.reload())
+                    }
+                }
+            )
+            // .catch(error => alert(error.message))
+    // }
+    // catch(error){
+    //     console.log(error);
+        // dispatch({
+        //     type: REGISTER_USER_ERROR,
+        //     payload: error
+        // })
+    // }
 }
 
 export const loginUser = (user) => async()=>{
