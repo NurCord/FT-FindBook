@@ -243,6 +243,8 @@ export let addToCart = (id) => async()=>{
                 if(result.isConfirmed){
                     window.localStorage.removeItem("token")
                     window.location.reload()
+                    window.location.href = '/'
+                    // window.history.go(-1)
                 }
               })
         }else if(data.message === "El libro fue agregado"){
