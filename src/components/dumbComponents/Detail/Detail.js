@@ -8,7 +8,7 @@ import { useParams } from 'react-router-dom';
 import { getBookByID, getBooksGenres } from '../../../redux/actions/actions';
 import AddToList from './AddToList';
 import Buy from './Buy';
-import AddToCar from './AddToCar';
+import AddToCart from './AddToCart';
 
 export default function Detail() {
     let state = useSelector(s => s.root.bookById)
@@ -49,7 +49,7 @@ export default function Detail() {
                         <div className='grid content-center min-h-min min-w-min grid-rows-3 rounded-md bg-cream-200 justify-items-center'>
                             <h1 className='m-auto'>US${state.price}</h1>                      
                             <Buy id={id}/>
-                            <AddToCar id={id}/>
+                            <AddToCart id={id}/>
                         </div>
                     </div>
                     <DivDetail>

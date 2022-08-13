@@ -4,7 +4,7 @@ import { useNavigate } from 'react-router-dom'
 import Swal from 'sweetalert2'
 import { ButtonDetail } from './stayleComponentDetail'
 
-export default function AddToCar({ id }) {
+export default function AddToCart({ id }) {
     const [added, SetAdded] = useState(false)
     const role = useSelector(state => state.root.role)
 
