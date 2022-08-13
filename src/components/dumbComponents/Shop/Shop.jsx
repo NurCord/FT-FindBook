@@ -1,25 +1,21 @@
-import React, {useEffect} from "react";
+import React, {useEffect, useState} from "react";
 import { useSelector } from "react-redux";
 import { Link, useNavigate } from "react-router-dom";
 import Swal from "sweetalert2";
-import { sumCountItem, lessCountItem, priceItem } from "../../../redux/actions/actionsShop";
-import { getBookByID } from "../../../redux/actions/actions";
+import { sumCountItem, lessCountItem } from "../../../redux/actions/actionsShop";
+import { userRole } from "../../../redux/actions/actions";
 import { useDispatch } from "react-redux";
 
 export default function Shop() {
   const role = useSelector(state => state.root.role);
-  const book = useSelector(state => state.root.bookById);
-  const count = useSelector(state => state.shop.count);
-  const price = useSelector(state => state.shop.price);
-  const id = useSelector(state => state.shop.id);
+  const cartBooks = useSelector(state => state.shop.cartBooks)
+  const [cantidad, setCantidad] = useState({})
 
   let dispatch = useDispatch()
 
   useEffect(()=>{
-    if(id !== 0 && count > 0){
-      dispatch(priceItem(id))
-    }
-  }, [count])
+    dispatch(userRole())
+  }, [])
 
   function handlerOnSum(){
     dispatch(sumCountItem())
@@ -37,11 +33,12 @@ export default function Shop() {
   }
   const navigate = useNavigate();
   if(role !== "invalid"){
+    //<CartCards books={cartBooks} cantidad={cantidad} /> => a renderizar books.length(si hay libros en el array) mapear <card id:{id} name.... imagen..... price... cantidad={cantidad}/>
     return (
     <div>
       <div className="h-screen bg-gray-300">
         <div className="py-12">
-          { count > 0 ? <div className="max-w-md mx-auto bg-gray-100 shadow-lg rounded-lg  md:max-w-5xl">
+          { cartBooks.length ? <div className="max-w-md mx-auto bg-gray-100 shadow-lg rounded-lg  md:max-w-5xl">
             <div className="md:flex ">
               <div className="w-full p-4 px-5 py-5">
                 <div className="md:grid md:grid-cols-3 gap-2 ">
@@ -58,14 +55,16 @@ export default function Shop() {
                             {book?.author}
                           </span>
                         </div>
-                      </div>
+                      </div> 
                       <div className="flex justify-center items-center">
                         <div className="pr-8 flex ">
                         <button onClick={() => handlerOnLess()} className="font-semibold">-</button>
                           <input
-                            type="text"
+                            type="number"
                             className="focus:outline-none bg-gray-100 border h-6 w-8 rounded text-sm px-2 mx-2"
-                            value={count}
+                            value={cantidad}
+                            min="1"
+                            max="10"
                             onChange={onChange}
                           />
                           <button onClick={() => handlerOnSum()} className="font-semibold">+</button>
