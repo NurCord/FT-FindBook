@@ -210,5 +210,13 @@ export let deleteBook = (id) => async(dispatch)=>{
     }
 }
 
+export let addToCart = (id, token) => async(dispatch)=>{
+    try {
+        await axios.post(`/user/addtocart`, id, token)
+    } catch (error) {
+        console.log(error)
+    }
+}
+
 //Carrito de compra - Logearse
 //

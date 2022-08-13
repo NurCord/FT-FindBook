@@ -1,12 +1,14 @@
-import React, { useState } from 'react'
-import { useSelector } from 'react-redux'
+import React from 'react'
+import { useDispatch, useSelector } from 'react-redux'
 import { useNavigate } from 'react-router-dom'
 import Swal from 'sweetalert2'
 import { ButtonDetail } from './stayleComponentDetail'
+import { addToCart } from '../../../redux/actions/actions'
 
 export default function AddToCart({ id }) {
-    const [added, SetAdded] = useState(false)
     const role = useSelector(state => state.root.role)
+    const token = window.localStorage.getItem("token")
+    const dispatch = useDispatch()
 
     const navigate = useNavigate()
 
@@ -27,16 +29,12 @@ export default function AddToCart({ id }) {
                 }
               })
         }else{
-            SetAdded(true)
+            dispatch(addToCart(id, token))
         }
     }
   return (
     <div>
-        {
-            !added ? 
-            <ButtonDetail onClick={(handleOnClick)} style={{background: '#bababa'}}>Agregar al carrito</ButtonDetail> :
-            <ButtonDetail style={{background: '#bababa'}}>Agregar al carrito</ButtonDetail>
-        }
+            <ButtonDetail onClick={(handleOnClick)} style={{background: '#bababa'}}>Agregar al carrito</ButtonDetail>
     </div>
   )
 }
