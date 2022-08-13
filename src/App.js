@@ -48,7 +48,7 @@ function App() {
           <Route path='' element={<AdminHome HomeAdmin={HomeAdmin} />}/>
           <Route path='book/:id' element={<AdminBooK/>}/> 
           <Route path='user/:id' element={<AdminUser/>}/>
-        </Route>:<Route path='/layoutAdmin/' element={<div>FORBIDEN 404</div>}/>}
+        </Route>:role === 'loading' ? <Route path='/layoutAdmin/' element={<div></div>}/> : <Route path='/layoutAdmin/' element={<div className = 'grid h-screen place-content-center text-7xl text-center'><h1 >NO TIENES PERMISOS</h1><br></br><h1>PARA ACCEDER A</h1><br></br><h1>ESTE PATH</h1></div>}/>}
       </Routes>
     </div>
   );

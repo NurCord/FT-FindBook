@@ -9,7 +9,7 @@ let initialState = {
     bookById: {},
     year: [],
     name: '',
-    role: 'invalid'
+    role: 'loading'
 }
 
 export default function root(state = initialState, actions){

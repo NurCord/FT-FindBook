@@ -286,86 +286,87 @@ export default function CreatePost() {
                 <br></br>
                 <form onSubmit={e => handleFormSubmit (e)}> {/*FormContainer*/}
                     <div className = "flex justify-between mb-1 text-zinc-600"> {/*FormItem*/}
-                        <div>
+                        <div className = "flex items-center">
                             <label>Título:</label>
                             <label className = "text-orange-600 justify-self-center">{forbidden.name && forbidden.name}</label>
                         </div>
                         <input type = 'text' value = {form.name} name = 'name' onChange={e => handleFormChange (e)} className = "w-56 rounded-lg"/>
                     </div>
                     <div className = "flex justify-between mb-1 text-zinc-600"> {/*FormItem*/}
-                        <div>
+                        <div className = "flex items-center">
                             <label>Autor:</label>
                             <label className = "text-orange-600">{forbidden.author && forbidden.author}</label>
                         </div>
                         <input type = 'text' value = {form.author} name = 'author' onChange={e => handleFormChange (e)} className = "w-56 rounded-lg"/>
                     </div>
                     <div className = "flex justify-between mb-1 text-zinc-600"> {/*FormItem*/}
-                        <div>
+                        <div className = "flex items-center">
                             <label>Género(s):</label>
                             <label className = "text-orange-600">{forbidden.genre && forbidden.genre}</label>
                         </div>
                         {GenreSelector()}
                     </div>
                     <div className = "flex justify-between mb-1 text-zinc-600"> {/*FormItem text-slate-50*/}
-                        <div>
+                        <div className = "flex items-center">
                             <label>Categoría:</label>
                             <label className = "text-orange-600">{forbidden.category && forbidden.category}</label>
                         </div>
                         {CategorySelector()}
                     </div>
                     <div className = "flex justify-between mb-1 text-zinc-600"> {/*FormItem*/}
-                        <div>
+                        <div className = "flex items-center">
                             <label>Número de páginas:</label>
                             <label className = "text-orange-600">{forbidden.pages && forbidden.pages}</label>
                         </div>
                         <input type = 'text' value = {form.pages} name = 'pages' onChange={e => handleFormChange (e)} className = "w-56 rounded-lg"/>
                     </div>
                     <div className = "flex justify-between mb-1 text-zinc-600"> {/*FormItem*/}
-                        <div>
+                        <div className = "flex items-center">
                             <label>Editorial:</label>
                             <label className = "text-orange-600">{forbidden.publisher && forbidden.publisher}</label>
                         </div>
                         <input type = 'text' value = {form.publisher} name = 'publisher' onChange={e => handleFormChange (e)} className = "w-56 rounded-lg"/>
                     </div>
                     <div className = "flex justify-between mb-1 text-zinc-600"> {/*FormItem*/}
-                        <div>
+                        <div className = "flex items-center">
                             <label>Imagen o Portada:</label>
                             <label className = "text-orange-600 justify-self-center">{forbidden.image && forbidden.image}</label>
                         </div>
                         {/*value = {form.image}*/}
-                        <input type = 'file' name = 'file' accept = ".jpg, .jpeg, .png" onChange={ upLoadBookCover } className = "w-56 rounded-lg"/>
-
+                        <div className = "h-12 flex items-center">
+                            <input type = 'file' name = 'file' accept = ".jpg, .jpeg, .png" onChange={ upLoadBookCover } className = "w-56"/>
+                        </div>
                     </div>
                     <div className = "flex justify-between mb-1 text-zinc-600"> {/*FormItem*/}
-                        <div>
+                        <div className = "flex items-center">
                             <label>Puntaje:</label>
                             <label className = "text-orange-600">{forbidden.rating && forbidden.rating}</label>
                         </div>
                         {RatingSelector()}
                     </div>
                     <div className = "flex justify-between mb-1 text-zinc-600"> {/*FormItem*/}
-                        <div>
+                        <div className = "flex items-center">
                             <label>Precio:</label>
                             <label className = "text-orange-600">{forbidden.price && forbidden.price}</label>
                         </div>
                         <input type = 'text' value = {form.price} name = 'price' onChange={e => handleFormChange (e)} className = "w-56 rounded-lg"/>
                     </div>
                     <div className = "flex justify-between mb-1 text-zinc-600"> {/*FormItem*/}
-                        <div>
+                        <div className = "flex items-center">
                             <label>Fecha de publicación:</label>
                             <label className = "text-orange-600">{forbidden.released && forbidden.released}</label>
                         </div>
                         <input type = 'date' value = {form.released} name = 'released' onChange={e => handleFormChange (e)} className = "w-56 text-center rounded-lg text-slate-600"/>
                     </div>
                     <div className = "flex justify-between mb-1 text-zinc-600"> {/*FormItem*/}
-                        <div>
+                        <div className = "flex items-center">
                             <label>Idioma:</label>
                             <label className = "text-orange-600">{forbidden.language && forbidden.language}</label>
                         </div>
                         {LanguageSelector()}
                     </div>
                     <div className = "flex flex-col mb-1 text-zinc-600"> {/*FormItem*/}
-                        <div>
+                        <div className = "flex items-center pt-2">
                             <label className = "flex items-start">Descripción:</label>
                             <label className = "text-orange-600">{forbidden.description && forbidden.description}</label>
                         </div>
