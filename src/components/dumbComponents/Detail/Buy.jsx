@@ -3,13 +3,16 @@ import { useSelector } from 'react-redux';
 import { useNavigate } from 'react-router-dom';
 import Swal from 'sweetalert2';
 import { ButtonDetail } from './stayleComponentDetail';
-
+import { useDispatch } from 'react-redux';
+import { priceItem } from '../../../redux/actions/actionsShop';
 export default function Buy({ id }) {
 
   const [buy, SetBuy] = useState(false)
   const role = useSelector(state => state.root.role)
 
   const navigate = useNavigate()
+
+  const dispatch = useDispatch()
 
   const handleOnClick = (e) => {
     e.preventDefault();
@@ -28,8 +31,7 @@ export default function Buy({ id }) {
         }
       })
     } else {
-      // SetBuy(!buy)
-      console.log(buy)
+      dispatch(priceItem(parseInt(id)))
       navigate('/shop')
     }
   }

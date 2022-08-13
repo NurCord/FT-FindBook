@@ -8,7 +8,7 @@ import { useParams } from 'react-router-dom';
 import { getBookByID, getBooksGenres } from '../../../redux/actions/actions';
 import AddToList from './AddToList';
 import Buy from './Buy';
-import AddToCar from './AddToCar';
+import AddToCart from './AddToCart';
 
 export default function Detail() {
     let state = useSelector(s => s.root.bookById)
@@ -19,7 +19,6 @@ export default function Detail() {
     }, [])
 
     useEffect(() => {
-        console.log(state)
         if(state?.hasOwnProperty('generos')){
             dispatch(getBooksGenres(state?.generos[0]?.genre))
         }
@@ -49,7 +48,7 @@ export default function Detail() {
                         <div className='grid content-center grid-rows-3 rounded-md min-h-min min-w-min bg-cream-200 justify-items-center'>
                             <h1 className='m-auto'>US${state.price}</h1>                      
                             <Buy id={id}/>
-                            <AddToCar id={id}/>
+                            <AddToCart id={id}/>
                         </div>
                     </div>
                     <DivDetail>
