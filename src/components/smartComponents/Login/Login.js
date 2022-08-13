@@ -1,6 +1,6 @@
 import React, { useState } from 'react';
 import { useNavigate } from "react-router-dom";
-import { useDispatch } from "react-redux";
+import { useDispatch, useSelector } from "react-redux";
 import { registerUser, loginUser } from '../../../redux/actions/actions';
 import Swal from "sweetalert2";
 
@@ -47,6 +47,7 @@ let userState = {
 };
 
 export default function Login() {
+    let stateUser = useSelector(s => s.root.registerUserError)
     const [ showLogin, setShowLogin ] = useState(true);
     const [ showSignUp, setShowSignUp ] = useState(false);
     const dispatch = useDispatch();
@@ -115,7 +116,6 @@ export default function Login() {
                 confirmButtonText: 'Si, Confirmar!'
             }).then((result) => {
                 if (result.isConfirmed) {
-                    console.log(createUserForm)
                     dispatch(registerUser({
                         username: createUserForm.username,
                         email: createUserForm.mail,
@@ -124,12 +124,13 @@ export default function Login() {
                         name: createUserForm.name,
                         lastname: createUserForm.lastname
                     }));
+                    
                     setCreateUserForm(createUserState)
-                    Swal.fire(
-                        'Confirmar!',
-                        `Bienvenido ${createUserForm.username}`,
-                        'success'
-                    ).then(()=>window.location.reload())
+                    // Swal.fire(
+                    //     'Confirmar!',
+                    //     `Bienvenido ${createUserForm.username}`,
+                    //     'success'
+                    // )
                 }
             })
         }
