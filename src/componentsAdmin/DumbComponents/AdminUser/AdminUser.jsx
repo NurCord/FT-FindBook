@@ -7,7 +7,8 @@ import { UilArrowCircleLeft } from '@iconscout/react-unicons'
 import { useForm } from 'react-hook-form';
 import { yupResolver } from '@hookform/resolvers/yup';
 import * as yup from 'yup';
-//import img2 from '../../../assets/adminfondo2.jpg'
+import Swal from "sweetalert2";
+
 
 let array = [
   {
@@ -61,9 +62,9 @@ let array = [
 ]
 
 const schema = yup.object().shape({
-  name: yup.string().max(100).strict(),
-  surname: yup.string().max(100).strict(),
-  username: yup.string().max(100).strict(),
+  name: yup.string().max(100),
+  surname: yup.string().max(100),
+  username: yup.string().max(100),
 })
 
 export default function AdminUser() {
@@ -87,7 +88,35 @@ export default function AdminUser() {
   }
 
   function onSubmit(data){
-    console.log(data)
+    return Swal.fire({
+            title: 'Estas seguro?',
+            text: "No podrás revertirlo",
+            icon: 'warning',
+            showCancelButton: true,
+            confirmButtonColor: '#3085d6',
+            cancelButtonColor: '#d33',
+            confirmButtonText: 'Si, Confirmar!'
+        }).then((result) => {
+            if (result.isConfirmed) {
+                if(data.name === '' && data.surname === '' && data.username === ''){
+                  return Swal.fire(
+                    'No se encontraron cambios!',
+                    'El Usuario no fue modificado',
+                    'warning'
+                  )
+                }
+                if(data.name === '') delete data.name
+                if(data.surname === '') delete data.surname
+                if(data.username === '') delete data.username
+                setState('hidden')
+                console.log(data)
+                Swal.fire(
+                    'Confirmar!',
+                    `El Usuario fue modificado`,
+                    'success'
+                )
+            }
+        }) 
     //dispatch()
     //navigate('') 
   } 
@@ -118,7 +147,6 @@ export default function AdminUser() {
                       name='name' 
                       placeholder={`${user.name}...`}
                       {...register("name")} 
-                      isRigth={errors.name ? errors.name : false}
                       />
                 </div>
                 <div className='grid content-center grid-cols-3'>
@@ -130,7 +158,6 @@ export default function AdminUser() {
                       name='surname' 
                       placeholder={`${user.surname}...`}
                       {...register("surname")} 
-                      isRigth={errors.surname ? errors.surname : false}
                       />
                 </div>
                 <div className='grid content-center grid-cols-3'>
@@ -142,7 +169,6 @@ export default function AdminUser() {
                       name='nameUser' 
                       placeholder={`${user.nameUser}...`}
                       {...register("username")} 
-                      isRigth={errors.nameUser ? errors.nameUser : false}
                       />
                 </div>
                 <button type="submit" className='px-4 py-2 m-auto font-semibold duration-200 rounded-md bg-cream-100 hover:bg-greyBlack-400 hover:text-cream-100'>Confirmar</button>
