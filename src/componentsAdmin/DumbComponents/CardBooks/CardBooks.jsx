@@ -9,14 +9,18 @@ function CardUser({data}) {
   }
 
   return (
-    <div className="w-full max-w-sm duration-500 ease-in border rounded-lg shadow-md scale-70 bg-cream-300 border-cream-200 hover:scale-105">
-      <div className="flex flex-col items-center pb-10">
-          <img className="w-24 h-24 mt-6 mb-3 rounded-full shadow-lg" src={data.image} alt={data.name}/>
-          <h5 className="mb-1 text-xl font-medium text-white">{data.name}</h5>
-          <div className="flex mt-4 space-x-3 md:mt-6">
-            <button className='inline-flex items-center px-4 py-2 text-sm font-medium text-center text-gray-800 duration-300 rounded-lg bg-cream-100 hover:bg-gray-800 hover:text-cream-100' onClick={() => handleOnClick(data.id)}>Editar</button>
-            <button className='inline-flex items-center px-4 py-2 text-sm font-medium text-center duration-300 bg-gray-800 rounded-lg text-cream-200 hover:bg-cream-100 hover:text-gray-800 focus:ring-gray-800'>Eliminar</button>
+    <div className="max-w-sm duration-500 ease-in border rounded-lg shadow-md w-60 h-96 scale-70 bg-cream-300 border-cream-200 hover:scale-105">
+      <div className="grid content-center h-full grid-rows-2 justify-items-center">
+        <img className="h-48 col-span-1 mt-4 rounded-sm shadow-lg w-44" src={data.image} alt={data.name}/>
+        <div className="grid w-48 grid-cols-1 mt-4 h-36">
+          <div className='grid content-center'>
+            <h5 className="overflow-hidden text-base italic font-medium tracking-tight text-left text-white min-text-sm min-max-h-5 max-h-7">{data.name}</h5>
           </div>
+          <div className="grid grid-cols-2 gap-4 py-4">
+            <button className='items-center text-sm font-medium text-center text-gray-800 duration-300 rounded-lg bg-cream-100 hover:bg-gray-800 hover:text-cream-100' onClick={() => handleOnClick(data.id)}>Editar</button>
+            <button className='items-center text-sm font-medium text-center duration-300 bg-gray-800 rounded-lg i text-cream-200 hover:bg-cream-100 hover:text-gray-800 focus:ring-gray-800'>Eliminar</button>
+          </div>
+        </div>
       </div>
     </div>
   )
