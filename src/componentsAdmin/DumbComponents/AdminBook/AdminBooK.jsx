@@ -1,3 +1,4 @@
+/* eslint-disable use-isnan */
 import React, { useState } from 'react'
 import { useSelector } from 'react-redux';
 import { useParams } from 'react-router-dom';
@@ -6,18 +7,20 @@ import { UilArrowCircleLeft } from '@iconscout/react-unicons'
 import { useForm } from 'react-hook-form';
 import { yupResolver } from '@hookform/resolvers/yup';
 import * as yup from 'yup';
+import Swal from "sweetalert2";
+
 
 const schema = yup.object().shape({
-  name: yup.string().max(100).strict(),
-  author: yup.string().max(100).strict(),
-  category: yup.string().max(100).strict(),
-  pages: yup.number().strict(),
-  publisher: yup.string().max(100).strict(),
-  description: yup.string().max(2000).strict(),
-  image: yup.string().url().strict(),
-  price: yup.number().strict(),
-  released: yup.string().max(100).strict(),
-  language: yup.string().max(100).strict(),
+  name: yup.string().max(100),
+  author: yup.string().max(100),
+  category: yup.string().max(100),
+  pages: yup.number().transform((value) => (isNaN(value) ? undefined : value)).nullable(),
+  publisher: yup.string().max(100),
+  description: yup.string().max(2000),
+  image: yup.string().url('imagen incorrecta'),
+  price: yup.number().transform((value) => (isNaN(value) ? undefined : value)).nullable(),
+  released: yup.string().max(100),
+  language: yup.string().max(100),
 })
 
 const possibleGenres = [  
@@ -60,8 +63,47 @@ export default function AdminBooK() {
   }
 
   function onSubmit(data) {
-    //data.genres = genres   
-    console.log(data)
+    return Swal.fire({
+            title: 'Estas seguro?',
+            text: "No podrás revertirlo",
+            icon: 'warning',
+            showCancelButton: true,
+            confirmButtonColor: '#3085d6',
+            cancelButtonColor: '#d33',
+            confirmButtonText: 'Si, Confirmar!'
+        }).then((result) => {
+            if (result.isConfirmed) {
+                if(genres.length > 0 && data.name === '' && data.author === '' && data.category === '' 
+                && data.publisher === '' && data.description === '' && data.price === undefined
+                && data.pages === undefined && data.released === '' && data.image === ''
+                && data.language
+                ){
+                  return Swal.fire(
+                    'No se encontraron cambios!',
+                    'El Libro no fue modificado',
+                    'warning'
+                  )
+                }
+                if(genres.length > 0)data.genres = genres  
+                if(data.name === '') delete data.name
+                if(data.author === '') delete data.author
+                if(data.category === '') delete data.category
+                if(data.publisher === '') delete data.publisher
+                if(data.description === '') delete data.description
+                if(data.price === undefined) delete data.price
+                if(data.pages === undefined) delete data.pages
+                if(data.released === '') delete data.released
+                if(data.image === '') delete data.image
+                if(data.language === '') delete data.language
+                setState('hidden')
+                console.log(data)
+                Swal.fire(
+                    'Confirmar!',
+                    `El libro ${Book.name} fue modificado`,
+                    'success'
+                )
+            }
+        }) 
     //dispatch()
     //navigate('') 
   }
@@ -97,7 +139,6 @@ export default function AdminBooK() {
                     placeholder={`${Book.name}...`}
                     {...register("name")}
                   />
-                    { errors?.name && <p>{errors?.name}</p>}
                 </div>
                 <div className='grid content-center grid-cols-2'>
                   <label className='font-semibold place-self-center'>Autor:</label>
@@ -109,7 +150,6 @@ export default function AdminBooK() {
                     placeholder={`${Book.author}...`}
                     {...register("author")}
                   />
-                  { errors?.author && <p>{errors?.author}</p>}
                 </div>
                 <div className='grid content-center grid-cols-2'>
                   <label className='ml-6 font-semibold place-self-center'>Categoría:</label>
@@ -121,7 +161,6 @@ export default function AdminBooK() {
                     placeholder={`${Book.category}...`}
                     {...register("category")}
                   />
-                  { errors?.category && <p>{errors?.category}</p>}
                 </div>
                 <div className='grid content-center grid-cols-2'>
                   <label className='ml-6 font-semibold place-self-center'>Paginas:</label>
@@ -133,8 +172,6 @@ export default function AdminBooK() {
                     placeholder={`${Book.pages}...`}
                     {...register("pages")}
                   />
-                  { errors?.pages && <p>{errors?.pages}</p>}
-
                 </div>
                 <div className='grid content-center grid-cols-2'>
                   <label className='ml-6 font-semibold place-self-center'>Editorial:</label>
@@ -146,7 +183,6 @@ export default function AdminBooK() {
                     placeholder={`${Book.publisher}...`}
                     {...register("publisher")}
                   />
-                  { errors?.publisher && <p>{errors?.publisher}</p>}
                 </div>
               </div>
               <div className='grid grid-cols-1'>
@@ -160,7 +196,6 @@ export default function AdminBooK() {
                     placeholder={`${Book.description}...`}
                     {...register("description")}
                   />
-                  { errors?.description && <p>{errors?.description}</p>}
                 </div>
                 <div className='grid content-center grid-cols-2'>
                   <label className='ml-6 font-semibold place-self-center'>Imágen:</label>
@@ -172,7 +207,7 @@ export default function AdminBooK() {
                     placeholder={`${Book.image}...`}
                     {...register("image")}
                   />
-                  { errors?.image && <p>{errors?.image}</p>}
+                  {errors?.image && <p>{errors?.image.message}</p>}
                 </div>
                 <div className='grid content-center grid-cols-2'>
                   <label className='ml-6 font-semibold place-self-center'>Precio:</label>
@@ -184,7 +219,6 @@ export default function AdminBooK() {
                     placeholder={`${Book.price}...`}
                     {...register("price")}
                   />
-                  { errors?.price && <p>{errors?.price}</p>}
                 </div>
                 <div className='grid content-center grid-cols-2'>
                   <label className='ml-6 font-semibold place-self-center'>Publición:</label>
@@ -196,7 +230,6 @@ export default function AdminBooK() {
                     placeholder={`${Book.released}...`}
                     {...register("released")}
                   />
-                  { errors?.released && <p>{errors?.released}</p>}
                 </div>
                 <div className='grid content-center grid-cols-2'>
                   <label className='ml-6 font-semibold place-self-center'>Idioma:</label>
@@ -208,20 +241,19 @@ export default function AdminBooK() {
                     placeholder={`${Book.language}...`}
                     {...register("language")}
                   />
-                  { errors?.language && <p>{errors?.language}</p>}
                 </div>
                 <div className='grid content-center grid-cols-1 justify-items-center'>
                 <select multiple name='genre' className="w-56 h-10 text-center align-top rounded-lg text-slate-600 focus:h-auto" onChange = {(e) => handleSelectGenre(e)}>
                     <option value="disabled">--Genero--</option>
                     {
-                        possibleGenres.map((gen, i)  => ( <option key = {i} value = {gen}>{gen}</option> ))
+                        possibleGenres.map((gen, i)  => ( <option key={i} value={gen}>{gen}</option> ))
                     }
                 </select>
                 <div className = "flex flex-col items-center">
                     {
-                        genres?.map((gen, i) => 
-                            <div key = {i} className = "flex items-center py-1 no-underline text-slate-400">
-                                <p>Añadido: &nbsp;{gen}&nbsp;</p>{<button className = 'px-1 border rounded-lg bg-stone-100' onClick = {(e) => handleDeleteGenre(gen, e)}>&nbsp;Borrar</button>}
+                      genres.length > 0 && genres?.map((gen, i) => 
+                            <div key={i} className="flex items-center py-1 no-underline text-slate-400">
+                                <p>Añadido: &nbsp;{gen}&nbsp;</p>{<button className ='px-1 border rounded-lg bg-stone-100' onClick={(e) => handleDeleteGenre(gen, e)}>&nbsp;Borrar</button>}
                             </div>
                         )
                     }
