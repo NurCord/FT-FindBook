@@ -3,7 +3,7 @@ import { useDispatch, useSelector } from 'react-redux'
 import { useNavigate } from 'react-router-dom'
 import Swal from 'sweetalert2'
 import { ButtonDetail } from './stayleComponentDetail'
-import { addToCart } from '../../../redux/actions/actions'
+import { addToCart } from '../../../redux/actions/actionsShop'
 
 export default function AddToCart({ id }) {
     const role = useSelector(state => state.root.role)
