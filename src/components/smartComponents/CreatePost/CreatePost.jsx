@@ -9,10 +9,9 @@ import Swal from "sweetalert2";
 
 // lógica validación
 function validator(form) {
-    // const re = /^https?:\/\/[\w\-]+(\.[\w\-]+)+[/#?]?.*$/;
-    const re = /^https?:\/\/[\w-]+(\.[\w-]+)+[/#?]?.*$/;
+    // const re = /^https?:\/\/[\w-]+(\.[\w-]+)+[/#?]?.*$/;
     let forbidden = {};
-    let imageValidator = re.test(form.image)
+    // let imageValidator = re.test(form.image)
     Object.keys(form).forEach(property => {
         if (!form[property]) {
             forbidden.title = `Todos los campos son obligatorios`;
@@ -24,7 +23,7 @@ function validator(form) {
     else if (Number(form.pages) < 0) forbidden.pages = 'Número de páginas debe ser un número positivo';
     else if (!Number.isInteger(Number(form.pages))) forbidden.pages = 'Número de páginas debe ser un número entero';
     if (form.description.length > 2000) forbidden.description = 'La descripción es muy larga';
-    if (form.image.length > 0 && !imageValidator) forbidden.image = 'Enlace URL imagen inválido';
+    // if (form.image.length > 0 && !imageValidator) forbidden.image = 'Enlace URL imagen inválido';
     if (form.rating.length === 0) forbidden.rating = '';
     if (isNaN(form.price)) forbidden.price = 'Precio debe ser un número';
     else if (Number(form.price) < 0) forbidden.price = 'Precio debe ser un número positivo';
@@ -72,6 +71,31 @@ export default function CreatePost() {
     });
     const [ forbidden, setForbidden ] = useState({});
 
+    // lógica cargue de portada de libro
+    const [ bookCover, setBookCover ] = useState('');
+    const [ loadingBookCover, setLoadingBookCover ] = useState(false);
+    const upLoadBookCover = async (e) => {
+        const files = e.target.files;
+        const data = new FormData();
+        data.append('file', files[0]);
+        data.append('upload_preset', 'findbookpreset');
+        setLoadingBookCover(true);
+        const res = await fetch(
+            'https://api.cloudinary.com/v1_1/findbookcloud/image/upload',
+            {
+                method: 'POST',
+                body: data,
+            }
+        );
+        const file = await res.json();
+        setBookCover(file.secure_url);
+        setForm({
+            ...form,
+            image: file.secure_url
+        })
+        setLoadingBookCover(false);
+    }
+
     // lógica posteo
     function handleSelectCategory (e) {
         if (e.target.value !== 'disabled' && !form.category.includes(e.target.value)) {
@@ -79,7 +103,7 @@ export default function CreatePost() {
                 ...form,
                 category: [e.target.value]
             })
-        }    
+        }
     }
 
     function handleSelectRating (e) {
@@ -88,7 +112,7 @@ export default function CreatePost() {
                 ...form,
                 rating: [e.target.value]
             })
-        }    
+        }
     }
 
     function handleSelectLanguage (e) {
@@ -97,7 +121,7 @@ export default function CreatePost() {
                 ...form,
                 language: [e.target.value]
             })
-        }    
+        }
     }
 
     function handleSelectGenre (e) {
@@ -106,7 +130,7 @@ export default function CreatePost() {
                 ...form,
                 genre: [...form.genre, e.target.value]
             })
-        }    
+        }
     }
 
     function handleDeleteGenre (toDelete, e) {
@@ -126,7 +150,7 @@ export default function CreatePost() {
             ...form,
             [e.target.name]: e.target.value
         }))
-    }; 
+    };
     function handleFormSubmit (e) {
         setForbidden(validator(form))
         e.preventDefault();
@@ -135,7 +159,7 @@ export default function CreatePost() {
                 icon: 'error',
                 title: 'Oops...',
                 text: 'Todos los campos son obligatorios!',
-              })
+            })
         }
         return Swal.fire({
             title: 'Estas seguro?',
@@ -145,7 +169,7 @@ export default function CreatePost() {
             confirmButtonColor: '#3085d6',
             cancelButtonColor: '#d33',
             confirmButtonText: 'Si, Confirmar!'
-          }).then((result) => {
+        }).then((result) => {
             if (result.isConfirmed) {
                 form.category = form.category[0];
                 form.pages = Number(form.pages);
@@ -153,7 +177,6 @@ export default function CreatePost() {
                 form.price = Number(form.price);
                 form.released = form.released + '';
                 form.language = form.language[0];
-                console.log(form)
                 dispatch(postBook(form));
                 setForm(state)
                 navigate('/');
@@ -163,13 +186,9 @@ export default function CreatePost() {
                     'success'
                 )
             }
-          })
+        })
     }
-    // useEffect(() => {
-    //     dispatch(getGenres());
-    // }, []);
-    
-    // Selectores
+
     function RatingSelector() {
         const possibleRatings = [1, 2, 3, 4, 5];
         return (
@@ -179,7 +198,6 @@ export default function CreatePost() {
                     {
                         possibleRatings.map(r  => ( <option key = {r} value = {r}>{r}</option> ))
                     }
-                    {/* <input type = 'text' value = {form.rating} name = 'rating'/> */}
                 </select>
                 <div>
                     {form.rating &&
@@ -200,7 +218,6 @@ export default function CreatePost() {
                     {
                         possibleCategories.map((cat, i)  => ( <option key = {i} value = {cat}>{cat}</option> ))
                     }
-                    {/* <input type = 'text' value = {form.category} name = 'category'/> */}
                 </select>
                 <div>
                 {form.category &&
@@ -221,7 +238,6 @@ export default function CreatePost() {
                     {
                         possibleLanguages.map((lang, i)  => ( <option key = {i} value = {lang}>{lang}</option> ))
                     }
-                    {/* <input type = 'text' value = {form.language} name = 'language'/> */}
                 </select>
                 <div className = "flex justify-center">
                     {form.language &&
@@ -234,10 +250,10 @@ export default function CreatePost() {
     }
 
     function GenreSelector() {
-        const possibleGenres = [  
-            'arte', 'anime', 'biografía', 'biología', 'comic', 'comida', 
-            'computación', 'deporte', 'derecho', 'economía', 'estudio', 'ficción', 
-            'historia', 'humor', 'infantil', 'juvenil', 'matemática', 'medicina', 
+        const possibleGenres = [
+            'arte', 'anime', 'biografía', 'biología', 'comic', 'comida',
+            'computación', 'deporte', 'derecho', 'economía', 'estudio', 'ficción',
+            'historia', 'humor', 'infantil', 'juvenil', 'matemática', 'medicina',
             'novela', 'ocio - tiempo libre', 'política', 'salud - desarrollo personal', 'tecnología', 'terror'
         ];
         return (
@@ -247,7 +263,6 @@ export default function CreatePost() {
                     {
                         possibleGenres.map((gen, i)  => ( <option key = {i} value = {gen}>{gen}</option> ))
                     }
-                    {/* <input type = 'text' value = {form.genre} name = 'genre'/> */}
                 </select>
                 <div className = "flex flex-col items-center">
                     {
@@ -264,7 +279,7 @@ export default function CreatePost() {
 
     // Renderizar formulario
     if(role !== "invalid"){
-       return (
+    return (
         <div className = "flex flex-col items-center justify-center h-full mt-8 text-center"> {/*Container*/}
             <div className = "w-2/3 px-20 rounded bg-cream-100"> {/*Background bg-slate-900*/}
                 <h1 className = "pt-5 text-lg text-zinc-600">PUBLICA TU LIBRO PARA VENTA</h1>
@@ -310,14 +325,16 @@ export default function CreatePost() {
                             <label>Editorial:</label>
                             <label className = "text-orange-600">{forbidden.publisher && forbidden.publisher}</label>
                         </div>
-                        <input type = 'text' value = {form.publisher} name = 'publisher' onChange={e => handleFormChange (e)} className = "w-56 rounded-lg"/> 
+                        <input type = 'text' value = {form.publisher} name = 'publisher' onChange={e => handleFormChange (e)} className = "w-56 rounded-lg"/>
                     </div>
                     <div className = "flex justify-between mb-1 text-zinc-600"> {/*FormItem*/}
                         <div>
                             <label>Imagen o Portada:</label>
                             <label className = "text-orange-600 justify-self-center">{forbidden.image && forbidden.image}</label>
                         </div>
-                        <input type = 'text' value = {form.image} name = 'image' onChange={e => handleFormChange (e)} className = "w-56 rounded-lg"/>
+                        {/*value = {form.image}*/}
+                        <input type = 'file' name = 'file' accept = ".jpg, .jpeg, .png" onChange={ upLoadBookCover } className = "w-56 rounded-lg"/>
+
                     </div>
                     <div className = "flex justify-between mb-1 text-zinc-600"> {/*FormItem*/}
                         <div>
@@ -358,13 +375,6 @@ export default function CreatePost() {
                         {
                             forbidden.title && ( <p key = 'title' className = "flex text-orange-600">{forbidden.title}</p> )
                         }
-                        {/* {
-                            Object.keys(forbidden).map((oneKey, i) => {
-                                return (
-                                    forbidden[oneKey] && ( <p key = {i} className = "flex text-orange-600">{forbidden[oneKey]}</p> )
-                                )
-                            })
-                        } */}
                     </div>
                     <br></br>
                     <br></br>
@@ -384,11 +394,11 @@ export default function CreatePost() {
                                 <button className = "px-4 py-1 font-medium no-underline w-60 text-neutral-900 rounded-2xl bg-stone-400 hover:text-white hover:border-solid hover:border-slate-50 hover:bg-stone-400">Cancelar {'&'} Volver</button>
                             </Link>
                         </div>
-                    </div>                    
+                    </div>
                 </form>
-            </div>            
+            </div>
         </div>
-    ) 
+    )
     }else{
         Swal.fire({
             title: 'Debes estar conectado',
@@ -403,7 +413,5 @@ export default function CreatePost() {
                 navigate("/login")
             }
         })
-        
     }
-    
 }
