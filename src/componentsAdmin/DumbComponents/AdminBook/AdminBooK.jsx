@@ -1,6 +1,6 @@
 /* eslint-disable use-isnan */
 import React, { useState } from 'react'
-import { useSelector } from 'react-redux';
+import { useDispatch, useSelector } from 'react-redux';
 import { useParams } from 'react-router-dom';
 import { UilEditAlt } from '@iconscout/react-unicons'
 import { UilArrowCircleLeft } from '@iconscout/react-unicons'
@@ -13,14 +13,13 @@ import Swal from "sweetalert2";
 const schema = yup.object().shape({
   name: yup.string().max(100),
   author: yup.string().max(100),
-  category: yup.string().max(100),
-  pages: yup.number().transform((value) => (isNaN(value) ? undefined : value)).nullable(),
+  category: yup.string(),
+  pages: yup.number().transform((value) => (isNaN(value) ? undefined : value)).nullable().min(0),
   publisher: yup.string().max(100),
   description: yup.string().max(2000),
-  image: yup.string().url('imagen incorrecta'),
-  price: yup.number().transform((value) => (isNaN(value) ? undefined : value)).nullable(),
-  released: yup.string().max(100),
-  language: yup.string().max(100),
+  price: yup.number().transform((value) => (isNaN(value) ? undefined : value)).nullable().min(0),
+  released: yup.string(),
+  language: yup.string(),
 })
 
 const possibleGenres = [  
@@ -29,14 +28,40 @@ const possibleGenres = [
             'historia', 'humor', 'infantil', 'juvenil', 'matemática', 'medicina', 
             'novela', 'ocio - tiempo libre', 'política', 'salud - desarrollo personal', 'tecnología', 'terror'
         ];
+const possibleCategories = ['todos', '12+', '16+', '18+', 'sin clasificación'];
+const possibleLanguages = ['español', 'inglés', 'otro'];
+
 
 export default function AdminBooK() {
   let { id } = useParams()
   let [state, setState] = useState('hidden')
   const [genres, setGenres] = useState([])
- 
-  /* let navigate = useNavigate()
-  let dispatch = useDispatch() */
+  
+  let image = '';
+
+  //let dispatch = useDispatch() 
+
+  const [ bookCover, setBookCover ] = useState('');
+  const [ loadingBookCover, setLoadingBookCover ] = useState(false);
+
+  const upLoadBookCover = async (e) => {
+          const files = e.target.files;
+          const data = new FormData();
+          data.append('file', files[0]);
+          data.append('upload_preset', 'findbookpreset');
+          setLoadingBookCover(true);
+          const res = await fetch(
+              'https://api.cloudinary.com/v1_1/findbookcloud/image/upload',
+              {
+                  method: 'POST',
+                  body: data,
+              }
+          );
+          const file = await res.json();
+          setBookCover(file.secure_url);
+          image = file.secure_url
+          setLoadingBookCover(false);
+      }
   
     const { register, handleSubmit, formState: { errors } } = useForm({
       resolver: yupResolver(schema),
@@ -55,7 +80,6 @@ export default function AdminBooK() {
 
   let handleHidden = () => {
     setState(state === 'hidden' ? '' : 'hidden')
-    console.log(state);
   }
 
   const handleOnClick = () => {
@@ -72,29 +96,22 @@ export default function AdminBooK() {
             cancelButtonColor: '#d33',
             confirmButtonText: 'Si, Confirmar!'
         }).then((result) => {
+              data.image = image
+              data.genres = genres
+              let values = Object.values(data)
             if (result.isConfirmed) {
-                if(genres.length > 0 && data.name === '' && data.author === '' && data.category === '' 
-                && data.publisher === '' && data.description === '' && data.price === undefined
-                && data.pages === undefined && data.released === '' && data.image === ''
-                && data.language
+                if(values.filter(e => e === '').length === 6 && 
+                data.price === undefined && data.pages === undefined && 
+                values.filter(e => e === "disable").length === 2 &&
+                data.genres.length === 0
                 ){
+                  setState('hidden')
                   return Swal.fire(
                     'No se encontraron cambios!',
                     'El Libro no fue modificado',
                     'warning'
                   )
                 }
-                if(genres.length > 0)data.genres = genres  
-                if(data.name === '') delete data.name
-                if(data.author === '') delete data.author
-                if(data.category === '') delete data.category
-                if(data.publisher === '') delete data.publisher
-                if(data.description === '') delete data.description
-                if(data.price === undefined) delete data.price
-                if(data.pages === undefined) delete data.pages
-                if(data.released === '') delete data.released
-                if(data.image === '') delete data.image
-                if(data.language === '') delete data.language
                 setState('hidden')
                 console.log(data)
                 Swal.fire(
@@ -153,14 +170,15 @@ export default function AdminBooK() {
                 </div>
                 <div className='grid content-center grid-cols-2'>
                   <label className='ml-6 font-semibold place-self-center'>Categoría:</label>
-                  <input
+                  <select 
                     className='m-4 rounded-md bg-cream-100'
-                    key='category'
-                    type='text'
-                    name='category'
-                    placeholder={`${Book.category}...`}
                     {...register("category")}
-                  />
+                    > 
+                    <option value='disable'>--Seleccionar--</option>
+                    {
+                        possibleCategories.map((cat, i)  => ( <option key={i} value={cat}>{cat}</option> ))
+                    }
+                  </select>  
                 </div>
                 <div className='grid content-center grid-cols-2'>
                   <label className='ml-6 font-semibold place-self-center'>Paginas:</label>
@@ -199,15 +217,7 @@ export default function AdminBooK() {
                 </div>
                 <div className='grid content-center grid-cols-2'>
                   <label className='ml-6 font-semibold place-self-center'>Imágen:</label>
-                  <input
-                    className='m-4 rounded-md bg-cream-100'
-                    key='image'
-                    type='text'
-                    name='image'
-                    placeholder={`${Book.image}...`}
-                    {...register("image")}
-                  />
-                  {errors?.image && <p>{errors?.image.message}</p>}
+                    <input type='file' name='file' accept=".jpg, .jpeg, .png" onChange={ upLoadBookCover } className='w-40 m-auto'/>
                 </div>
                 <div className='grid content-center grid-cols-2'>
                   <label className='ml-6 font-semibold place-self-center'>Precio:</label>
@@ -225,7 +235,7 @@ export default function AdminBooK() {
                   <input
                     className='m-4 rounded-md bg-cream-100'
                     key='released'
-                    type='text'
+                    type='date'
                     name='released'
                     placeholder={`${Book.released}...`}
                     {...register("released")}
@@ -233,18 +243,18 @@ export default function AdminBooK() {
                 </div>
                 <div className='grid content-center grid-cols-2'>
                   <label className='ml-6 font-semibold place-self-center'>Idioma:</label>
-                  <input
+                  <select 
                     className='m-4 rounded-md bg-cream-100'
-                    key='language'
-                    type='text'
-                    name='language'
-                    placeholder={`${Book.language}...`}
-                    {...register("language")}
-                  />
+                    {...register("language")}>
+                    <option value='disable'>--Seleccionar--</option>
+                    {
+                      possibleLanguages.map((lang, i)  => ( <option key={i} value={lang}>{lang}</option> ))
+                    }
+                  </select>
                 </div>
                 <div className='grid content-center grid-cols-1 justify-items-center'>
                 <select multiple name='genre' className="w-56 h-10 text-center align-top rounded-lg text-slate-600 focus:h-auto" onChange = {(e) => handleSelectGenre(e)}>
-                    <option value="disabled">--Genero--</option>
+                    <option disabled={true}>--Genero--</option>
                     {
                         possibleGenres.map((gen, i)  => ( <option key={i} value={gen}>{gen}</option> ))
                     }
@@ -270,12 +280,12 @@ export default function AdminBooK() {
           <img src={Book?.image} alt='Not found' className='col-span-1 duration-500 ease-in rounded-md h-80 top-48 left-16 scale-70 hover:scale-105' />
           <div className='col-span-2 mr-12'>
               <h1 className='font-semibold'>Descripción: </h1>
-              <h2 className='pr-2 text-justify columns-2'>{Book?.description}</h2>
+              <h2 className='pr-2 overflow-hidden text-base tracking-tight text-justify max-h-80 columns-2'>{Book?.description}</h2>
           </div>
         </div>
 
-        <div className='grid content-center py-6 mt-10 justify-items-center bg-zinc-300'>
-          <div className='grid grid-cols-2 gap-52'>
+        <div className='grid content-center p-6 mt-10 justify-items-center bg-zinc-300'>
+          <div className='grid grid-cols-2 gap-20'>
             <div>
               <div className='grid grid-cols-2'>
                 <h1 className='font-semibold'>Nombre: </h1>
@@ -317,7 +327,9 @@ export default function AdminBooK() {
               </div>
               <div className='grid grid-cols-2'>
                 <h1 className='font-semibold'>Generos: </h1>
-                {Book?.generos?.map(g => { return <h2>{g.genre}</h2> })}
+                <div className='flex'>
+                  {Book?.generos?.map(g => { return <h2 className='mr-2'>{g.genre}</h2> })}
+                </div>
               </div>
             </div>
           </div>

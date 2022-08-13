@@ -99,6 +99,7 @@ export default function AdminUser() {
         }).then((result) => {
             if (result.isConfirmed) {
                 if(data.name === '' && data.surname === '' && data.username === ''){
+                  setState('hidden')
                   return Swal.fire(
                     'No se encontraron cambios!',
                     'El Usuario no fue modificado',
