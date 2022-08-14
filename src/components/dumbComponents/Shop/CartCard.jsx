@@ -1,14 +1,32 @@
 import React from 'react'
 import { useDispatch } from 'react-redux'
 import { Link } from 'react-router-dom'
-import { deleteCartBook } from '../../../redux/actions/actionsShop'
+import { deleteCartBook, userCart } from '../../../redux/actions/actionsShop'
+import Swal from 'sweetalert2'
 
 
 export default function CartCard({ id, name, author, image, price, language}) {
   const dispatch = useDispatch();
 
   const handleOnClick = () => {
-    dispatch(deleteCartBook(id))
+    Swal.fire({
+      title: '¿Estás seguro?',
+      text: "El libro será eliminado ",
+      icon: 'warning',
+      showCancelButton: true,
+      confirmButtonColor: '#3085d6',
+      cancelButtonColor: '#d33',
+      confirmButtonText: 'Sí'
+    }).then((result) => {
+      if (result.isConfirmed) {
+        dispatch(deleteCartBook(id)) 
+        return Swal.fire(
+          'Eliminado!',
+          'El libro ha sido retirado de tu carrito',
+          'success'
+          )
+      }
+    }).then(() => dispatch(userCart()))
   }
 
   return (
@@ -29,7 +47,7 @@ export default function CartCard({ id, name, author, image, price, language}) {
                 {language}
               </span>
               <div>
-                <button onClick={handleOnClick}>Quitar del carrito</button>
+                <button className = 'px-1 py-1 font-medium text-xs no-underline w-30 text-neutral-900 rounded-2xl bg-stone-400 hover:text-white hover:border-solid hover:border-slate-50 hover:bg-red-500' onClick={handleOnClick}>Quitar del carrito</button>
               </div>
             </div>
           </div> 
