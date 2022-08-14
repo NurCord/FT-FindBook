@@ -2,9 +2,10 @@ import React, {useEffect, useState} from "react";
 import { useSelector } from "react-redux";
 import { Link, useNavigate } from "react-router-dom";
 import Swal from "sweetalert2";
-import { sumCountItem, lessCountItem } from "../../../redux/actions/actionsShop";
+import { sumCountItem, lessCountItem, userCart } from "../../../redux/actions/actionsShop";
 import { userRole } from "../../../redux/actions/actions";
 import { useDispatch } from "react-redux";
+import CartCards from "./CartCards";
 
 export default function Shop() {
   const role = useSelector(state => state.root.role);
@@ -12,71 +13,25 @@ export default function Shop() {
   const [cantidad, setCantidad] = useState({})
 
   let dispatch = useDispatch()
-
-  useEffect(()=>{
-    dispatch(userRole())
-  }, [])
-
-  function handlerOnSum(){
-    dispatch(sumCountItem())
-  }
-
+  useEffect(() => {
+    dispatch(userCart())
+  },[])
   
-  function handlerOnLess(){
-    if(count > 0){
-      dispatch(lessCountItem())
-    }
-  }
-  
-  const onChange = () => {
-    console.log('info actualizada')
-  }
   const navigate = useNavigate();
-  if(role !== "invalid"){
+  if(role === "user" || role === "admin"){
     //<CartCards books={cartBooks} cantidad={cantidad} /> => a renderizar books.length(si hay libros en el array) mapear <card id:{id} name.... imagen..... price... cantidad={cantidad}/>
     return (
     <div>
       <div className="h-screen bg-gray-300">
         <div className="py-12">
-          { cartBooks.length ? <div className="max-w-md mx-auto bg-gray-100 shadow-lg rounded-lg  md:max-w-5xl">
+          { cartBooks.length ? 
+          <div className="max-w-md mx-auto bg-gray-100 shadow-lg rounded-lg  md:max-w-5xl">
             <div className="md:flex ">
               <div className="w-full p-4 px-5 py-5">
                 <div className="md:grid md:grid-cols-3 gap-2 ">
                   <div className="col-span-2 p-5">
                     <h1 className="text-xl font-medium ">Tu carrito</h1>
-                    <div className="flex justify-between items-center mt-6 pt-6">
-                      <div className="flex  items-center">
-                        <img src={book?.image} alt='Img Producto' width="60" className="rounded-full " />
-                        <div className="flex flex-col ml-3">
-                          <span className="md:text-md font-medium">
-                            {book?.name}
-                          </span>
-                          <span className="text-xs font-light text-gray-400">
-                            {book?.author}
-                          </span>
-                        </div>
-                      </div> 
-                      <div className="flex justify-center items-center">
-                        <div className="pr-8 flex ">
-                        <button onClick={() => handlerOnLess()} className="font-semibold">-</button>
-                          <input
-                            type="number"
-                            className="focus:outline-none bg-gray-100 border h-6 w-8 rounded text-sm px-2 mx-2"
-                            value={cantidad}
-                            min="1"
-                            max="10"
-                            onChange={onChange}
-                          />
-                          <button onClick={() => handlerOnSum()} className="font-semibold">+</button>
-                        </div>
-                        <div className="pr-8 ">
-                          <span className="text-xs font-medium">{price}</span>
-                        </div>
-                        <div>
-                          <i className="fa fa-close text-xs font-medium"></i>
-                        </div>
-                      </div>
-                    </div>
+                    <CartCards books={cartBooks} cantidad={cantidad}/>
                     <div className="flex justify-between items-center mt-6 pt-6 border-t">
                       <div className="flex items-center">
                         <i className="fa fa-arrow-left text-sm pr-2"></i>
@@ -90,7 +45,6 @@ export default function Shop() {
                         </span>
                         <span className="text-lg font-bold text-gray-800 ">
                           {" "}
-                          US${price}
                         </span>
                       </div>
                     </div>
