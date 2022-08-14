@@ -67,7 +67,8 @@ export let getGenres = ()=> async(dispatch)=>{
 
 export let getYears = () => async(dispatch)=>{
     try {
-        let getyears = (await axios.get(`/books?size=57`)).data;
+        const totalBooks = (await axios.get(`/books?size=1`)).data.totalBooks;
+        let getyears = (await axios.get(`/books?size=${totalBooks}`)).data;
         dispatch({
             type: GET_YEARS,
             payload: getyears.content
@@ -78,7 +79,8 @@ export let getYears = () => async(dispatch)=>{
 }
 
 export let getBooksByYears = (yearsToFilter) => async (dispatch) =>{
-    let getAllBooks = (await axios.get(`/books?size=57`)).data;
+    const totalBooks = (await axios.get(`/books?size=1`)).data.totalBooks;
+    let getAllBooks = (await axios.get(`/books?size=${totalBooks}`)).data;
     let filterBooks = [];
     let yearsToNumber = yearsToFilter.split('-').map(y => Number(y));
     for (let i = 0; i < getAllBooks.content.length; i++) {
@@ -86,7 +88,6 @@ export let getBooksByYears = (yearsToFilter) => async (dispatch) =>{
             filterBooks.push(getAllBooks.content[i]);
         }
     }
-    
     return dispatch({
         type: GET_BOOKS_BY_YEARS,
         payload: {filterBooks, yearsToFilter}
