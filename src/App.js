@@ -20,6 +20,7 @@ import Layout from './components/dumbComponents/Layout/Layout';
 import LayoutAdmin from './componentsAdmin/DumbComponents/LayoutAdmin/LayoutAdmin';
 import loading from './assets/loading.gif';
 import Payment from './components/dumbComponents/Shop/Payment';
+import NoMatch from './components/dumbComponents/NoMatch/NoMatch.jsx';
 
 function App() {
   let dispatch = useDispatch()
@@ -48,13 +49,14 @@ function App() {
           <Route path='contacto/agradecimiento' element={<ThanksPage/>}/>
           <Route path='busqueda/:name' element={<SearchByName/>}/>
           <Route path='categoria/:genre' element={<SearchByCategory/>}/>
-          <Route path='released/:date' element={<SearchByReleased/>}/>
+          <Route path='released/:date' element={<SearchByReleased/>}/>          
         </Route>
         {role === 'admin'?<Route path='/layoutAdmin/' element={<LayoutAdmin SetHomeAdmin={SetHomeAdmin} />}>
           <Route path='' element={<AdminHome HomeAdmin={HomeAdmin} />}/>
           <Route path='book/:id' element={<AdminBooK/>}/> 
           <Route path='user/:id' element={<AdminUser/>}/>
         </Route>:<Route path='/layoutAdmin/*' element={<div className = 'grid h-screen place-content-center text-7xl text-center'><h1 >NO TIENES PERMISOS</h1><br></br><h1>PARA ACCEDER A</h1><br></br><h1>ESTE PATH</h1></div>}/>}
+        <Route path="*" element={<NoMatch />} />
       </Routes>
     </div>
   );
