@@ -2,24 +2,25 @@ import React, {useEffect, useState} from "react";
 import { useSelector } from "react-redux";
 import { Link, useNavigate } from "react-router-dom";
 import Swal from "sweetalert2";
-import { sumCountItem, lessCountItem, userCart } from "../../../redux/actions/actionsShop";
-import { userRole } from "../../../redux/actions/actions";
 import { useDispatch } from "react-redux";
 import CartCards from "./CartCards";
 
 export default function Shop() {
   const role = useSelector(state => state.root.role);
   const cartBooks = useSelector(state => state.shop.cartBooks)
-  const [cantidad, setCantidad] = useState({})
 
   let dispatch = useDispatch()
+  
   useEffect(() => {
     dispatch(userCart())
-  },[])
+  },[dispatch, cartBooks])
   
   const navigate = useNavigate();
+
+  const handleOnClick = () => {
+    navigate("/payment")
+  }
   if(role === "user" || role === "admin"){
-    //<CartCards books={cartBooks} cantidad={cantidad} /> => a renderizar books.length(si hay libros en el array) mapear <card id:{id} name.... imagen..... price... cantidad={cantidad}/>
     return (
     <div>
       <div className="h-screen bg-gray-300">
@@ -31,26 +32,18 @@ export default function Shop() {
                 <div className="md:grid md:grid-cols-3 gap-2 ">
                   <div className="col-span-2 p-5">
                     <h1 className="text-xl font-medium ">Tu carrito</h1>
-                    <CartCards books={cartBooks} cantidad={cantidad}/>
+                    <CartCards books={cartBooks}/>
                     <div className="flex justify-between items-center mt-6 pt-6 border-t">
                       <div className="flex items-center">
                         <i className="fa fa-arrow-left text-sm pr-2"></i>
                         <span className="text-md  font-medium text-blue-500">
-                          <Link to={"/"}>Continua comprando</Link>
-                        </span>
-                      </div>
-                      <div className="flex justify-center items-end">
-                        <span className="text-sm font-medium text-gray-400 mr-1">
-                          Subtotal:
-                        </span>
-                        <span className="text-lg font-bold text-gray-800 ">
-                          {" "}
+                          <Link to={"/"}>Continuar mirando libros</Link>
                         </span>
                       </div>
                     </div>
                   </div>
-                    <button className="h-12 w-full bg-blue-500 rounded focus:outline-none text-white hover:bg-blue-600">
-                      Pagar
+                    <button onClick={handleOnClick} className="h-12 w-full bg-blue-500 rounded focus:outline-none text-white hover:bg-blue-600">
+                      Comprar
                     </button>
                 </div>
               </div>

@@ -1,7 +1,7 @@
 import React from 'react'
 import CartCard from './CartCard'
 
-export default function CartCards({ books, cantidad}) {
+export default function CartCards({ books }) {
   return (
     <div>
         {books && books?.map(book => {
@@ -12,7 +12,8 @@ export default function CartCards({ books, cantidad}) {
                 image={book.image}
                 author={book.author}
                 price={book.price}
-                cantidad={cantidad}/>
+                language={book.language}
+                />
         })
         }
     </div>

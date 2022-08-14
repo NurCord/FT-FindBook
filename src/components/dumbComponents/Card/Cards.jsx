@@ -3,6 +3,7 @@ import { useDispatch } from 'react-redux'
 import { useNavigate } from "react-router-dom"
 import Swal from 'sweetalert2'
 import { getBookByName, getBookByID } from '../../../redux/actions/actions'
+import { addToCart } from '../../../redux/actions/actionsShop.js'
 
 export default function Cards({ data }) {
     let colorStar = data.rating
@@ -38,7 +39,7 @@ export default function Cards({ data }) {
                 }
             })
         } else {
-            navigate('/shop')
+            dispatch(addToCart(data.id))
         }
     }
 

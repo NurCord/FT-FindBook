@@ -1,4 +1,4 @@
-import { USER_CART } from "./variables";
+import { DELETE_CART_BOOK, USER_CART } from "./variables";
 import axios from 'axios'
 import Swal from "sweetalert2";
 
@@ -47,4 +47,14 @@ export const userCart = () => async(dispatch) => {
         type: USER_CART,
         payload: cartBooks
     })
+}
+
+export const deleteCartBook = (id) => async(dispatch) => {
+    try{
+        const {data} = await axios.delete("/user/removetocart",{headers:{Authorization: `Bearer ${window.localStorage.getItem("token")}`},data:{id:id}})
+        console.log(data)
+        dispatch({type:DELETE_CART_BOOK, payload:data})
+    }catch(err){
+        console.log(err)
+    }
 }
