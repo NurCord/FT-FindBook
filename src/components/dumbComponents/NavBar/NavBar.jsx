@@ -17,7 +17,7 @@ export default function NavBar() {
         <div className='col-start-2 col-end-5'>
           <SearchNavBar/>
         </div>
-        <div className='grid grid-cols-4 col-start-5 col-end-8 gap-5 justify-items-center'>
+        <div className={`${role==='invalid'?'grid grid-cols-4 justify-items-end':role==='user'?'grid grid-cols-4 justify-items-center':'grid grid-cols-5 justify-items-center'} col-start-5 col-end-8 gap-5`}>
               <div className='flex'>
                 <svg xmlns="http://www.w3.org/2000/svg" className="w-6 h-6" fill="none" viewBox="0 0 24 24" stroke="currentColor" strokeWidth={2}>
                 <path strokeLinecap="round" strokeLinejoin="round" d="M3 8l7.89 5.26a2 2 0 002.22 0L21 8M5 19h14a2 2 0 002-2V7a2 2 0 00-2-2H5a2 2 0 00-2 2v10a2 2 0 002 2z" />
@@ -27,7 +27,6 @@ export default function NavBar() {
                 </Link>         
               </div>
 
-              <div>
                 {
                   role !== "invalid" ? 
                   <div className='flex'>
@@ -39,17 +38,23 @@ export default function NavBar() {
                     </Link>         
                   </div> : null
                 }
-              </div>
               
 
-              <div className='flex'>
+              {role === 'invalid'?null:<div className='flex'>
                 <svg xmlns="http://www.w3.org/2000/svg" className="w-6 h-6" fill="none"  stroke="currentColor" strokeWidth={1.5}>
                 <path strokeLinecap="round" strokeLinejoin="round" d="M16 11V7a4 4 0 00-8 0v4M5 9h14l1 12H4L5 9z" />
                 </svg>
                 <Link to={'/shop'}>
                   <h1 className='duration-700 border-b-2 border-cream-100 hover:border-cream-300'>Carrito</h1>
                 </Link>
-              </div>
+              </div>}
+
+              {role === 'admin'?<div className='flex'>
+                {/* AQUI IRIA EL SVG DEL SUPER ADMIN :3 */}
+                <Link to={'/layoutadmin'}>
+                  <h1 className='duration-700 border-b-2 border-cream-100 hover:border-cream-300'>Admin</h1>
+                </Link>
+              </div>:null}
 
               {role === 'invalid'?<div className='flex'>
                 <svg xmlns="http://www.w3.org/2000/svg" className="w-6 h-6" fill="none" stroke="currentColor" strokeWidth={1.5}>
