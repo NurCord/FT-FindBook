@@ -14,7 +14,7 @@ export default function Shop() {
   
   useEffect(() => {
     dispatch(userCart())
-  },[dispatch, cartBooks])
+  },[])
   
   const navigate = useNavigate();
 
