@@ -52,8 +52,6 @@ export default function Shop() {
               </div>
             </div>
           </div>
-          {/* <div>Tu carrito esta vacio</div>
-          } */}
         </div>
       </div>
     </div>
@@ -65,7 +63,6 @@ export default function Shop() {
       confirmButtonText: 'Inicio',
       denyButtonText: `Conectar`,
     }).then((result) => {
-      /* Read more about isConfirmed, isDenied below */
       if (result.isConfirmed) {
         navigate('/')
       } else if (result.isDenied) {
