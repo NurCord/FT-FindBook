@@ -45,9 +45,11 @@ export default function Shop() {
                       </div>
                     </div>
                   </div>
+                  { cartBooks && cartBooks.length ?
                     <button onClick={handleOnClick} className="h-12 w-full bg-blue-500 rounded focus:outline-none text-white hover:bg-blue-600">
                       Comprar
-                    </button>
+                    </button> :
+                    <div></div>}
                 </div>
               </div>
             </div>
