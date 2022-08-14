@@ -1,8 +1,10 @@
-import React from 'react'
-import { useSelector } from 'react-redux'
+import React,{useEffect} from 'react'
+import { useDispatch,useSelector } from 'react-redux'
+import { getAllUsers } from '../../../redux/actions/actions'
 import CardUser from '../CardUser/CardUser'
 import CardBooks from '../CardBooks/CardBooks'
 import NavHome from '../NavHome/NavHome'
+
 
 let array = [
   {
@@ -56,14 +58,20 @@ let array = [
 ]
 
 function AdminHome({HomeAdmin}) {
+  const dispatch = useDispatch();
   const Books = useSelector(s => s.root.allBooks)
+  const users = useSelector(s => s.admin.allUsers)
+  useEffect(()=>{
+    dispatch(getAllUsers(window.localStorage.getItem('token')))
+  },[])
+
   if(HomeAdmin === 'Users'){
     return (
       <div className='w-full h-full'>
         <NavHome/>
         <div className='grid grid-cols-4 gap-4 justify-items-center '>
           {
-            array?.map(e => <CardUser data={e}/>)
+            users?.map(e => <CardUser key={e.token} data={e}/>)
           }
         </div>
       </div>

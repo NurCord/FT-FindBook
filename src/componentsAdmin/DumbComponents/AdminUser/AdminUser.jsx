@@ -1,4 +1,4 @@
-import React, { useState } from 'react'
+import React, { useState, useEffect } from 'react'
 import { useParams } from 'react-router-dom';
 import img2 from '../../../assets/fondoAdmin.jpg'
 import Swipers from '../../SmartComponents/Swiper/Swiper';
@@ -8,6 +8,8 @@ import { useForm } from 'react-hook-form';
 import { yupResolver } from '@hookform/resolvers/yup';
 import * as yup from 'yup';
 import Swal from "sweetalert2";
+import {useSelector, useDispatch} from 'react-redux';
+import { getUser } from '../../../redux/actions/actions';
 
 
 let array = [
@@ -70,9 +72,13 @@ const schema = yup.object().shape({
 export default function AdminUser() {
   let {id} = useParams()
   let [state, setState] = useState('hidden')
-
+  let user = useSelector(s=>s.admin.userDetail);
   /* let navigate = useNavigate()
   let dispatch = useDispatch() */
+  const dispatch = useDispatch();
+  useEffect(()=>{
+    dispatch(getUser(id,window.localStorage.getItem('token')))
+  },[])
 
   const { register, handleSubmit, formState: {errors} } = useForm({
     resolver: yupResolver(schema),
@@ -122,7 +128,7 @@ export default function AdminUser() {
     //navigate('') 
   } 
   
-  let user = array.find(e => e.id === parseInt(id))
+  // let user = array.find(e => e.id === parseInt(id))
 
   return (
     <div className='grid w-full h-full p-8 bg-cream-200'>

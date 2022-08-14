@@ -1,4 +1,4 @@
-import { GET_ALL_BOOKS, GET_BOOK_BY_ID, GET_BOOKS_BY_NAME, GET_BOOK_BY_GENRE, GET_GENRE, GET_YEARS, GET_BOOKS_BY_YEARS, GET_BOOKS_RATING, USER_ROLE, GET_ALL_USERS, GET_USERS_BY_NAME} from "./variables";
+import { GET_ALL_BOOKS, GET_BOOK_BY_ID, GET_BOOKS_BY_NAME, GET_BOOK_BY_GENRE, GET_GENRE, GET_YEARS, GET_BOOKS_BY_YEARS, GET_BOOKS_RATING, USER_ROLE, GET_ALL_USERS, GET_USERS_BY_NAME, GET_USER} from "./variables";
 import axios from "axios";
 import Swal from "sweetalert2";
 
@@ -195,12 +195,34 @@ export const userRole = (token) => async(dispatch) =>{
     }
 }
 
-export let getAllUsers = ()=> async(dispatch)=>{
+export let getAllUsers = (token)=> async(dispatch)=>{
     try {
-        let getAllUsers = (await axios.get('/admin/users')).data;
+        let getAllUsers = await axios.get('/admin/users',{
+            headers:{
+                Authorization: `Bearer ${token}`
+            }
+        }).then(({data})=>data)
+
         dispatch({
             type: GET_ALL_USERS,
             payload: getAllUsers
+        })
+    } catch (error) {
+        alert(error)
+    }
+}
+
+export let getUser = (username,token)=> async(dispatch)=>{
+    try {
+        let getUser = await axios.get(`/admin/users/${username}`,{
+            headers:{
+                Authorization: `Bearer ${token}`
+            }
+        }).then(({data})=>data)
+
+        dispatch({
+            type: GET_USER,
+            payload: getUser
         })
     } catch (error) {
         alert(error)
