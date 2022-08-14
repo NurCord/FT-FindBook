@@ -18,6 +18,7 @@ import AdminHome from './componentsAdmin/DumbComponents/AdminHome/AdminHome';
 import AdminUser from './componentsAdmin/DumbComponents/AdminUser/AdminUser';
 import Layout from './components/dumbComponents/Layout/Layout';
 import LayoutAdmin from './componentsAdmin/DumbComponents/LayoutAdmin/LayoutAdmin';
+import loading from './assets/loading.gif';
 
 function App() {
   let dispatch = useDispatch()
@@ -29,6 +30,9 @@ function App() {
   }, [dispatch])
   let role = useSelector(state=>state.root.role)
   const [HomeAdmin, SetHomeAdmin] = useState('Users')
+  if(role === 'loading'){
+    return(<div className='grid h-screen place-content-center'><img className='rounded-lg' src={loading}/></div>)
+  }
   return (
     <div className='w-full h-full bg-greyBlack-100'>
       <Routes>
@@ -48,7 +52,7 @@ function App() {
           <Route path='' element={<AdminHome HomeAdmin={HomeAdmin} />}/>
           <Route path='book/:id' element={<AdminBooK/>}/> 
           <Route path='user/:id' element={<AdminUser/>}/>
-        </Route>:role === 'loading' ? <Route path='/layoutAdmin/' element={<div></div>}/> : <Route path='/layoutAdmin/' element={<div className = 'grid h-screen place-content-center text-7xl text-center'><h1 >NO TIENES PERMISOS</h1><br></br><h1>PARA ACCEDER A</h1><br></br><h1>ESTE PATH</h1></div>}/>}
+        </Route>:<Route path='/layoutAdmin/' element={<div className = 'grid h-screen place-content-center text-7xl text-center'><h1 >NO TIENES PERMISOS</h1><br></br><h1>PARA ACCEDER A</h1><br></br><h1>ESTE PATH</h1></div>}/>}
       </Routes>
     </div>
   );
