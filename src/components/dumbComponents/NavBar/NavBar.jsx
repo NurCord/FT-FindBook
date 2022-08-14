@@ -77,7 +77,7 @@ export default function NavBar() {
                 </g>
               </g>
               </svg>
-                <Link to={'/layoutadmin'}>
+                <Link to={'/layoutAdmin'}>
                   <h1 className='duration-700 border-b-2 border-cream-100 hover:border-cream-300'>Admin</h1>
                 </Link>
               </div>:null}

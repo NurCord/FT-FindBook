@@ -9,8 +9,7 @@ import { yupResolver } from '@hookform/resolvers/yup';
 import * as yup from 'yup';
 import Swal from "sweetalert2";
 import {useSelector, useDispatch} from 'react-redux';
-import { getUser } from '../../../redux/actions/actions';
-
+import { getUser, userRole } from '../../../redux/actions/actions';
 
 let array = [
   {
@@ -77,6 +76,7 @@ export default function AdminUser() {
   let dispatch = useDispatch() */
   const dispatch = useDispatch();
   useEffect(()=>{
+    dispatch(userRole(window.localStorage.getItem('token')))
     dispatch(getUser(id,window.localStorage.getItem('token')))
   },[])
 

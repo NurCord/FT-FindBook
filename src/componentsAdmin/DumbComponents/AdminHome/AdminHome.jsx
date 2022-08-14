@@ -1,6 +1,6 @@
 import React,{useEffect} from 'react'
 import { useDispatch,useSelector } from 'react-redux'
-import { getAllUsers } from '../../../redux/actions/actions'
+import { getAllUsers,userRole } from '../../../redux/actions/actions'
 import CardUser from '../CardUser/CardUser'
 import CardBooks from '../CardBooks/CardBooks'
 import NavHome from '../NavHome/NavHome'
@@ -62,6 +62,7 @@ function AdminHome({HomeAdmin}) {
   const Books = useSelector(s => s.root.allBooks)
   const users = useSelector(s => s.admin.allUsers)
   useEffect(()=>{
+    dispatch(userRole(window.localStorage.getItem('token')))
     dispatch(getAllUsers(window.localStorage.getItem('token')))
   },[])
 
