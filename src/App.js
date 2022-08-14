@@ -19,6 +19,7 @@ import AdminUser from './componentsAdmin/DumbComponents/AdminUser/AdminUser';
 import Layout from './components/dumbComponents/Layout/Layout';
 import LayoutAdmin from './componentsAdmin/DumbComponents/LayoutAdmin/LayoutAdmin';
 import loading from './assets/loading.gif';
+import Payment from './components/dumbComponents/Shop/Payment';
 
 function App() {
   let dispatch = useDispatch()
@@ -40,6 +41,7 @@ function App() {
           <Route path='' element={<Home/>}/>
           <Route path='detail/:id' element={<Detail/>}/>
           <Route path='shop' element={<Shop/>}/>
+          <Route path='payment' element={<Payment/>}/>
           <Route path='postbook' element={<CreatePost/>}/>
           <Route path='login' element={<Login/>}/>
           <Route path='contacto' element={<Contact/>}/>
