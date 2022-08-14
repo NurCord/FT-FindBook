@@ -4,6 +4,7 @@ import { Link, useNavigate } from "react-router-dom";
 import Swal from "sweetalert2";
 import { useDispatch } from "react-redux";
 import CartCards from "./CartCards";
+import { userCart } from "../../../redux/actions/actionsShop";
 
 export default function Shop() {
   const role = useSelector(state => state.root.role);
@@ -25,14 +26,16 @@ export default function Shop() {
     <div>
       <div className="h-screen bg-gray-300">
         <div className="py-12">
-          { cartBooks.length ? 
+          {/* { cartBooks && cartBooks.length ?  */}
           <div className="max-w-md mx-auto bg-gray-100 shadow-lg rounded-lg  md:max-w-5xl">
             <div className="md:flex ">
               <div className="w-full p-4 px-5 py-5">
                 <div className="md:grid md:grid-cols-3 gap-2 ">
                   <div className="col-span-2 p-5">
                     <h1 className="text-xl font-medium ">Tu carrito</h1>
-                    <CartCards books={cartBooks}/>
+                    { cartBooks && cartBooks.length ?
+                    <CartCards books={cartBooks}/> :
+                    <span>Tu carrito está vacío</span>}
                     <div className="flex justify-between items-center mt-6 pt-6 border-t">
                       <div className="flex items-center">
                         <i className="fa fa-arrow-left text-sm pr-2"></i>
@@ -48,9 +51,9 @@ export default function Shop() {
                 </div>
               </div>
             </div>
-          </div>: 
-          <div>Tu carrito esta vacio</div>
-          }
+          </div>
+          {/* <div>Tu carrito esta vacio</div>
+          } */}
         </div>
       </div>
     </div>
