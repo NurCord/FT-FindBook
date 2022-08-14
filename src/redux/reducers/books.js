@@ -43,7 +43,6 @@ export default function root(state = initialState, actions){
             })
             const topYear = sortedReleasedArray[sortedReleasedArray.length - 1];
             const bottomYear = sortedReleasedArray[0];
-
             for (let i = 1; i < Math.ceil((topYear - bottomYear)/5); i++) {
                 yearsToFilter.push(`${bottomYear - 5 + (i * 5)}-${bottomYear + (i * 5)}`);
             }
