@@ -1,4 +1,4 @@
-import { GET_ALL_BOOKS, GET_BOOK_BY_ID, GET_BOOKS_BY_NAME, GET_BOOK_BY_GENRE, GET_GENRE, GET_YEARS, GET_BOOKS_BY_YEARS, GET_BOOKS_RATING, USER_ROLE, GET_ALL_USERS, GET_USERS_BY_NAME, REGISTER_USER_ERROR} from "./variables";
+import { GET_ALL_BOOKS, GET_BOOK_BY_ID, GET_BOOKS_BY_NAME, GET_BOOK_BY_GENRE, GET_GENRE, GET_YEARS, GET_BOOKS_BY_YEARS, GET_BOOKS_RATING, USER_ROLE, GET_ALL_USERS, GET_USERS_BY_NAME} from "./variables";
 import axios from "axios";
 import Swal from "sweetalert2";
 
@@ -78,7 +78,7 @@ export let getYears = () => async(dispatch)=>{
 }
 
 export let getBooksByYears = (yearsToFilter) => async (dispatch) =>{
-     let getAllBooks = (await axios.get(`/books?size=57`)).data;
+    let getAllBooks = (await axios.get(`/books?size=57`)).data;
     let filterBooks = [];
     let yearsToNumber = yearsToFilter.split('-').map(y => Number(y));
     for (let i = 0; i < getAllBooks.content.length; i++) {
@@ -145,8 +145,28 @@ export const registerUser = (user) => async()=>{
 
 export const loginUser = (user) => async()=>{
     try{
-        await axios.post('/auth/login',user)
-            .then(({data})=>window.localStorage.setItem('token',data.token))
+        return await axios.post('/auth/login',user)
+            .then(async ({data})=>{
+                if(data.error){
+                    return Swal.fire({
+                        icon: 'error',
+                        title: 'Oops...',
+                        text: data.error,
+                        })
+                }else{
+                    window.localStorage.setItem('token',data.token)
+                    await Swal.fire({
+                        title: `Bienvenido ${user.email}`,
+                        showClass: {
+                            popup: 'animate__animated animate__fadeInDown'
+                        },
+                        hideClass: {
+                            popup: 'animate__animated animate__fadeOutUp'
+                        }
+                    })
+                    return window.location.href='/';
+                }
+            })
     }
     catch(error){
         console.log(error);

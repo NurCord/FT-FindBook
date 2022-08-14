@@ -151,18 +151,18 @@ export default function Login() {
                 email: userForm.mail,
                 password: userForm.password
             }))
-            setUserForm(userState)
-            navigate('/');
-            Swal.fire({
-                title: `Bienvenido ${userForm.mail}`,
-                showClass: {
-                    popup: 'animate__animated animate__fadeInDown'
-                },
-                hideClass: {
-                    popup: 'animate__animated animate__fadeOutUp'
-                }
-            })
-            .then(()=>window.location.reload())
+            // setUserForm(userState)
+            // navigate('/');
+            // Swal.fire({
+            //     title: `Bienvenido ${userForm.mail}`,
+            //     showClass: {
+            //         popup: 'animate__animated animate__fadeInDown'
+            //     },
+            //     hideClass: {
+            //         popup: 'animate__animated animate__fadeOutUp'
+            //     }
+            // })
+            // .then(()=>window.location.reload())
         }
     }
     
