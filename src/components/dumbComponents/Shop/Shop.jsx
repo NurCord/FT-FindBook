@@ -26,7 +26,6 @@ export default function Shop() {
     <div>
       <div className="h-screen bg-gray-300">
         <div className="py-12">
-          {/* { cartBooks && cartBooks.length ?  */}
           <div className="max-w-md mx-auto bg-gray-100 shadow-lg rounded-lg  md:max-w-5xl">
             <div className="md:flex ">
               <div className="w-full p-4 px-5 py-5">
