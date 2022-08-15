@@ -1,19 +1,123 @@
-import React from 'react'
-import { useSelector } from 'react-redux';
+import React, { useEffect, useState } from 'react'
+import { useDispatch, useSelector } from 'react-redux';
 import Swal from 'sweetalert2';
 import { useNavigate } from "react-router-dom";
+// import { userCart } from '../../../redux/actions/actionsShop';
 
 export default function Payment() {
   const role = useSelector(state => state.root.role);
   const navigate = useNavigate()
+  const cartBooks = useSelector(state => state.shop.cartBooks)
+  const dispatch = useDispatch()
+
+  const [quantity, setQuantity] = useState({})
+
+  useEffect(() => {
+    // dispatch(userCart())
+    if(cartBooks?.length){
+      let state
+      cartBooks.forEach(book =>{
+         setQuantity(prevState =>{
+          state = {...prevState, [book.id]: 1};
+          return state
+         }) 
+      })
+    }
+  }, [])
+  
+  const handleOnChange = (e) => {
+    e.preventDefault();
+    setQuantity({
+      ...quantity,
+      [e.target.name]: e.target.value
+    })
+  }
+
+  const handleOnClick = () => {
+
+  }
 
   if(role === "user" || role === "admin"){
-    return (
-      <div>
-        <h1>Payment</h1>
-      </div>
-    )
-  }else{
+    if(cartBooks && cartBooks.length){
+      return (
+        <form>
+          <div className="h-screen bg-gray-300">
+            <div className="py-12">
+              <div className="max-w-md mx-auto bg-gray-100 shadow-lg rounded-lg  md:max-w-5xl">
+                <div className="md:flex ">
+                  <div className="w-full p-4 px-5 py-5">
+                    <main className="md:grid md:grid-cols-3 gap-2 ">
+                      <section className="col-span-2 p-5">
+                        <h1 className="text-xl font-medium ">Lista de compra</h1>
+                          <div> 
+                            {cartBooks.map(book => (
+                              <div key={book.id} className="flex flex-col items-center mt-6 pt-6 bg-stone-300 rounded-lg">
+                                <div className="flex  items-center">
+                                  <div className="flex flex-col ml-3">
+                                      <span className="font-medium text-center underline mb-2">
+                                        {book.name}
+                                      </span>
+                                  </div>
+                                </div> 
+                                <div className="flex justify-evenly items-center">
+                                  <div>
+                                    <label>Cantidad: </label>
+                                    <input 
+                                      type="number" 
+                                      min={1} 
+                                      placeholder="Cantidad" 
+                                      name={book?.id} 
+                                      value={quantity[book?.id]} 
+                                      onChange={(e) => handleOnChange(e)}
+                                      className="w-16 rounded-lg mr-8 h-6"
+                                      />
+                                  </div>
+                                  <div className="pr-8 ">
+                                    <span className="md:text-sm font-medium">Precio por unidad: U$D{book.price}</span>
+                                  </div>
+                                  <div>
+                                    <span className="md:text-sm font-medium">Subtotal: U$D{book.price * quantity[book.id]}</span>
+                                  </div>
+                                </div>
+                              </div>
+                            ))}
+                          </div> :
+                        <div className="flex justify-between items-center mt-6 pt-6 border-t">
+                          <div className="flex items-center">
+                            <i className="fa fa-arrow-left text-sm pr-2"></i>
+                          </div>
+                        </div>
+                      </section>
+                      <section>
+                        { cartBooks && cartBooks.length ?
+                        <button onClick={handleOnClick} className="h-12 w-full bg-blue-500 rounded focus:outline-none text-white hover:bg-blue-600">
+                          Pagar
+                        </button> :
+                        <div></div>}
+                      </section>
+                    </main>
+                  </div>
+                </div>
+              </div>
+            </div>
+          </div>
+        </form>
+      )
+    }else{
+      Swal.fire({
+        icon: 'error',
+        title: 'Oops...',
+        text: 'Algo salió mal',
+      }).then(result => {
+        if(result.isConfirmed){
+          navigate('/')
+        }
+      })
+    }
+  }else if(role==="loading"){
+    return <div>cargando</div>
+  }
+  else{
     Swal.fire({
       title: 'Debes estar conectado',
       showDenyButton: true,

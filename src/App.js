@@ -21,14 +21,16 @@ import LayoutAdmin from './componentsAdmin/DumbComponents/LayoutAdmin/LayoutAdmi
 import loading from './assets/loading.gif';
 import Payment from './components/dumbComponents/Shop/Payment';
 import NoMatch from './components/dumbComponents/NoMatch/NoMatch.jsx';
+import { userCart } from './redux/actions/actionsShop';
 
 function App() {
   let dispatch = useDispatch()
-  useEffect(() => async()=> {
+  useEffect(() => {
     dispatch(getAllBooks())
     dispatch(getGenres())
     dispatch(getYears())
     dispatch(userRole(window.localStorage.getItem('token')))
+    dispatch(userCart())
   }, [dispatch])
   let role = useSelector(state=>state.root.role)
   const [HomeAdmin, SetHomeAdmin] = useState('Users')

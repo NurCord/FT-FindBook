@@ -4,7 +4,7 @@ import { Link, useNavigate } from "react-router-dom";
 import Swal from "sweetalert2";
 import { useDispatch } from "react-redux";
 import CartCards from "./CartCards";
-import { userCart } from "../../../redux/actions/actionsShop";
+// import { userCart } from "../../../redux/actions/actionsShop";
 
 export default function Shop() {
   const role = useSelector(state => state.root.role);
@@ -12,9 +12,9 @@ export default function Shop() {
 
   let dispatch = useDispatch()
   
-  useEffect(() => {
-    dispatch(userCart())
-  },[])
+  // useEffect(() => {
+  //   dispatch(userCart())
+  // },[])
   
   const navigate = useNavigate();
 
@@ -26,7 +26,6 @@ export default function Shop() {
     <div>
       <div className="h-screen bg-gray-300">
         <div className="py-12">
-          {/* { cartBooks && cartBooks.length ?  */}
           <div className="max-w-md mx-auto bg-gray-100 shadow-lg rounded-lg  md:max-w-5xl">
             <div className="md:flex ">
               <div className="w-full p-4 px-5 py-5">
