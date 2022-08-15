@@ -30,6 +30,7 @@ export default function Cards({ data }) {
                 text: "¿Deseas conectarte?",
                 icon: 'warning',
                 showCancelButton: true,
+                cancelButtonText: 'Cancelar',
                 confirmButtonColor: '#3085d6',
                 cancelButtonColor: '#d33',
                 confirmButtonText: 'Conectar'

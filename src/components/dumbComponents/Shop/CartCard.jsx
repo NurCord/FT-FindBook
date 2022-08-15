@@ -14,6 +14,7 @@ export default function CartCard({ id, name, author, image, price, language}) {
       text: "El libro será eliminado ",
       icon: 'warning',
       showCancelButton: true,
+      cancelButtonText: 'Cancelar',
       confirmButtonColor: '#3085d6',
       cancelButtonColor: '#d33',
       confirmButtonText: 'Sí'

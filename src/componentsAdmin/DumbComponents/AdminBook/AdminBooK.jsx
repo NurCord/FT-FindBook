@@ -101,6 +101,7 @@ export default function AdminBooK() {
       text: "No podrás revertirlo",
       icon: 'warning',
       showCancelButton: true,
+      cancelButtonText: 'No, Cancelar',
       confirmButtonColor: '#3085d6',
       cancelButtonColor: '#d33',
       confirmButtonText: 'Si, Confirmar!'
