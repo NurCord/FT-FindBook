@@ -19,6 +19,7 @@ export default function AddToList({ id }) {
                 text: "¿Deseas conectarte?",
                 icon: 'warning',
                 showCancelButton: true,
+                cancelButtonText: 'Cancelar',
                 confirmButtonColor: '#3085d6',
                 cancelButtonColor: '#d33',
                 confirmButtonText: 'Conectar'

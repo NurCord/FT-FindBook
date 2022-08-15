@@ -90,7 +90,7 @@ export default function Payment() {
                                     <span className="md:text-sm font-medium">Precio por unidad: U$D{book.price}</span>
                                   </div>
                                   <div>
-                                    <span className="md:text-sm font-medium">Subtotal: U$D{book.price * quantity[book.id]}</span>                                    
+                                    <span className="md:text-sm font-medium">Subtotal: U$D{Number(parseFloat(book.price * quantity[book.id]).toFixed(2))}</span>                                    
                                   </div>
                                 </div>
                               </div>

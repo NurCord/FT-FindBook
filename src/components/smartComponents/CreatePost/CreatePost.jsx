@@ -166,6 +166,7 @@ export default function CreatePost() {
             text: "No podrás revertirlo",
             icon: 'warning',
             showCancelButton: true,
+            cancelButtonText: 'No, Cancelar',
             confirmButtonColor: '#3085d6',
             cancelButtonColor: '#d33',
             confirmButtonText: 'Si, Confirmar!'
