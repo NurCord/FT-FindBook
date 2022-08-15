@@ -17,13 +17,13 @@ export default function Payment() {
     if(cartBooks?.length){
       let state
       cartBooks.forEach(book =>{
-         setQuantity(prevState =>{
+        setQuantity(prevState =>{
           state = {...prevState, [book.id]: 1};
           return state
-         }) 
+        }) 
       })
     }
-  }, [])
+  }, [cartBooks])
   
   const handleOnChange = (e) => {
     e.preventDefault();
@@ -34,11 +34,12 @@ export default function Payment() {
   }
 
   const handleOnClick = () => {
-
+    navigate('/');
   }
 
   if(role === "user" || role === "admin"){
-    if(cartBooks && cartBooks.length){
+    if(cartBooks && cartBooks.length > 0){
+      
       return (
         <form>
           <div className="h-screen bg-gray-300">
@@ -49,7 +50,7 @@ export default function Payment() {
                     <main className="md:grid md:grid-cols-3 gap-2 ">
                       <section className="col-span-2 p-5">
                         <h1 className="text-xl font-medium ">Lista de compra</h1>
-                          <div> 
+                          <div>                          
                             {cartBooks.map(book => (
                               <div key={book.id} className="flex flex-col items-center mt-6 pt-6 bg-stone-300 rounded-lg">
                                 <div className="flex  items-center">
@@ -76,7 +77,7 @@ export default function Payment() {
                                     <span className="md:text-sm font-medium">Precio por unidad: U$D{book.price}</span>
                                   </div>
                                   <div>
-                                    <span className="md:text-sm font-medium">Subtotal: U$D{book.price * quantity[book.id]}</span>
+                                    <span className="md:text-sm font-medium">Subtotal: U$D{book.price * quantity[book.id]}</span>                                    
                                   </div>
                                 </div>
                               </div>
@@ -90,7 +91,7 @@ export default function Payment() {
                       </section>
                       <section>
                         { cartBooks && cartBooks.length ?
-                        <button onClick={handleOnClick} className="h-12 w-full bg-blue-500 rounded focus:outline-none text-white hover:bg-blue-600">
+                        <button className="h-12 w-full bg-blue-500 rounded focus:outline-none text-white hover:bg-blue-600">
                           Pagar
                         </button> :
                         <div></div>}
@@ -103,19 +104,45 @@ export default function Payment() {
           </div>
         </form>
       )
-    }else{
-      Swal.fire({
-        icon: 'error',
-        title: 'Oops...',
-        text: 'Algo salió mal',
-      }).then(result => {
-        if(result.isConfirmed){
-          navigate('/')
-        }
-      })
+    } else {
+      return (
+        <div>
+          <div className="h-screen bg-gray-300">
+            <div className="py-12">
+              <div className="max-w-md mx-auto bg-gray-100 shadow-lg rounded-lg  md:max-w-5xl">
+                <div className="md:flex ">
+                  <div className="w-full p-4 px-5 py-5">
+                    <main className="md:grid md:grid-cols-3 gap-2 ">
+                      <section className="col-span-2 p-5">
+                        <div className = 'flex flex-row'>
+                          <h1 className="h-6 w-fit px-3 flex items-center">No hay nada en el carrito para comprar&nbsp;</h1>
+                          <h1 className="h-6 w-fit px-3 flex items-center bg-blue-500 rounded-xl focus:outline-none text-white hover:cursor-pointer hover:bg-blue-600" onClick = {handleOnClick}>Volver al home</h1>
+                        </div>
+                        <div className="flex justify-between items-center mt-6 pt-6 border-t">
+                          <div className="flex items-center">
+                            <i className="fa fa-arrow-left text-sm pr-2"></i>
+                          </div>
+                        </div>
+                      </section>
+                    </main>
+                  </div>
+                </div>
+              </div>
+            </div>
+          </div>
+        </div>)
     }
-  }else if(role==="loading"){
-    return <div>cargando</div>
+    // else{
+    //   Swal.fire({
+    //     icon: 'error',
+    //     title: 'Oops...',
+    //     text: 'Algo salió mal',
+    //   }).then(result => {
+    //     if(result.isConfirmed){
+    //       navigate('/')
+    //     }
+    //   })
+    // }
   }
   else{
     Swal.fire({
