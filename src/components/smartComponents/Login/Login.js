@@ -1,6 +1,5 @@
 import React, { useState } from 'react';
-import { useNavigate } from "react-router-dom";
-import { useDispatch, useSelector } from "react-redux";
+import { useDispatch } from "react-redux";
 import { registerUser, loginUser } from '../../../redux/actions/actions';
 import Swal from "sweetalert2";
 
@@ -41,17 +40,10 @@ let createUserState = {
     url: '',
 };
 
-let userState = {
-    mail: '',
-    password: ''
-};
-
 export default function Login() {
-    let stateUser = useSelector(s => s.root.registerUserError)
     const [ showLogin, setShowLogin ] = useState(true);
     const [ showSignUp, setShowSignUp ] = useState(false);
     const dispatch = useDispatch();
-    const navigate = useNavigate();
     const [ createUserForm, setCreateUserForm ] = useState({
         username: '',
         mail: '',
@@ -124,14 +116,8 @@ export default function Login() {
                         url: `https://ui-avatars.com/api/?name=${createUserForm.name}+${createUserForm.lastname}?background=F0EDE5`,
                         name: createUserForm.name,
                         lastname: createUserForm.lastname
-                    }));
-                    
+                    }));                    
                     setCreateUserForm(createUserState)
-                    // Swal.fire(
-                    //     'Confirmar!',
-                    //     `Bienvenido ${createUserForm.username}`,
-                    //     'success'
-                    // )
                 }
             })
         }
@@ -152,18 +138,6 @@ export default function Login() {
                 email: userForm.mail,
                 password: userForm.password
             }))
-            // setUserForm(userState)
-            // navigate('/');
-            // Swal.fire({
-            //     title: `Bienvenido ${userForm.mail}`,
-            //     showClass: {
-            //         popup: 'animate__animated animate__fadeInDown'
-            //     },
-            //     hideClass: {
-            //         popup: 'animate__animated animate__fadeOutUp'
-            //     }
-            // })
-            // .then(()=>window.location.reload())
         }
     }
     

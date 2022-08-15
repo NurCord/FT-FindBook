@@ -10,7 +10,7 @@ export default function SearchByReleased() {
         dispatch(getBooksByYears(window.location.pathname.split('/')[2]))
     },[state, dispatch])
     if(state.hasOwnProperty('filterBooks')) {
-  return (
+    return (
         <div className='w-full h-full bg-greyBlack-100'>
             <div className='relative h-full'>
                 <span className='absolute grid w-full text-5xl place-content-center top-10'>{state.yearsToFilter}</span>
@@ -27,7 +27,7 @@ export default function SearchByReleased() {
                 </div>
             </div>
         </div>
-  )
+    )
     } else {
         return (<div></div>)
     }

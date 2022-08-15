@@ -10,10 +10,6 @@ export default function SearchNavBar() {
   const navigate = useNavigate();
   const dispatch = useDispatch();
 
-  // useEffect(() => {
-  //   dispatch(getBookByName(nameSearch))
-  // }, [dispatch, nameSearch])
-
   function handleOnSubmit(e) {
     e.preventDefault();
     if (name === '') return;

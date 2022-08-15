@@ -8,7 +8,7 @@ export default function SearchByName() {
     const dispatch = useDispatch()
     useEffect(() => {
         dispatch(getBookByName(window.location.pathname.split('/')[2]))
-      }, [dispatch, books])
+    }, [dispatch, books])
     return (
         <div className='w-full h-full bg-greyBlack-100'>
             <div className='grid grid-cols-4 justify-items-center'>
