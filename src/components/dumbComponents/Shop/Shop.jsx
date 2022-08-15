@@ -4,7 +4,7 @@ import { Link, useNavigate } from "react-router-dom";
 import Swal from "sweetalert2";
 import { useDispatch } from "react-redux";
 import CartCards from "./CartCards";
-// import { userCart } from "../../../redux/actions/actionsShop";
+import { userCart } from "../../../redux/actions/actionsShop";
 
 export default function Shop() {
   const role = useSelector(state => state.root.role);
@@ -12,9 +12,9 @@ export default function Shop() {
 
   let dispatch = useDispatch()
   
-  // useEffect(() => {
-  //   dispatch(userCart())
-  // },[])
+  useEffect(() => {
+    dispatch(userCart())
+  },[cartBooks])
   
   const navigate = useNavigate();
 
