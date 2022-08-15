@@ -35,7 +35,7 @@ function App() {
   let role = useSelector(state=>state.root.role)
   const [HomeAdmin, SetHomeAdmin] = useState('Users')
   if(role === 'loading'){
-    return(<div className='grid h-screen place-content-center'><img className='rounded-lg' src={loading}/></div>)
+    return(<div className='grid h-screen place-content-center'><img className='rounded-lg' src={loading} alt='Cargando' /></div>)
   }
   return (
     <div className='w-full h-full bg-greyBlack-100'>

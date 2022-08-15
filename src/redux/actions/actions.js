@@ -1,4 +1,4 @@
-import { GET_ALL_BOOKS, GET_BOOK_BY_ID, GET_BOOKS_BY_NAME, GET_BOOK_BY_GENRE, GET_GENRE, GET_YEARS, GET_BOOKS_BY_YEARS, GET_BOOKS_RATING, USER_ROLE, GET_ALL_USERS, GET_USERS_BY_NAME, GET_USER} from "./variables";
+import { GET_ALL_BOOKS, GET_BOOK_BY_ID, GET_BOOKS_BY_NAME, GET_BOOK_BY_GENRE, GET_GENRE, GET_YEARS, GET_BOOKS_BY_YEARS, GET_BOOKS_RATING, USER_ROLE, GET_ALL_USERS, GET_USERS_BY_NAME, GET_USER, ORDER_BY_NAME, ORDER_BY_BOOKS, BOOK_DETAIL} from "./variables";
 import axios from "axios";
 import Swal from "sweetalert2";
 
@@ -242,25 +242,37 @@ export let getUserByName = (name)=> async(dispatch)=>{
     }
 }
 
-export let putUser = (id) => async(dispatch)=>{
+export let putUser = (email, data) => async(dispatch)=>{
     try {
-        await axios.put(`/admin/putuser/${id}`)
+        await axios.put(`/admin//putuser/${email}`, data, {
+            headers:{
+                Authorization: `Bearer ${window.localStorage.getItem('token')}`
+            }
+        })
     } catch (error) {
         console.log(error)
     }
 }
 
-export let putBook = (id) => async(dispatch)=>{
+export let putBook = (id, data) => async(dispatch)=>{
     try {
-        await axios.put(`/admin/putbook/${id}`)
+        await axios.put(`/admin/putbook/${id}`, data, {
+            headers:{
+                Authorization: `Bearer ${window.localStorage.getItem('token')}`
+            }
+        })
     } catch (error) {
         console.log(error)
     }
 }
 
-export let deleteUser = (id) => async(dispatch)=>{
+export let deleteUser = (email) => async(dispatch)=>{
     try {
-        await axios.delete(`/admin/deleteuser/${id}`)
+        await axios.delete(`/admin/deleteuser/${email}`, {
+            headers:{
+                Authorization: `Bearer ${window.localStorage.getItem('token')}`
+            }
+        }).then(r => window.location.reload())
     } catch (error) {
         console.log(error)
     }
@@ -268,8 +280,38 @@ export let deleteUser = (id) => async(dispatch)=>{
 
 export let deleteBook = (id) => async(dispatch)=>{
     try {
-        await axios.delete(`/admin/deletebook/${id}`)
+        await axios.delete(`/admin/deletebook/${id}`, {
+            headers:{
+                Authorization: `Bearer ${window.localStorage.getItem('token')}`
+            }
+        }).then(r => window.location.reload())
     } catch (error) {
         console.log(error)
+    }
+}
+
+export const orderByName = payload => {
+    return{
+        type: ORDER_BY_NAME,
+        payload,
+    }
+}
+
+export const orderByBooks = payload => {
+    return{
+        type: ORDER_BY_BOOKS,
+        payload,
+    }
+}
+
+export let bookDetail = (id) => async(dispatch) => {
+    try {
+        let bookByID = (await axios.get(`/books/${id}`)).data;
+        dispatch({
+            type: BOOK_DETAIL,
+            payload: bookByID
+        })
+    } catch (error) {
+        alert(error)
     }
 }
