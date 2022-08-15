@@ -58,3 +58,12 @@ export const deleteCartBook = (id) => async(dispatch) => {
         console.log(err)
     }
 }
+
+export const stripe = (array) => async() => {
+    try{
+        const { data } = await axios.post('/payment/secret',{headers:{Authorization: `Bearer ${window.localStorage.getItem("token")}`}, data: array})
+        window.location= data.url
+    }catch(err){
+        console.log(err)
+    }
+}

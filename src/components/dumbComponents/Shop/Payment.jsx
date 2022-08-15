@@ -2,7 +2,7 @@ import React, { useEffect, useState } from 'react'
 import { useDispatch, useSelector } from 'react-redux';
 import Swal from 'sweetalert2';
 import { useNavigate } from "react-router-dom";
-// import { userCart } from '../../../redux/actions/actionsShop';
+import { stripe } from '../../../redux/actions/actionsShop';
 
 export default function Payment() {
   const role = useSelector(state => state.root.role);
@@ -13,7 +13,6 @@ export default function Payment() {
   const [quantity, setQuantity] = useState({})
 
   useEffect(() => {
-    // dispatch(userCart())
     if(cartBooks?.length){
       let state
       cartBooks.forEach(book =>{
@@ -37,10 +36,25 @@ export default function Payment() {
     navigate('/');
   }
 
+  const handleOnSubmit = (e) => {
+    e.preventDefault();
+    let bookQuantityArray = []
+
+    for(let i=0; i<cartBooks.length; i++){
+      let bookQuantity= {
+        id: cartBooks[i].id,
+        quantity: quantity[cartBooks[i].id]
+      }
+      bookQuantityArray.push(bookQuantity)
+    }
+
+    dispatch(stripe(bookQuantityArray))
+  }
+
   if(role === "user" || role === "admin"){
     if(cartBooks && cartBooks.length > 0){      
       return (
-        <form>
+        <form onSubmit={(e)=> handleOnSubmit(e)}>
           <div className="h-screen bg-gray-300">
             <div className="py-12">
               <div className="max-w-md mx-auto bg-gray-100 shadow-lg rounded-lg  md:max-w-5xl">
