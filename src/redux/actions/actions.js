@@ -242,9 +242,9 @@ export let getUserByName = (name)=> async(dispatch)=>{
     }
 }
 
-export let putUser = (email, data) => async(dispatch)=>{
+export let putUser = (email, data) => async()=>{
     try {
-        await axios.put(`/admin//putuser/${email}`, data, {
+        await axios.put(`/admin/putuser/${email}`, data, {
             headers:{
                 Authorization: `Bearer ${window.localStorage.getItem('token')}`
             }
@@ -254,7 +254,7 @@ export let putUser = (email, data) => async(dispatch)=>{
     }
 }
 
-export let putBook = (id, data) => async(dispatch)=>{
+export let putBook = (id, data) => async()=>{
     try {
         await axios.put(`/admin/putbook/${id}`, data, {
             headers:{
@@ -266,7 +266,7 @@ export let putBook = (id, data) => async(dispatch)=>{
     }
 }
 
-export let deleteUser = (email) => async(dispatch)=>{
+export let deleteUser = (email) => async()=>{
     try {
         await axios.delete(`/admin/deleteuser/${email}`, {
             headers:{
@@ -278,7 +278,7 @@ export let deleteUser = (email) => async(dispatch)=>{
     }
 }
 
-export let deleteBook = (id) => async(dispatch)=>{
+export let deleteBook = (id) => async()=>{
     try {
         await axios.delete(`/admin/deletebook/${id}`, {
             headers:{
