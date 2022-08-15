@@ -273,8 +273,3 @@ export let deleteBook = (id) => async(dispatch)=>{
         console.log(error)
     }
 }
-
-
-
-//Carrito de compra - Logearse
-//

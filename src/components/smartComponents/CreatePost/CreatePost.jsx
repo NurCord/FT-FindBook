@@ -180,6 +180,7 @@ export default function CreatePost() {
                 dispatch(postBook(form));
                 setForm(state)
                 navigate('/');
+                window.location.reload();
                 Swal.fire(
                     'Confirmar!',
                     `El libro ${form.name} fue publicado`,
