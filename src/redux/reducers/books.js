@@ -42,9 +42,14 @@ export default function root(state = initialState, actions){
                 return a - b;
             })
             const topYear = sortedReleasedArray[sortedReleasedArray.length - 1];
-            const bottomYear = sortedReleasedArray[0];
+            const bottomYear = sortedReleasedArray[0] - (sortedReleasedArray[0] % 5);
             for (let i = 1; i < Math.ceil((topYear - bottomYear)/5); i++) {
-                yearsToFilter.push(`${bottomYear - 5 + (i * 5)}-${bottomYear + (i * 5)}`);
+                let bot = bottomYear - 5 + (i * 5);
+                let top = bottomYear + (i * 5);
+                let prove = sortedReleasedArray.filter(n => n>=bot && n<top);
+                if (prove.length > 0){
+                    yearsToFilter.push(`${bot}-${top}`);
+                }
             }
             yearsToFilter.push(`${bottomYear - 5 + (5*(Math.ceil((topYear - bottomYear)/5)))}-${topYear}`);
             return {
