@@ -38,8 +38,7 @@ export default function Payment() {
   }
 
   if(role === "user" || role === "admin"){
-    if(cartBooks && cartBooks.length > 0){
-      
+    if(cartBooks && cartBooks.length > 0){      
       return (
         <form>
           <div className="h-screen bg-gray-300">
@@ -114,9 +113,9 @@ export default function Payment() {
                   <div className="w-full p-4 px-5 py-5">
                     <main className="md:grid md:grid-cols-3 gap-2 ">
                       <section className="col-span-2 p-5">
-                        <div className = 'flex flex-row'>
-                          <h1 className="h-6 w-fit px-3 flex items-center">No hay nada en el carrito para comprar&nbsp;</h1>
-                          <h1 className="h-6 w-fit px-3 flex items-center bg-blue-500 rounded-xl focus:outline-none text-white hover:cursor-pointer hover:bg-blue-600" onClick = {handleOnClick}>Volver al home</h1>
+                        <div className = 'flex flex-row justify-center'>
+                          <h1 className="h-8 w-fit px-3 flex items-center">No hay nada en el carrito para comprar&nbsp;</h1>
+                          <h1 className="h-8 w-fit px-3 flex items-center bg-blue-500 rounded-3xl focus:outline-none text-white hover:cursor-pointer hover:bg-blue-600" onClick = {handleOnClick}>Volver al home</h1>
                         </div>
                         <div className="flex justify-between items-center mt-6 pt-6 border-t">
                           <div className="flex items-center">
@@ -130,19 +129,9 @@ export default function Payment() {
               </div>
             </div>
           </div>
-        </div>)
+        </div>
+      )
     }
-    // else{
-    //   Swal.fire({
-    //     icon: 'error',
-    //     title: 'Oops...',
-    //     text: 'Algo salió mal',
-    //   }).then(result => {
-    //     if(result.isConfirmed){
-    //       navigate('/')
-    //     }
-    //   })
-    // }
   }
   else{
     Swal.fire({
