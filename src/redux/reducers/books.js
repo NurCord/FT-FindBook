@@ -72,6 +72,11 @@ export default function root(state = initialState, actions){
                 ...state,
                 role: actions.payload
             }
+        case CLEAN_UP_DETAIL:
+            return {
+                ...state,
+                bookById: {}
+            }
         default:
             return {...state}
     }

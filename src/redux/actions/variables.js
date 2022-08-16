@@ -20,3 +20,4 @@ export const ORDER_BY_BOOKS = 'ORDER_BY_BOOKS';
 export const BOOK_DETAIL = 'BOOK_DETAIL';
 export const GET_SESSION_ID = 'GET_SESSION_ID';
 export const SOLD_OUT = 'SOLD_OUT'
+export const CLEAN_UP_DETAIL = 'CLEAN_UP_DETAIL'

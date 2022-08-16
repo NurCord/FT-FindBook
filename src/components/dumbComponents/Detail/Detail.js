@@ -5,7 +5,7 @@ import { useDispatch, useSelector } from 'react-redux';
 
 import CardImag from '../Card/CardImag';
 import { useParams } from 'react-router-dom';
-import { getBookByID, getBooksGenres } from '../../../redux/actions/actions';
+import { cleanUpDetailState, getBookByID, getBooksGenres } from '../../../redux/actions/actions';
 import AddToList from './AddToList';
 import Buy from './Buy';
 import AddToCart from './AddToCart';
@@ -16,6 +16,9 @@ export default function Detail() {
     let dispatch = useDispatch()
     useEffect(() => {
         dispatch(getBookByID(parseInt(id)))
+        return () => {
+            dispatch(cleanUpDetailState())
+        }
     }, [])
 
     useEffect(() => {
