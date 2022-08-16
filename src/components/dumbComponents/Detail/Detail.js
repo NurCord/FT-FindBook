@@ -109,7 +109,7 @@ export default function Detail() {
         </>
     )}else{
         return (
-            <h1>Jodidos</h1>
+            <h1>Cargando...</h1>
         )
     }
 }
