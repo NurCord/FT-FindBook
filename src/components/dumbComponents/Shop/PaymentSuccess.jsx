@@ -11,12 +11,6 @@ export default function PaymentSuccess() {
   const check = useSelector(state => state.shop.soldOut)
 
   useEffect(() => {
-    return () => {
-      dispatch(soldOut())
-    }
-  },[])
-
-  if(session_id){
     dispatch(getSessionID(session_id))
     if(check === true){
       Swal.fire({
@@ -28,7 +22,9 @@ export default function PaymentSuccess() {
         navigate('/')
       })
     }
-  }else{
-    return <div>A donde vas picaron?</div>
-  }
+    return () => {
+      dispatch(soldOut())
+    }
+  },[dispatch, session_id])
+
 }

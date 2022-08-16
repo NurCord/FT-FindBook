@@ -130,7 +130,15 @@ export const getSessionID = (session_id) => async(dispatch) =>{
     }catch(err){
         console.log(err.message)
         if(err){
-            window.location.href = '/'
+            Swal.fire({
+                icon: 'error',
+                title: 'Oops...',
+                text: 'Aqui no hay nada',
+                showConfirmButton: false,
+                timer: 1500
+              }).then(() => {
+                window.location.href = '/'
+              })
         }
     }
 }
