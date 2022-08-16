@@ -4,6 +4,7 @@ import { useNavigate } from 'react-router-dom';
 import Swal from 'sweetalert2';
 import { ButtonDetail } from './stayleComponentDetail';
 import { useDispatch } from 'react-redux';
+import { addToCart } from '../../../redux/actions/actionsShop';
 // import { priceItem } from '../../../redux/actions/actionsShop';
 export default function Buy({ id }) {
 
@@ -31,13 +32,11 @@ export default function Buy({ id }) {
           navigate('/login')
         }
       })
+    }else{
+      dispatch(addToCart(id));
+      navigate("/shop")
     }
   } 
-    // else {
-      // dispatch(priceItem(parseInt(id)))
-      // navigate('/shop')
-    // }
-  // }
   return (
     <div>
       <ButtonDetail onClick={handleOnClick}>Comprar</ButtonDetail>
