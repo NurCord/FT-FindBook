@@ -7,12 +7,14 @@ function LayoutAdmin({ SetHomeAdmin }) {
   const role = useSelector(state => state.root.role)
   if (role === "admin") {
     return (
-      <div className='grid w-full h-screen grid-cols-6'>
-        <div className='col-span-1'>
-          <NavBarAdmin SetHomeAdmin={SetHomeAdmin} />
-        </div>
-        <div className='col-span-5'>
-          <Outlet />
+      <div className='w-full h-screen'>
+        <div className='grid w-full h-auto grid-cols-6'>
+          <div className='col-span-1 h-auto bg-greyBlack-100'>
+            <NavBarAdmin SetHomeAdmin={SetHomeAdmin} />
+          </div>
+          <div className='col-span-5 h-auto bg-greyBlack-100'>
+            <Outlet />
+          </div>
         </div>
       </div>
     )
