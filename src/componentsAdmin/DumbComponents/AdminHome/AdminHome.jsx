@@ -18,7 +18,7 @@ function AdminHome({ HomeAdmin }) {
 
   if (HomeAdmin === 'Users') {
     return (
-      <div className='w-full h-full'>
+      <div className='w-full h-auto'>
         <NavHome />
         <div className='grid grid-cols-4 gap-4 justify-items-center '>
           {
@@ -29,7 +29,7 @@ function AdminHome({ HomeAdmin }) {
     )
   } else if (HomeAdmin === 'Books') {
     return (
-      <div className='w-full h-full'>
+      <div className='w-full h-auto'>
         <NavHome />
         <div className='grid grid-cols-4 gap-4 justify-items-center '>
           {

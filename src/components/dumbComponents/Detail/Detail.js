@@ -2,7 +2,7 @@
 import React , {useEffect}from 'react'
 import { H1Detail, DivDetail, TextDetail, DivTableDetail, DivTableColDetail, H1DetailSwiper} from './stayleComponentDetail'
 import { useDispatch, useSelector } from 'react-redux';
-
+import loading from '../../../assets/loading.gif';
 import CardImag from '../Card/CardImag';
 import { useParams } from 'react-router-dom';
 import { cleanUpDetailState, getBookByID, getBooksGenres } from '../../../redux/actions/actions';
@@ -112,7 +112,7 @@ export default function Detail() {
         </>
     )}else{
         return (
-            <h1>Jodidos</h1>
+            <div className='grid h-screen place-content-center'><img className='rounded-lg' src={loading} alt='Cargando' /></div>
         )
     }
 }
