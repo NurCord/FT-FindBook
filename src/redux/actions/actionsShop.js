@@ -40,6 +40,29 @@ export let addToCart = (id) => async()=>{
     }
 }
 
+export let buyBook = (id) => async()=>{
+    try {
+        const { data } = await axios.post(`/user/addtocart`, {id: id}, {headers:{Authorization: `Bearer ${window.localStorage.getItem("token")}`}})
+        if(data.hasOwnProperty("role")){
+            Swal.fire({
+                icon: 'error',
+                title: 'Usuario invalido',
+                text: 'Vuelve a conectarte',
+              }).then(result=>{
+                if(result.isConfirmed){
+                    window.localStorage.removeItem("token")
+                    window.location.reload()
+                    window.location.href = '/'
+                }
+              })
+        }else{
+            window.location.href = '/shop'
+        }
+    } catch (error) {
+        console.log(error)
+    }
+}
+
 export const userCart = () => async(dispatch) => {
     const { data } = await axios.get("/user/getcart", {headers:{Authorization: `Bearer ${window.localStorage.getItem("token")}`}})
     const cartBooks = data.Libros
