@@ -22,6 +22,7 @@ import loading from './assets/loading.gif';
 import Payment from './components/dumbComponents/Shop/Payment';
 import NoMatch from './components/dumbComponents/NoMatch/NoMatch.jsx';
 import { userCart } from './redux/actions/actionsShop';
+import PaymentSuccess from './components/dumbComponents/Shop/PaymentSuccess';
 
 function App() {
   let dispatch = useDispatch()
@@ -45,6 +46,7 @@ function App() {
           <Route path='detail/:id' element={<Detail/>}/>
           <Route path='shop' element={<Shop/>}/>
           <Route path='payment' element={<Payment/>}/>
+          <Route path='payment/success' element={<PaymentSuccess/>} />
           <Route path='postbook' element={<CreatePost/>}/>
           <Route path='login' element={<Login/>}/>
           <Route path='contacto' element={<Contact/>}/>
