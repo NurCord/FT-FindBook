@@ -17,16 +17,7 @@ export default function NavBar() {
         <div className='col-start-2 col-end-5'>
           <SearchNavBar/>
         </div>
-        <div className={`${role==='invalid'?'grid grid-cols-4 justify-items-end':role==='user'?'grid grid-cols-4 justify-items-center':'grid grid-cols-5 justify-items-center'} col-start-5 col-end-8 gap-5`}>
-              <div className='flex'>
-                <svg xmlns="http://www.w3.org/2000/svg" className="w-6 h-6" fill="none" viewBox="0 0 24 24" stroke="currentColor" strokeWidth={2}>
-                <path strokeLinecap="round" strokeLinejoin="round" d="M3 8l7.89 5.26a2 2 0 002.22 0L21 8M5 19h14a2 2 0 002-2V7a2 2 0 00-2-2H5a2 2 0 00-2 2v10a2 2 0 002 2z" />
-                </svg>  
-                <Link to={'/contacto'}>
-                  <h1 className='duration-700 border-b-2 border-cream-100 hover:border-cream-300'>Contacto</h1>
-                </Link>         
-              </div>
-
+        <div className={`${role==='invalid'?'col-start-7':role==='user'?'grid grid-cols-3 justify-items-center':'grid grid-cols-4 justify-items-center'} col-start-5 col-end-8 gap-5`}>
                 {
                   role !== "invalid" ? 
                   <div className='flex'>
