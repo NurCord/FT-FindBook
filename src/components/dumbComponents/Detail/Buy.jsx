@@ -4,11 +4,9 @@ import { useNavigate } from 'react-router-dom';
 import Swal from 'sweetalert2';
 import { ButtonDetail } from './stayleComponentDetail';
 import { useDispatch } from 'react-redux';
-import { addToCart } from '../../../redux/actions/actionsShop';
-// import { priceItem } from '../../../redux/actions/actionsShop';
+import { buyBook } from '../../../redux/actions/actionsShop';
 export default function Buy({ id }) {
 
-  const [buy, SetBuy] = useState(false)
   const role = useSelector(state => state.root.role)
 
   const navigate = useNavigate()
@@ -33,8 +31,7 @@ export default function Buy({ id }) {
         }
       })
     }else{
-      dispatch(addToCart(id));
-      navigate("/shop")
+      dispatch(buyBook(id));
     }
   } 
   return (
