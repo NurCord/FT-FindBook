@@ -3,21 +3,19 @@ import { Link } from 'react-router-dom'
 
 export default function Footer() {
     return (
-        <div className='w-screen px-32 h-44 bg-greyBlack-300 grid grid-rows-3 justify-items-center items-center'>
-            <div className='w-full grid grid-cols-3 gap-3 row-span-2'>
-                <p>Terminos y Condiciones</p>
+        <div className='w-full h-24 grid grid-rows-3'>
+            <div className='w-full row-span-2 bg-greyBlack-200'>
                 <Link to={'/contacto'}>
-                    <p>Quienes Somos</p>
-                </Link>
-                <p>Preguntas Frecuntes</p>
-                <p>Como comprar</p>
-                <Link to={'/contacto'}>
-                    <p>Contacto</p>
+                    <div className='flex h-full justify-center items-center'>
+                        <svg xmlns="http://www.w3.org/2000/svg" className="h-6 w-6 mx-2" fill="none" viewBox="0 0 24 24" stroke="currentColor" strokeWidth={2}>
+                        <path strokeLinecap="round" strokeLinejoin="round" d="M3 8l7.89 5.26a2 2 0 002.22 0L21 8M5 19h14a2 2 0 002-2V7a2 2 0 00-2-2H5a2 2 0 00-2 2v10a2 2 0 002 2z" />
+                        </svg>
+                        <h1>Contacto</h1>
+                    </div>
                 </Link>
             </div>
-            <div className='row-span-1 grid grid-cols-3 w-full py-3'>
-                <p className='col-span-2'>Politica cookies</p>
-                <button className='col-span-1 rounded-full border-greyBlack-100 border-2 py-2 mx-10'>Boton de arrepentimientos</button>
+            <div className='grid justify-items-center content-center w-full bg-greyBlack-300'>
+                <p className='col-span-2'>© 2022 Copyright: FindBook.com</p>
             </div>
         </div>
     )
