@@ -64,6 +64,18 @@ export const stripe = (array) => async() => {
         const { data } = await axios.post('/payment/secret',{data: array}, {headers:{Authorization: `Bearer ${window.localStorage.getItem("token")}`}})
         if(data.hasOwnProperty("url")){
             window.location= data.url
+        }else{
+            Swal.fire({
+                icon: 'error',
+                title: 'Usuario invalido',
+                text: 'Vuelve a conectarte',
+              }).then(result=>{
+                if(result.isConfirmed){
+                    window.localStorage.removeItem("token")
+                    window.location.reload()
+                    window.location.href = '/'
+                }
+              })
         }
     }catch(err){
         console.log(err)
