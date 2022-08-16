@@ -1,4 +1,4 @@
-import { DELETE_CART_BOOK, GET_SESSION_ID, USER_CART } from "./variables";
+import { DELETE_CART_BOOK, GET_SESSION_ID, SOLD_OUT, USER_CART } from "./variables";
 import axios from 'axios'
 import Swal from "sweetalert2";
 
@@ -107,16 +107,36 @@ export const stripe = (array) => async() => {
 
 export const getSessionID = (session_id) => async(dispatch) =>{
     try{
-        const {data} = await axios.get(`/payment/secret?session_id=${session_id}`)
+        const {data} = await axios.get(`/payment/secret?session_id=${session_id}`, {headers:{Authorization: `Bearer ${window.localStorage.getItem("token")}`}})
         console.log(data)
-        dispatch({
-            type: GET_SESSION_ID,
-            payload: data
-        })
+        if(data.hasOwnProperty("role")){
+            Swal.fire({
+                icon: 'error',
+                title: 'Usuario invalido',
+                text: 'Vuelve a conectarte',
+              }).then(result=>{
+                if(result.isConfirmed){
+                    window.localStorage.removeItem("token")
+                    window.location.reload()
+                    window.location.href = '/'
+                }
+              })
+        }else{
+           dispatch({
+                type: GET_SESSION_ID,
+                payload: data
+            }) 
+        }
     }catch(err){
         console.log(err.message)
         if(err){
             window.location.href = '/'
         }
+    }
+}
+
+export const soldOut = () => {
+    return {
+        type: SOLD_OUT
     }
 }

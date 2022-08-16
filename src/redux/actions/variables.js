@@ -18,4 +18,5 @@ export const DELETE_CART_BOOK = 'DELETE_CART_BOOK'
 export const ORDER_BY_NAME = 'ORDER_BY_NAME';
 export const ORDER_BY_BOOKS = 'ORDER_BY_BOOKS';
 export const BOOK_DETAIL = 'BOOK_DETAIL';
-export const GET_SESSION_ID = 'GET_SESSION_ID'
+export const GET_SESSION_ID = 'GET_SESSION_ID';
+export const SOLD_OUT = 'SOLD_OUT'
