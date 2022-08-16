@@ -36,6 +36,11 @@ export default function Payment() {
     navigate('/');
   }
 
+  const handleBackToCart = (e) => {
+    e.preventDefault()
+    navigate('/shop')
+  }
+
   const handleOnSubmit = (e) => {
     e.preventDefault();
     let bookQuantityArray = []
@@ -102,11 +107,17 @@ export default function Payment() {
                           </div>
                         </div>
                       </section>
-                      <section>
+                      <section className='flex flex-col-reverse border bg-stone-200 rounded-2xl'>
                         { cartBooks && cartBooks.length ?
-                        <button className="h-12 w-full bg-blue-500 rounded focus:outline-none text-white hover:bg-blue-600">
-                          Pagar
-                        </button> :
+                        <div>
+                          <button onClick={(e) => handleBackToCart(e)} className="h-12 w-full bg-blue-500 rounded focus:outline-none text-white hover:bg-blue-600">
+                            Volver al carrito
+                          </button>
+                          <button className="h-12 w-full mt-4 bg-green-500 rounded focus:outline-none text-white hover:bg-blue-600">
+                            Pagar
+                          </button>
+                        </div>
+                         :
                         <div></div>}
                       </section>
                     </main>
