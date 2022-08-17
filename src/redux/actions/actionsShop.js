@@ -64,25 +64,28 @@ export let buyBook = (id) => async()=>{
 }
 
 export const userCart = () => async(dispatch) => {
-    const { data } = await axios.get("/user/getcart", {headers:{Authorization: `Bearer ${window.localStorage.getItem("token")}`}})
-    if(data.hasOwnProperty("role")){
-        Swal.fire({
-            icon: 'error',
-            title: 'Usuario invalido',
-            text: 'Vuelve a conectarte',
-          }).then(result=>{
-            if(result.isConfirmed){
-                window.localStorage.removeItem("token")
-                window.location.reload()
-                window.location.href = '/'
-            }
-          })
-    }else{
-        const cartBooks = data.Libros
-        dispatch({
-            type: USER_CART,
-            payload: cartBooks
-        })
+    const token = window.localStorage.getItem("token")
+    if(token !== null && token !== undefined){
+        const { data } = await axios.get("/user/getcart", {headers:{Authorization: `Bearer ${window.localStorage.getItem("token")}`}})
+        if(data.hasOwnProperty("role")){
+            Swal.fire({
+                icon: 'error',
+                title: 'Usuario invalido',
+                text: 'Vuelve a conectarte',
+            }).then(result=>{
+                if(result.isConfirmed){
+                    window.localStorage.removeItem("token")
+                    window.location.reload()
+                    window.location.href = '/'
+                }
+            })
+        }else{
+            const cartBooks = data.Libros
+            dispatch({
+                type: USER_CART,
+                payload: cartBooks
+            })
+        }
     }
 }
 
