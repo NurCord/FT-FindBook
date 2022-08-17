@@ -18,6 +18,8 @@ import AdminHome from './componentsAdmin/DumbComponents/AdminHome/AdminHome';
 import AdminUser from './componentsAdmin/DumbComponents/AdminUser/AdminUser';
 import Layout from './components/dumbComponents/Layout/Layout';
 import LayoutAdmin from './componentsAdmin/DumbComponents/LayoutAdmin/LayoutAdmin';
+import PanelUser from './panelUser/DumbComponents/PanelUser/PanelUser'
+import UserHome from './panelUser/DumbComponents/UserHome/UserHome';
 import loading from './assets/loading.gif';
 import Payment from './components/dumbComponents/Shop/Payment';
 import NoMatch from './components/dumbComponents/NoMatch/NoMatch.jsx';
@@ -35,6 +37,7 @@ function App() {
   }, [dispatch])
   let role = useSelector(state=>state.root.role)
   const [HomeAdmin, SetHomeAdmin] = useState('Users')
+  const [HomeUser, SetHomeUser] = useState('User')
   if(role === 'loading'){
     return(<div className='grid h-screen place-content-center'><img className='rounded-lg' src={loading} alt='Cargando' /></div>)
   }
@@ -53,10 +56,16 @@ function App() {
           <Route path='categoria/:genre' element={<SearchByCategory/>}/>
           <Route path='released/:date' element={<SearchByReleased/>}/>          
         </Route>
+
         <Route>
           <Route path='payment' element={<Payment/>}/>
           <Route path='payment/success/:session_id' element={<PaymentSuccess/>} />
         </Route>
+        
+        {role !== 'loading'?<Route path='/paneluser/' element={<PanelUser SetHomeUser={SetHomeUser} />}>
+          <Route path='' element={<UserHome HomeUser={HomeUser} />}/>
+        </Route>:<Route path='/paneluser/*' element={<div className = 'grid h-screen place-content-center text-7xl text-center'><h1 >INICIA SESION</h1><br></br><h1>PARA ACCEDER A</h1><br></br><h1>ESTE PATH</h1></div>}/>}
+
         {role === 'admin'?<Route path='/layoutAdmin/' element={<LayoutAdmin SetHomeAdmin={SetHomeAdmin} />}>
           <Route path='' element={<AdminHome HomeAdmin={HomeAdmin} />}/>
           <Route path='book/:id' element={<AdminBooK/>}/> 
