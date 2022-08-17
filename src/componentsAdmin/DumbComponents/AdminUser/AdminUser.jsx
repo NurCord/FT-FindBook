@@ -1,7 +1,7 @@
 /* eslint-disable no-unused-vars */
 /* eslint-disable react-hooks/exhaustive-deps */
 import React, { useState, useEffect } from 'react'
-import { useNavigate, useParams } from 'react-router-dom';
+import { useParams } from 'react-router-dom';
 import img2 from '../../../assets/fondoAdmin.jpg'
 import Swipers from '../../SmartComponents/Swiper/Swiper';
 import { UilEditAlt } from '@iconscout/react-unicons'
@@ -23,7 +23,6 @@ export default function AdminUser() {
   const { id } = useParams()
   const [state, setState] = useState('hidden')
   const user = useSelector(s => s.admin.userDetail);
-  const navigate = useNavigate()
   const dispatch = useDispatch();
   useEffect(() => {
     dispatch(userRole(window.localStorage.getItem('token')))
