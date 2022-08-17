@@ -94,9 +94,33 @@ export let getBooksByYears = (yearsToFilter) => async (dispatch) =>{
     })
 }
 
-export let postBook = (data) => async(dispatch)=>{
+export let postBook = (data2) => async(dispatch)=>{
     try {
-        await axios.post('/books', data)
+        const { data } = await axios.post('/books', data2, {
+            headers:{
+                Authorization: `Bearer ${window.localStorage.getItem('token')}`
+            }
+        })
+        if(data.hasOwnProperty("role")){
+            Swal.fire({
+                icon: 'error',
+                title: 'Usuario invalido',
+                text: 'Vuelve a conectarte',
+              }).then(result=>{
+                if(result.isConfirmed){
+                    window.localStorage.removeItem("token")
+                    window.location.reload()
+                    window.location.href = '/'
+                }
+              })
+        }else if(data.message === "El libro fue creado"){
+            Swal.fire({
+                icon: 'success',
+                title: 'Libro posteado',
+                showConfirmButton: false,
+                timer: 1000
+              })
+        }
     } catch (error) {
         console.log(error)
     }
