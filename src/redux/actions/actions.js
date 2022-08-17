@@ -1,4 +1,4 @@
-import { GET_ALL_BOOKS, GET_BOOK_BY_ID, GET_BOOKS_BY_NAME, GET_BOOK_BY_GENRE, GET_GENRE, GET_YEARS, GET_BOOKS_BY_YEARS, GET_BOOKS_RATING, USER_ROLE, GET_ALL_USERS, GET_USERS_BY_NAME, GET_USER, ORDER_BY_NAME, ORDER_BY_BOOKS, BOOK_DETAIL, CLEAN_UP_DETAIL} from "./variables";
+import { GET_ALL_BOOKS, GET_BOOK_BY_ID, GET_BOOKS_BY_NAME, GET_BOOK_BY_GENRE, GET_GENRE, GET_YEARS, GET_BOOKS_BY_YEARS, GET_BOOKS_RATING, USER_ROLE, GET_ALL_USERS, GET_USERS_BY_NAME, GET_USER, ORDER_BY_NAME, ORDER_BY_BOOKS, BOOK_DETAIL, CLEAN_UP_DETAIL, GET_USER_PANEL, GET_BOOKS_PANEL, GET_DETAIL_BOOK_PANEL} from "./variables";
 import axios from "axios";
 import Swal from "sweetalert2";
 
@@ -319,5 +319,97 @@ export let bookDetail = (id) => async(dispatch) => {
 export const cleanUpDetailState = () => {
     return{
         type: CLEAN_UP_DETAIL
+    }
+}
+
+
+export let userDetailPanel = (username) => async(dispatch) => {
+    try {
+        let detailUserPanel = (await axios.get(`/userPanel/getUser/${username}`, {
+            headers:{
+                Authorization: `Bearer ${window.localStorage.getItem('token')}`
+            }
+        })).data;
+        dispatch({
+            type: GET_USER_PANEL,
+            payload: detailUserPanel
+        })
+    } catch (error) {
+        alert(error)
+    }
+}
+
+export let booksPanel = () => async(dispatch) => {
+    try {
+        let getBooks = (await axios.get(`/userPanel/getBooks`, {
+            headers:{
+                Authorization: `Bearer ${window.localStorage.getItem('token')}`
+            }
+        })).data;
+        dispatch({
+            type: GET_BOOKS_PANEL,
+            payload: getBooks
+        })
+    } catch (error) {
+        alert(error)
+    }
+}
+
+export let bookDetailPanel = (id) => async(dispatch) => {
+    try {
+        dispatch({
+            type: GET_DETAIL_BOOK_PANEL,
+            payload: id
+        })
+    } catch (error) {
+        alert(error)
+    }
+}
+
+export let deleteBookPanel = (id) => async()=>{
+    try {
+        await axios.delete(`/userPanel/deleteBook/${id}`, {
+            headers:{
+                Authorization: `Bearer ${window.localStorage.getItem('token')}`
+            }
+        }).then(r => window.location.reload())
+    } catch (error) {
+        console.log(error)
+    }
+}
+
+export let deleteUserPanel = (email) => async()=>{
+    try {
+        await axios.delete(`/userPanel/deleteUser/${email}`, {
+            headers:{
+                Authorization: `Bearer ${window.localStorage.getItem('token')}`
+            }
+        }).then(r => window.location.reload())
+    } catch (error) {
+        console.log(error)
+    }
+}
+
+export let putUserPanel = (email, data) => async()=>{
+    try {
+        await axios.put(`/userPanel/putUser/${email}`, data, {
+            headers:{
+                Authorization: `Bearer ${window.localStorage.getItem('token')}`
+            }
+        })
+    } catch (error) {
+        console.log(error)
+    }
+}
+
+export let putUserBook = (id, data) => async()=>{
+    try {
+        await axios.put(`/userPanel/putBook/${id}`, data, {
+            headers:{
+                Authorization: `Bearer ${window.localStorage.getItem('token')}`
+            }
+        })
+    } catch (error) {
+        console.log(error)
     }
 }
