@@ -1,7 +1,6 @@
 import React, { useEffect } from 'react'
 import { useDispatch, useSelector } from 'react-redux'
-import { Navigate, useNavigate, useParams } from 'react-router-dom';
-import Swal from 'sweetalert2';
+import { useNavigate, useParams } from 'react-router-dom';
 import { getSessionID, soldOut } from '../../../redux/actions/actionsShop';
 
 export default function PaymentSuccess() {
@@ -35,7 +34,11 @@ export default function PaymentSuccess() {
                         <section className="col-span-2 p-5">
                           <div className = 'flex flex-row justify-center'>
                             <h1 className="h-8 w-fit px-3 flex items-center">Gracias por su compra</h1>
-                            <h1 className="h-8 w-fit px-3 flex items-center bg-blue-500 rounded-3xl focus:outline-none text-white hover:cursor-pointer hover:bg-blue-600" onClick = {handleOnClick}>Volver al home</h1>
+                            <h1 
+                              className="h-8 w-fit px-3 flex items-center bg-blue-500 rounded-3xl focus:outline-none text-white hover:cursor-pointer hover:bg-blue-600" 
+                              onClick = {handleOnClick}>
+                                Volver al home
+                            </h1>
                           </div>
                         </section>
                       </main>
