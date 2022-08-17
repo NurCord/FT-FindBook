@@ -1,4 +1,4 @@
-import { DELETE_CART_BOOK, USER_CART } from "./variables";
+import { DELETE_ALL_CART_BOOKS, DELETE_CART_BOOK, GET_SESSION_ID, SOLD_OUT, USER_CART } from "./variables";
 import axios from 'axios'
 import Swal from "sweetalert2";
 
@@ -65,18 +65,45 @@ export let buyBook = (id) => async()=>{
 
 export const userCart = () => async(dispatch) => {
     const { data } = await axios.get("/user/getcart", {headers:{Authorization: `Bearer ${window.localStorage.getItem("token")}`}})
-    const cartBooks = data.Libros
-    dispatch({
-        type: USER_CART,
-        payload: cartBooks
-    })
+    if(data.hasOwnProperty("role")){
+        Swal.fire({
+            icon: 'error',
+            title: 'Usuario invalido',
+            text: 'Vuelve a conectarte',
+          }).then(result=>{
+            if(result.isConfirmed){
+                window.localStorage.removeItem("token")
+                window.location.reload()
+                window.location.href = '/'
+            }
+          })
+    }else{
+        const cartBooks = data.Libros
+        dispatch({
+            type: USER_CART,
+            payload: cartBooks
+        })
+    }
 }
 
 export const deleteCartBook = (id) => async(dispatch) => {
     try{
         const {data} = await axios.delete("/user/removetocart",{headers:{Authorization: `Bearer ${window.localStorage.getItem("token")}`},data:{id:id}})
-        console.log(data)
-        dispatch({type:DELETE_CART_BOOK, payload:data})
+        if(data.hasOwnProperty("role")){
+            Swal.fire({
+                icon: 'error',
+                title: 'Usuario invalido',
+                text: 'Vuelve a conectarte',
+              }).then(result=>{
+                if(result.isConfirmed){
+                    window.localStorage.removeItem("token")
+                    window.location.reload()
+                    window.location.href = '/'
+                }
+              })
+        }else{
+            dispatch({type:DELETE_CART_BOOK, payload:data})
+        }
     }catch(err){
         console.log(err)
     }
@@ -99,6 +126,72 @@ export const stripe = (array) => async() => {
                     window.location.href = '/'
                 }
               })
+        }
+    }catch(err){
+        console.log(err)
+    }
+}
+
+export const getSessionID = (session_id) => async(dispatch) =>{
+    try{
+        const {data} = await axios.get(`/payment/secret?session_id=${session_id}`, {headers:{Authorization: `Bearer ${window.localStorage.getItem("token")}`}})
+        if(data.hasOwnProperty("role")){
+            Swal.fire({
+                icon: 'error',
+                title: 'Usuario invalido',
+                text: 'Vuelve a conectarte',
+              }).then(result=>{
+                if(result.isConfirmed){
+                    window.localStorage.removeItem("token")
+                    window.location.reload()
+                    window.location.href = '/'
+                }
+              })
+        }else{
+           dispatch({
+                type: GET_SESSION_ID,
+                payload: data
+            }) 
+        }
+    }catch(err){
+        if(err){
+            Swal.fire({
+                icon: 'error',
+                title: 'Oops...',
+                text: 'Aqui no hay nada',
+                showConfirmButton: false,
+                timer: 1500
+              }).then(() => {
+                window.location.href = '/'
+              })
+        }
+    }
+}
+
+export const soldOut = () => {
+    return {
+        type: SOLD_OUT
+    }
+}
+
+export const deleteAllCartBooks = () => async(dispatch) => {
+    try{
+        const {data} = await axios.delete('/user/removeallbooks', {headers:{Authorization: `Bearer ${window.localStorage.getItem("token")}`}});
+
+        if(data.hasOwnProperty("role")){
+            Swal.fire({
+                icon: 'error',
+                title: 'Usuario invalido',
+                text: 'Vuelve a conectarte',
+              }).then(result=>{
+                if(result.isConfirmed){
+                    window.localStorage.removeItem("token")
+                    window.location.reload()
+                    window.location.href = '/'
+                }
+              })
+        }else{
+            dispatch({type:DELETE_ALL_CART_BOOKS})
         }
     }catch(err){
         console.log(err)

@@ -1,4 +1,4 @@
-import {GET_ALL_BOOKS, GET_BOOK_BY_ID, GET_BOOKS_BY_NAME, GET_BOOK_BY_GENRE, GET_YEARS, GET_BOOKS_BY_YEARS, GET_BOOKS_RATING, USER_ROLE} from '../actions/variables'
+import {GET_ALL_BOOKS, GET_BOOK_BY_ID, GET_BOOKS_BY_NAME, GET_BOOK_BY_GENRE, GET_YEARS, GET_BOOKS_BY_YEARS, GET_BOOKS_RATING, USER_ROLE, CLEAN_UP_DETAIL} from '../actions/variables'
 
 let initialState = {
     allBooks: [],
@@ -71,6 +71,11 @@ export default function root(state = initialState, actions){
             return {
                 ...state,
                 role: actions.payload
+            }
+        case CLEAN_UP_DETAIL:
+            return {
+                ...state,
+                bookById: {}
             }
         default:
             return {...state}

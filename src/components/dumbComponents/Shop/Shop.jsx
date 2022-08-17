@@ -4,7 +4,7 @@ import { Link, useNavigate } from "react-router-dom";
 import Swal from "sweetalert2";
 import { useDispatch } from "react-redux";
 import CartCards from "./CartCards";
-import { userCart } from "../../../redux/actions/actionsShop";
+import { deleteAllCartBooks, userCart } from "../../../redux/actions/actionsShop";
 
 export default function Shop() {
   const role = useSelector(state => state.root.role);
@@ -21,6 +21,29 @@ export default function Shop() {
   const handleOnClick = () => {
     navigate("/payment")
   }
+
+  const handleDeleteAll = () => {
+    Swal.fire({
+      title: '¿Estás seguro?',
+      text: "Se eliminaran todos los libros del carrito",
+      icon: 'warning',
+      showCancelButton: true,
+      cancelButtonText: 'Cancelar',
+      confirmButtonColor: '#3085d6',
+      cancelButtonColor: '#d33',
+      confirmButtonText: 'Sí'
+    }).then((result) => {
+      if (result.isConfirmed) {
+        dispatch(deleteAllCartBooks()) 
+        return Swal.fire(
+          'Libros eliminados',
+          'Se ha vaciado tu carrito de compra',
+          'success'
+          )
+      }
+    }).then(() => dispatch(userCart()))
+  }
+
   if(role === "user" || role === "admin"){
     return (
     <div>
@@ -45,9 +68,14 @@ export default function Shop() {
                     </div>
                   </div>
                   { cartBooks && cartBooks.length ?
+                  <div>
                     <button onClick={handleOnClick} className="h-12 w-full bg-blue-500 rounded focus:outline-none text-white hover:bg-blue-600">
                       Comprar
-                    </button> :
+                    </button>
+                    <button onClick={handleDeleteAll} className="h-12 w-full mt-4 bg-red-500 rounded focus:outline-none text-white hover:bg-blue-600">
+                      Vaciar carrito
+                    </button>
+                  </div>:
                     <div></div>}
                 </div>
               </div>

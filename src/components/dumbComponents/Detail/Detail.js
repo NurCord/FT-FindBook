@@ -2,10 +2,10 @@
 import React , {useEffect}from 'react'
 import { H1Detail, DivDetail, TextDetail, DivTableDetail, DivTableColDetail, H1DetailSwiper} from './stayleComponentDetail'
 import { useDispatch, useSelector } from 'react-redux';
-
+import loading from '../../../assets/loading.gif';
 import CardImag from '../Card/CardImag';
 import { useParams } from 'react-router-dom';
-import { getBookByID, getBooksGenres } from '../../../redux/actions/actions';
+import { cleanUpDetailState, getBookByID, getBooksGenres } from '../../../redux/actions/actions';
 import AddToList from './AddToList';
 import Buy from './Buy';
 import AddToCart from './AddToCart';
@@ -16,6 +16,9 @@ export default function Detail() {
     let dispatch = useDispatch()
     useEffect(() => {
         dispatch(getBookByID(parseInt(id)))
+        return () => {
+            dispatch(cleanUpDetailState())
+        }
     }, [])
 
     useEffect(() => {
@@ -109,7 +112,7 @@ export default function Detail() {
         </>
     )}else{
         return (
-            <h1>Jodidos</h1>
+            <div className='grid h-screen place-content-center'><img className='rounded-lg' src={loading} alt='Cargando' /></div>
         )
     }
 }
