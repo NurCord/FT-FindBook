@@ -108,7 +108,6 @@ export const stripe = (array) => async() => {
 export const getSessionID = (session_id) => async(dispatch) =>{
     try{
         const {data} = await axios.get(`/payment/secret?session_id=${session_id}`, {headers:{Authorization: `Bearer ${window.localStorage.getItem("token")}`}})
-        console.log(data)
         if(data.hasOwnProperty("role")){
             Swal.fire({
                 icon: 'error',
@@ -128,7 +127,6 @@ export const getSessionID = (session_id) => async(dispatch) =>{
             }) 
         }
     }catch(err){
-        console.log(err.message)
         if(err){
             Swal.fire({
                 icon: 'error',
