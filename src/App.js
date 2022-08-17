@@ -45,7 +45,6 @@ function App() {
           <Route path='' element={<Home/>}/>
           <Route path='detail/:id' element={<Detail/>}/>
           <Route path='shop' element={<Shop/>}/>
-          <Route path='payment' element={<Payment/>}/>
           <Route path='postbook' element={<CreatePost/>}/>
           <Route path='login' element={<Login/>}/>
           <Route path='contacto' element={<Contact/>}/>
@@ -55,6 +54,7 @@ function App() {
           <Route path='released/:date' element={<SearchByReleased/>}/>          
         </Route>
         <Route>
+          <Route path='payment' element={<Payment/>}/>
           <Route path='payment/success/:session_id' element={<PaymentSuccess/>} />
         </Route>
         {role === 'admin'?<Route path='/layoutAdmin/' element={<LayoutAdmin SetHomeAdmin={SetHomeAdmin} />}>
