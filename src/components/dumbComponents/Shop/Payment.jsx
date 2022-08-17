@@ -2,7 +2,7 @@ import React, { useEffect, useState } from 'react'
 import { useDispatch, useSelector } from 'react-redux';
 import Swal from 'sweetalert2';
 import { useNavigate } from "react-router-dom";
-import { stripe } from '../../../redux/actions/actionsShop';
+import { getSessionID, stripe } from '../../../redux/actions/actionsShop';
 
 export default function Payment() {
   const role = useSelector(state => state.root.role);
@@ -10,6 +10,8 @@ export default function Payment() {
   const cartBooks = useSelector(state => state.shop.cartBooks)
   const dispatch = useDispatch()
 
+  const queryParams = new URLSearchParams(window.location.search);
+  const cancel_session = queryParams.get("cancel_session")
   const [quantity, setQuantity] = useState({})
 
   useEffect(() => {
@@ -22,7 +24,10 @@ export default function Payment() {
         }) 
       })
     }
-  }, [cartBooks])
+    if(cancel_session){
+      dispatch(getSessionID(cancel_session))
+    }
+  }, [cartBooks, dispatch])
   
   const handleOnChange = (e) => {
     e.preventDefault();
