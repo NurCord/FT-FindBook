@@ -191,7 +191,7 @@ export const deleteAllCartBooks = () => async(dispatch) => {
                 }
               })
         }else{
-            dispatch({type:DELETE_ALL_CART_BOOKS, payload:data})
+            dispatch({type:DELETE_ALL_CART_BOOKS})
         }
     }catch(err){
         console.log(err)

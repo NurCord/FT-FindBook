@@ -100,14 +100,14 @@ export default function Payment() {
                                 </div>
                               </div>
                             ))}
-                          </div> :
+                          </div>
                         <div className="flex justify-between items-center mt-6 pt-6 border-t">
                           <div className="flex items-center">
                             <i className="fa fa-arrow-left text-sm pr-2"></i>
                           </div>
                         </div>
                       </section>
-                      <section className='flex flex-col-reverse border bg-stone-200 rounded-2xl'>
+                      <section className='flex flex-col bg-stone-200 rounded'>
                         { cartBooks && cartBooks.length ?
                         <div>
                           <button onClick={(e) => handleBackToCart(e)} className="h-12 w-full bg-blue-500 rounded focus:outline-none text-white hover:bg-blue-600">
