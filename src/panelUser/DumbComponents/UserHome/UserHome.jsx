@@ -1,5 +1,4 @@
 import React, { useState } from 'react'
-import { useParams } from 'react-router-dom';
 import { useSelector, useDispatch } from 'react-redux';
 import img2 from '../../../assets/fondoAdmin.jpg'
 import { UilEditAlt } from '@iconscout/react-unicons'
@@ -7,7 +6,7 @@ import { useForm } from 'react-hook-form';
 import { yupResolver } from '@hookform/resolvers/yup';
 import * as yup from 'yup';
 import Swal from "sweetalert2"
-import { putUser } from '../../../redux/actions/actions';
+import { putUserPanel } from '../../../redux/actions/actions';
 
 const schema = yup.object().shape({
   name: yup.string().max(100),
@@ -16,9 +15,8 @@ const schema = yup.object().shape({
 })
 
 function UserHome({ HomeUser }) {
-  const { id } = useParams()
   const [state, setState] = useState('hidden')
-  const user = useSelector(s => s.admin.userDetail);
+  const user = useSelector(state => state.user.userDetail)
   const dispatch = useDispatch();
 
   const { register, handleSubmit, formState: { errors } } = useForm({
@@ -41,25 +39,26 @@ function UserHome({ HomeUser }) {
       cancelButtonColor: '#d33',
       confirmButtonText: 'Si, Confirmar!'
     }).then((result) => {
+      
       if (result.isConfirmed) {
-        if (data.name === '' && data.surname === '' && data.username === '') {
+        if (data.name === '' && data.lastname === '' && data.username === '') {
           setState('hidden')
           return Swal.fire(
             'No se encontraron cambios!',
             'El Usuario no fue modificado',
             'warning'
-          )
-        }
-        if (data.name === '') delete data.name
-        if (data.surname === '') delete data.surname
-        if (data.username === '') delete data.username
-        setState('hidden')
-        dispatch(putUser(user.email, data))
+            )
+          }
+          if (data.name === '') delete data.name
+          if (data.surname === '') delete data.surname
+          if (data.username === '') delete data.username
+          setState('hidden')
+        dispatch(putUserPanel(user?.email, data))
         Swal.fire(
           'Confirmar!',
           `El Usuario fue modificado`,
           'success'
-        ).then(() => window.location.reload())
+        ).then(()=> window.location.reload())
       }
     })
   }
@@ -95,7 +94,7 @@ function UserHome({ HomeUser }) {
                     key='surname'
                     type='text'
                     name='surname'
-                    placeholder={`${user.surname}...`}
+                    placeholder={`${user.lastname}...`}
                     {...register("surname")}
                   />
                 </div>
@@ -103,10 +102,10 @@ function UserHome({ HomeUser }) {
                   <label className='col-span-1 ml-6 font-semibold place-self-center'>Nombre de usuario:</label>
                   <input
                     className='col-span-2 m-4 rounded-md bg-cream-100'
-                    key='nameUser'
+                    key='username'
                     type='text'
-                    name='nameUser'
-                    placeholder={`${user.nameUser}...`}
+                    name='username'
+                    placeholder={`${user.username}...`}
                     {...register("username")}
                   />
                 </div>
@@ -127,11 +126,11 @@ function UserHome({ HomeUser }) {
               </div>
               <div className='grid grid-cols-2'>
                 <h1 className='font-semibold'>Apellido: </h1>
-                <h2>{user?.surname}</h2>
+                <h2>{user?.lastname}</h2>
               </div>
               <div className='grid grid-cols-2'>
                 <h1 className='font-semibold'>Nombre de usuario: </h1>
-                <h2>{user?.nameUser}</h2>
+                <h2>{user?.username}</h2>
               </div>
               <div className='grid grid-cols-2'>
                 <h1 className='font-semibold'>Email: </h1>

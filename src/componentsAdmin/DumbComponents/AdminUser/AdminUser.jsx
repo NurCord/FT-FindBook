@@ -26,7 +26,7 @@ export default function AdminUser() {
   const dispatch = useDispatch();
   useEffect(() => {
     dispatch(userRole(window.localStorage.getItem('token')))
-    dispatch(getUser(id, window.localStorage.getItem('token')))
+    dispatch(getUser(window.localStorage.getItem('token')))
   }, [])
 
   const { register, handleSubmit, formState: { errors } } = useForm({

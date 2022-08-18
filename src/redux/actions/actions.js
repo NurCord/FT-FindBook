@@ -237,9 +237,9 @@ export let getAllUsers = (token)=> async(dispatch)=>{
     }
 }
 
-export let getUser = (username,token)=> async(dispatch)=>{
+export let getUser = (token)=> async(dispatch)=>{
     try {
-        let getUser = await axios.get(`/admin/users/${username}`,{
+        let getUser = await axios.get(`/admin/usersDetail`,{
             headers:{
                 Authorization: `Bearer ${token}`
             }
@@ -347,9 +347,9 @@ export const cleanUpDetailState = () => {
 }
 
 
-export let userDetailPanel = (username) => async(dispatch) => {
+export let userDetailPanel = () => async(dispatch) => {
     try {
-        let detailUserPanel = (await axios.get(`/userPanel/getUser/${username}`, {
+        let detailUserPanel = (await axios.get(`/userPanel/getUser`, {
             headers:{
                 Authorization: `Bearer ${window.localStorage.getItem('token')}`
             }
