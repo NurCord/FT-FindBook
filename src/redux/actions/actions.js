@@ -168,6 +168,31 @@ export const registerUser = (user) => async()=>{
     // }
 }
 
+export const googleLogRes = (user) => async() => {
+    return await axios.post('/auth/google', user)
+    .then(async ({data})=>{
+        if(data.error){
+            return Swal.fire({
+                icon: 'error',
+                title: 'Oops...',
+                text: data.error,
+                })
+        }else{
+            window.localStorage.setItem('token',data.token)
+            await Swal.fire({
+                title: `Bienvenido ${user.email}`,
+                showClass: {
+                    popup: 'animate__animated animate__fadeInDown'
+                },
+                hideClass: {
+                    popup: 'animate__animated animate__fadeOutUp'
+                }
+            })
+            return window.location.href='/';
+        }
+    })
+}
+
 export const loginUser = (user) => async()=>{
     try{
         return await axios.post('/auth/login',user)
