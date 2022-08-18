@@ -14,7 +14,7 @@ export default function root(state = initialState, actions){
         case GET_ALL_USERS:
             return {
                 ...state,
-                allUsers: actions.payload.users.sort((a,b)=>{
+                allUsers: actions.payload.users?.sort((a,b)=>{
                         if (a.name > b.name) {
                             return 1;
                         }
