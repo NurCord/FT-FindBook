@@ -127,7 +127,7 @@ export default function Login() {
     function handleCallbackResponse (response){
         // console.log("Encoded JWT ID token: " + response.credential);
         const googleLogin = jwt_decode(response.credential);
-        //console.log(googleLogin);
+        console.log(googleLogin);
         dispatch(googleLogRes(googleLogin))
         // document.getElementById("signInDiv").hidden = true;
     }
@@ -143,6 +143,8 @@ export default function Login() {
             document.getElementById("signInDiv"),
             { theme: "outline", size: "large"}
         )
+
+        google.accounts.id.prompt();
     }, [])
 
     function handleUserFormSubmit (e) {
