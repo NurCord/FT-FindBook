@@ -3,6 +3,8 @@ import { useSelector, useDispatch } from 'react-redux'
 import ContainCards from '../Card/ContainCards'
 import ImgReleased from '../../../assets/released.jpg'
 import { getBooksByYears } from '../../../redux/actions/actions'
+import clsx from 'clsx'
+
 export default function SearchByReleased() {
     const dispatch = useDispatch()
     let state = useSelector(s => s.root.allBooksByRealiced) 
@@ -13,14 +15,27 @@ export default function SearchByReleased() {
     return (
         <div className='w-full h-full bg-greyBlack-100'>
             <div className='relative h-full'>
-                <span className='absolute grid w-full text-5xl place-content-center top-10'>{state.yearsToFilter}</span>
-                <img className='w-full h-36' src={ImgReleased} alt='Not found' />
+                <span className={clsx(
+                    'mobile:text-5xl mobile:left-16 mobile:top-6',
+                    'absolute desktop:grid w-full desktop:text-5xl desktop:place-content-center desktop:top-10')}>{state.yearsToFilter}</span>
+                <img className={clsx(
+                    'mobile:h-24',
+                    'w-full desktop:h-36'
+                    )} src={ImgReleased} alt='Not found' />
             </div>
-            <div className='grid grid-cols-4 justify-items-center'>
-                <div className='w-full col-span-1 p-10'>
+            <div className={clsx(
+                'mobile:grid-cols-1 mobile:grid mobile:justify-items-center',
+                'desktop:grid-cols-4 '
+                )}>
+                <div className={clsx(
+                    'mobile:px-10 mobile:py-5',
+                    'w-full desktop:col-span-1 desktop:text-2xl desktop:p-10'
+                    )}>
                     {state.filterBooks.length} Resultados
                 </div>
-                <div className='w-full col-span-3'>
+                <div className={clsx(
+                    'desktop:w-full desktop:col-span-3'
+                    )}>
                     <div className='w-full h-auto'>
                         <ContainCards data={state.filterBooks} />
                     </div>

@@ -4,9 +4,16 @@ import {themesC} from '../../../styles/styleComponents'
 export const ButtonDetail = styled.button`
     background-color: ${themesC.cream};
     border-radius: 0.6rem;
-    width: 90%;
+    width: 10rem;
+    height: 65px;
     margin: 5px;
     padding: 10px 0px;
+    @media (max-width: 700px) {
+        font-size:small;
+        padding: 0%;
+        height: 40px;
+        width: 120px;
+  }
 `
 
 export const H1Detail = styled.h1`
@@ -35,6 +42,10 @@ export const TextDetail = styled.div`
     text-align: justify;
     column-count: 2; 
     column-gap: 20px; 
+    @media (max-width: 700px) {
+        font-size:small;
+        width: auto;
+  }
 `
 
 export const DivTableDetail = styled.div`
@@ -45,6 +56,10 @@ export const DivTableColDetail = styled.div`
     display: grid;
     grid-template-columns: repeat(2, 1fr);
     justify-items: start;
+    @media (max-width: 700px) {
+        font-size:small;
+        width: auto;
+  }
 `
 
 
