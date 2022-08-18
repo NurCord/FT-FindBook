@@ -7,7 +7,7 @@ import 'swiper/css/pagination';
 import 'swiper/css/autoplay';
 import publi1 from '../../../assets/After.png'
 import publi2 from '../../../assets/Harry.png'
-
+import clsx from 'clsx'
 let pictures = [publi1, publi2];
 
 function slidecreator() {
@@ -16,7 +16,9 @@ function slidecreator() {
             return (
                 <SwiperSlide className="flex justify-center" key={i}>
                     <img
-                        className="h-96 w-screen mb-4"
+                        className={clsx(
+                          "desktop:w-screen desktop:mb-4 desktop:h-96"
+                        )}
                         alt="Not Found"
                         /*src = {`https://picsum.photos/id/${pic}/800/600`}*/
                         src={e}
