@@ -25,6 +25,7 @@ import Payment from './components/dumbComponents/Shop/Payment';
 import NoMatch from './components/dumbComponents/NoMatch/NoMatch.jsx';
 import { userCart } from './redux/actions/actionsShop';
 import PaymentSuccess from './components/dumbComponents/Shop/PaymentSuccess';
+import DetailBook from './panelUser/DumbComponents/CardBook/DetailBook';
 
 function App() {
   let dispatch = useDispatch()
@@ -41,42 +42,41 @@ function App() {
   if(role === 'loading'){
     return(<div className='grid h-screen place-content-center'><img className='rounded-lg' src={loading} alt='Cargando' /></div>)
   }
-  else{
-    return (
-      <div className='w-full h-full bg-greyBlack-100'>
-        <Routes>
-          <Route path='/' element={<Layout/>}>
-            <Route path='' element={<Home/>}/>
-            <Route path='detail/:id' element={<Detail/>}/>
-            <Route path='shop' element={<Shop/>}/>
-            <Route path='postbook' element={<CreatePost/>}/>
-            {role ==='invalid' && <Route path='login' element={<Login/>}/>}
-            <Route path='contacto' element={<Contact/>}/>
-            <Route path='contacto/agradecimiento' element={<ThanksPage/>}/>
-            <Route path='busqueda/:name' element={<SearchByName/>}/>
-            <Route path='categoria/:genre' element={<SearchByCategory/>}/>
-            <Route path='released/:date' element={<SearchByReleased/>}/>          
-          </Route>
-  
-          <Route>
-            <Route path='payment' element={<Payment/>}/>
-            <Route path='payment/success/:session_id' element={<PaymentSuccess/>} />
-          </Route>
-          
-          {role !== 'loading'?<Route path='/paneluser/' element={<PanelUser SetHomeUser={SetHomeUser} />}>
-            <Route path='' element={<UserHome HomeUser={HomeUser} />}/>
-          </Route>:<Route path='/paneluser/*' element={<div className = 'grid h-screen place-content-center text-7xl text-center'><h1 >INICIA SESION</h1><br></br><h1>PARA ACCEDER A</h1><br></br><h1>ESTE PATH</h1></div>}/>}
-  
-          {role === 'admin'?<Route path='/layoutAdmin/' element={<LayoutAdmin SetHomeAdmin={SetHomeAdmin} />}>
-            <Route path='' element={<AdminHome HomeAdmin={HomeAdmin} />}/>
-            <Route path='book/:id' element={<AdminBooK/>}/> 
-            <Route path='user/:id' element={<AdminUser/>}/>
-          </Route>:<Route path='/layoutAdmin/*' element={<div className = 'grid h-screen place-content-center text-7xl text-center'><h1 >NO TIENES PERMISOS</h1><br></br><h1>PARA ACCEDER A</h1><br></br><h1>ESTE PATH</h1></div>}/>}
-          <Route path="*" element={<NoMatch />} />
-        </Routes>
-      </div>
-    );
-  }
+  return (
+    <div className='w-full h-full bg-greyBlack-100'>
+      <Routes>
+        <Route path='/' element={<Layout/>}>
+          <Route path='' element={<Home/>}/>
+          <Route path='detail/:id' element={<Detail/>}/>
+          <Route path='shop' element={<Shop/>}/>
+          <Route path='postbook' element={<CreatePost/>}/>
+          <Route path='login' element={<Login/>}/>
+          <Route path='contacto' element={<Contact/>}/>
+          <Route path='contacto/agradecimiento' element={<ThanksPage/>}/>
+          <Route path='busqueda/:name' element={<SearchByName/>}/>
+          <Route path='categoria/:genre' element={<SearchByCategory/>}/>
+          <Route path='released/:date' element={<SearchByReleased/>}/>          
+        </Route>
+
+        <Route>
+          <Route path='payment' element={<Payment/>}/>
+          <Route path='payment/success/:session_id' element={<PaymentSuccess/>} />
+        </Route>
+        
+        {role !== 'loading'?<Route path='/paneluser/' element={<PanelUser SetHomeUser={SetHomeUser} />}>
+          <Route path='' element={<UserHome HomeUser={HomeUser} />}/>
+          <Route path='book/:id' element={<DetailBook/>}/> 
+        </Route>:<Route path='/paneluser/*' element={<div className = 'grid h-screen text-center place-content-center text-7xl'><h1 >INICIA SESION</h1><br></br><h1>PARA ACCEDER A</h1><br></br><h1>ESTE PATH</h1></div>}/>}
+
+        {role === 'admin'?<Route path='/layoutAdmin/' element={<LayoutAdmin SetHomeAdmin={SetHomeAdmin} />}>
+          <Route path='' element={<AdminHome HomeAdmin={HomeAdmin} />}/>
+          <Route path='book/:id' element={<AdminBooK/>}/> 
+          <Route path='user/:id' element={<AdminUser/>}/>
+        </Route>:<Route path='/layoutAdmin/*' element={<div className = 'grid h-screen text-center place-content-center text-7xl'><h1 >NO TIENES PERMISOS</h1><br></br><h1>PARA ACCEDER A</h1><br></br><h1>ESTE PATH</h1></div>}/>}
+        <Route path="*" element={<NoMatch />} />
+      </Routes>
+    </div>
+  );
 }
 
 export default App;

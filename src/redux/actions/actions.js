@@ -406,9 +406,10 @@ export let booksPanel = () => async(dispatch) => {
 
 export let bookDetailPanel = (id) => async(dispatch) => {
     try {
+        let bookByID = (await axios.get(`/books/${id}`)).data;
         dispatch({
             type: GET_DETAIL_BOOK_PANEL,
-            payload: id
+            payload: bookByID
         })
     } catch (error) {
         alert(error)
