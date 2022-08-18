@@ -12,6 +12,8 @@ const schema = yup.object().shape({
   name: yup.string().max(100),
   surname: yup.string().max(100),
   username: yup.string().max(100),
+  emailput: yup.string().max(100),
+  password: yup.string().max(100),
 })
 
 function UserHome({ HomeUser }) {
@@ -52,6 +54,8 @@ function UserHome({ HomeUser }) {
           if (data.name === '') delete data.name
           if (data.surname === '') delete data.surname
           if (data.username === '') delete data.username
+          if (data.emailput === '') delete data.emailput
+          if (data.password === '') delete data.password
           setState('hidden')
         dispatch(putUserPanel(user?.email, data))
         Swal.fire(
@@ -73,9 +77,9 @@ function UserHome({ HomeUser }) {
             </button>
           </div>
 
-          <div className={`${state} absolute flex left-1/2 top-1/3`}>
-            <div className={`z-10 bg-cream-300 w-96 h-80 rounded-md`}>
-              <form onSubmit={handleSubmit(onSubmit)} className='grid h-full grid-cols-1 grid-rows-4 gap-4'>
+          <div className={`${state} absolute flex`}>
+            <div className={`z-10 bg-cream-300 rounded-md`}>
+              <form onSubmit={handleSubmit(onSubmit)} className='grid h-full grid-cols-1 grid-rows-6 gap-4'>
                 <div className='grid content-center grid-cols-3'>
                   <label className='col-span-1 font-semibold place-self-center'>Nombre:</label>
                   <input
@@ -109,6 +113,28 @@ function UserHome({ HomeUser }) {
                     {...register("username")}
                   />
                 </div>
+                <div className='grid content-center grid-cols-3'>
+                  <label className='col-span-1 ml-6 font-semibold place-self-center'>Email:</label>
+                  <input
+                    className='col-span-2 m-4 rounded-md bg-cream-100'
+                    key='emailput'
+                    type='email'
+                    name='emailput'
+                    placeholder={`${user.email}...`}
+                    {...register("emailput")}
+                  />
+                </div>
+                <div className='grid content-center grid-cols-3'>
+                  <label className='col-span-1 ml-6 font-semibold place-self-center'>Contraseña:</label>
+                  <input
+                    className='col-span-2 m-4 rounded-md bg-cream-100'
+                    key='password'
+                    type='text'
+                    name='password'
+                    placeholder={'* * * * * *'}
+                    {...register("password")}
+                  />
+                </div>
                 <button type="submit" className='px-4 py-2 m-auto font-semibold duration-200 rounded-md bg-cream-100 hover:bg-greyBlack-400 hover:text-cream-100'>Confirmar</button>
               </form>
             </div>
@@ -118,8 +144,8 @@ function UserHome({ HomeUser }) {
           <div style={{ backgroundImage: `url(${img2})` }} className='relative w-full h-full col-span-1 bg-cover'>
             <img src={user?.url} alt='Not found' className='absolute duration-500 ease-in rounded-full top-48 left-16 scale-70 hover:scale-105' />
           </div>
-          <div className='grid content-center w-full col-span-2 grid-rows-2 py-6 justify-items-center bg-zinc-300'>
-            <div className='grid self-center grid-rows-4 row-span-1 gap-4 w-96'>
+          <div className='grid content-center w-full col-span-2 py-6 justify-items-center bg-zinc-300'>
+            <div className='grid self-center grid-rows-4 gap-4 w-96'>
               <div className='grid grid-cols-2'>
                 <h1 className='font-semibold'>Nombre: </h1>
                 <h1>{user?.name}</h1>
@@ -135,6 +161,10 @@ function UserHome({ HomeUser }) {
               <div className='grid grid-cols-2'>
                 <h1 className='font-semibold'>Email: </h1>
                 <h2>{user?.email}</h2>
+              </div>
+              <div className='grid grid-cols-2'>
+                <h1 className='font-semibold'>Contraseña: </h1>
+                <h2>* * * * * *</h2>
               </div>
             </div>
           </div>
