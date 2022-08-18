@@ -9,6 +9,7 @@ import { cleanUpDetailState, getBookByID, getBooksGenres } from '../../../redux/
 import AddToList from './AddToList';
 import Buy from './Buy';
 import AddToCart from './AddToCart';
+import clsx from 'clsx'
 
 export default function Detail() {
     let state = useSelector(s => s.root.bookById)
@@ -31,33 +32,50 @@ export default function Detail() {
         <>
         {  
             state.id && 
-                <div className='grid w-full grid-cols-1 gap-5 bg-greyBlack-100 justify-items-center'>
-                <div className='grid w-full grid-cols-1 px-20 pt-2 justify-items-center bg-greyBlack-200'>
-                    <h1>{state.name}</h1>
-                    <div className='grid content-center justify-between w-full h-12 grid-cols-3 justify-items-center'>
+                <div className={clsx(
+                    'mobile:gap-2',
+                    'grid w-full grid-cols-1 gap-5 bg-greyBlack-100 justify-items-center'
+                )}>
+                <div className={clsx(
+                    'mobile:px-6 mobile:h-20 mobile:text-sm',
+                    'grid w-full grid-cols-1 desktop:px-20 desktop:pt-2 justify-items-center bg-greyBlack-200 desktop:text-xl'
+                )}>
+                    <h1 className='text-center'>{state.name}</h1>
+                    <div className={clsx(
+                        'mobile:h-6 mobile:text-sm',
+                        'grid desktop:content-center desktop:text-lg desktop:justify-between w-full desktop:h-12 grid-cols-3 desktop:justify-items-center'
+                        )}>
                         <span><a href='#descripcion'>Descripcion</a></span>
                         <span><a href='#caracteristicas'>Caracteristicas</a></span>
                         <span><a href='#recomendados'>Recomendados</a></span>
                     </div>
                 </div>
-                <div className='grid w-2/3 gap-5 rounded-sm bg-cream-100 justify-items-center'>
-                    <div className='grid w-2/3 grid-cols-2 gap-40 mt-8 border-b-2 w pb-7 border-greyBlack-100'>
+                <div className={clsx(
+                    'mobile:w-full',
+                    'grid desktop:w-2/3 gap-5 rounded-sm bg-cream-100 justify-items-center'
+                    )}>
+                    <div className={clsx(
+                        'mobile:w-3/4 mobile:gap-10',
+                        'grid desktop:w-2/3 grid-cols-2 desktop:gap-40 my-8 border-b-2 border-greyBlack-100'
+                    )}>
                         <div className='grid justify-items-center'>
                                 <img src={state.image} alt='Not found'
                                 className='w-48 rounded-md'
                                 />
                                 <AddToList id={id}/>
                         </div>
-                        <div className='grid content-center grid-rows-3 rounded-md min-h-min min-w-min bg-cream-200 justify-items-center'>
-                            <h1 className='m-auto'>US${state.price}</h1>                      
-                            <Buy id={id}/>
-                            <AddToCart id={id}/>
+                        <div className='mobile:grid mobile:grid-rows-2'>
+                            <div className='grid content-center grid-rows-3 pb-10 rounded-md min-h-min min-w-min bg-cream-200 justify-items-center'>
+                                <h1 className='m-auto'>US${state.price}</h1>                      
+                                <Buy id={id}/>
+                                <AddToCart id={id}/>
+                            </div>
                         </div>
                     </div>
                     <DivDetail>
                         <H1Detail id='descripcion'>Descripción</H1Detail>
                         <TextDetail>
-                        {state.description}
+                            {state.description}
                         </TextDetail>
                     </DivDetail>
                     <DivDetail>
@@ -102,7 +120,9 @@ export default function Detail() {
                     </DivDetail>
                     <DivDetail id='recomendados' style={{border: 'none', position: 'relative'}}>
                         <H1DetailSwiper>Recomendaciones</H1DetailSwiper>
-                        <div className='absolute max-w-3xl top-14'>
+                        <div className={clsx(
+                            'mobile:w-80',
+                            'absolute desktop:max-w-3xl desktop:w-full top-14')}>
                             <CardImag/> 
                         </div>
                     </DivDetail>

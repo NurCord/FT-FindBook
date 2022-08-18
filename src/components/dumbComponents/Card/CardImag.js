@@ -8,6 +8,7 @@ import 'swiper/css/autoplay';
 import { useNavigate } from 'react-router-dom';
 import { useDispatch, useSelector } from 'react-redux';
 import {getBookByID} from '../../../redux/actions/actions';
+import clsx from 'clsx'
 
 export default function CardImag() {
     let res = useSelector(s => s.root.allBooksByGenre)
@@ -28,9 +29,15 @@ export default function CardImag() {
         >
             <div className="flex justify-evenly">
                 {data?.map((e, i) => (
-                <SwiperSlide className="flex justify-center w-96" key={i}>
+                <SwiperSlide className={clsx(
+                    'mobile:w-full',
+                    "flex justify-center w-96"
+                )} key={i}>
                     <button onClick={() => handleOnClick(e.id)}>
-                        <img className='w-40 h-64' src={e.image} alt={e.name}/>
+                        <img className={clsx(
+                            'mobile:w-20 mobile:h-20',
+                            'w-40 h-64'
+                            )} src={e.image} alt={e.name}/>
                     </button>
                 </SwiperSlide>))}
             </div>
@@ -45,9 +52,15 @@ export default function CardImag() {
             >
                 <div className="flex justify-evenly">
                     {data?.map((e, i) => (
-                    <SwiperSlide className="flex justify-center w-96" key={i}>
+                    <SwiperSlide className={clsx(
+                    'mobile:w-full',
+                    "flex justify-center desktop:w-96"
+                )} key={i}>
                         <button onClick={() => handleOnClick(e.id)}>
-                            <img className='w-40 h-64' src={e.image} alt={e.name}/>
+                            <img className={clsx(
+                            'mobile:w-44 mobile:h-44 mobile:px-1',
+                            'desktop:w-40 desktop:h-64'
+                            )}src={e.image} alt={e.name}/>
                         </button>
                     </SwiperSlide>))}
                 </div>

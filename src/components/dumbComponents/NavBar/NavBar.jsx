@@ -1,4 +1,4 @@
-import React from 'react'
+import React, { useState } from 'react'
 import SearchNavBar from '../../smartComponents/SearchNavBar/SearchNavBar'
 import Logo from '../../../assets/FindBookLogo.png'
 import Filters from '../../smartComponents/Filters/Filters'
@@ -9,6 +9,12 @@ import { UilFidgetSpinner } from '@iconscout/react-unicons'
 
 export default function NavBar() {
   const role = useSelector(state => state.root.role)
+  let [state, setState] = useState('hidden')
+
+  let handleHidden = () => {
+    setState(state === 'hidden' ? '' : 'hidden')
+  }
+
   return (
     <>
       <div className={clsx(
@@ -20,9 +26,12 @@ export default function NavBar() {
             'mobile: ',
             'tablet:',
             'desktop:hidden')}>
-            <svg xmlns="http://www.w3.org/2000/svg" className="mx-3 rounded-full w-7 h-7" fill="none" viewBox="0 0 24 24" stroke="currentColor" strokeWidth={2}>
+            <svg xmlns="http://www.w3.org/2000/svg" className="mx-3 rounded-full w-7 h-7" onClick={handleHidden} fill="none" viewBox="0 0 24 24" stroke="currentColor" strokeWidth={2}>
             <path strokeLinecap="round" strokeLinejoin="round" d="M21 21l-6-6m2-5a7 7 0 11-14 0 7 7 0 0114 0z" />
             </svg>
+          </div>
+          <div className={`${state} absolute flex`}>
+            <SearchNavBar />
           </div>
           <div className={clsx(
             'mobile:',
