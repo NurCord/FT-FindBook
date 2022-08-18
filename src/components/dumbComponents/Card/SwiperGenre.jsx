@@ -11,6 +11,8 @@ import genre2 from '../../../assets/Comic (2).png'
 import genre3 from '../../../assets/Comic (3).png'
 import genre4 from '../../../assets/Comic (4).png'
 import genre5 from '../../../assets/Comic.png'
+import clsx from 'clsx'
+
 
 let data = [
     {name:'biografía', img: genre1}, 
@@ -33,13 +35,19 @@ export default function SwiperGenre() {
             modules={[Navigation, Pagination]}
             slidesPerView={4}
             navigation
-            className='bg-greyBlack-100'
+            className='bg-greyBlack-100 mobile:mb-5'
         >
             <div className="flex justify-evenly">
                 {data?.map((e, i) => (
-                <SwiperSlide className="flex justify-center p-10 w-96" key={i}>
+                <SwiperSlide className={clsx(
+                    'mobile:flex mobile:justify-center mobile:w-48',
+                    "desktop:p-10 desktop:w-full"
+                )} key={i}>
                     <button onClick={() => handleOnClick(e.name)}>
-                    <img className='w-40 h-40 rounded-lg' src={e.img} alt='Not found'/>
+                    <img className={clsx(
+                        'mobile:w-20 mobile:h-20 mobile:rounded-lg',
+                        'desktop:w-40 desktop:h-40'
+                    )} src={e.img} alt='Not found'/>
                 </button>
             </SwiperSlide>))}
         </div>

@@ -19,6 +19,11 @@ module.exports = {
         },
       },
     },
+    screens: {
+      'mobile': '320px',
+      'tablet': '450px',
+      'desktop': '700px',
+    },
   },
   plugins: [
     require('@tailwindcss/forms'),

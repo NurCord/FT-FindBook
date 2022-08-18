@@ -2,6 +2,7 @@ import React, { useEffect } from 'react'
 import { useSelector, useDispatch } from 'react-redux'
 import ContainCards from '../Card/ContainCards'
 import { getBookByName } from '../../../redux/actions/actions'
+import clsx from 'clsx'
 
 export default function SearchByName() {
     let books = useSelector(s => s.root.allBooksByName)
@@ -10,12 +11,20 @@ export default function SearchByName() {
         dispatch(getBookByName(window.location.pathname.split('/')[2]))
     }, [dispatch, books])
     return (
-        <div className='w-full h-full bg-greyBlack-100'>
-            <div className='grid grid-cols-4 justify-items-center'>
-                <div className='w-full col-span-1 p-10'>
+        <div className={clsx(
+            'w-full desktop:h-full bg-greyBlack-100'
+        )}>
+            <div className={clsx(
+                'mobile:grid-cols-1 mobile:grid mobile:justify-items-center mobile:h-full',
+                'desktop:grid-cols-4 '
+                )}>
+                <div className={clsx(
+                    'mobile:px-10 mobile:py-5',
+                    'w-full desktop:col-span-1 desktop:text-2xl desktop:p-10'
+                    )}>
                     <h1>{books?.length} Resultados</h1>
                 </div>
-                <div className='w-full col-span-3'>
+                <div className='desktop:w-full desktop:col-span-3'>
                     <div className='w-full h-auto'>
                         <ContainCards data={books}/>
                     </div>
