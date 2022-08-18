@@ -5,6 +5,7 @@ import CardUser from '../CardUser/CardUser'
 import CardBooks from '../CardBooks/CardBooks'
 import NavHome from '../NavHome/NavHome'
 import HomeAdmins from '../../SmartComponents/HomeAdmin/HomeAdmin'
+import OrderList from '../OrdersList/OrderList'
 
 function AdminHome({ HomeAdmin }) {
   const dispatch = useDispatch();
@@ -57,7 +58,7 @@ function AdminHome({ HomeAdmin }) {
       <div className='w-full h-full'>
         <NavHome />
         <div className='grid grid-cols-4 gap-4 justify-items-center '>
-          <h1>Historial</h1>
+          <OrderList />
         </div>
       </div>
     )
