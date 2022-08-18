@@ -1,7 +1,8 @@
-import React, { useState } from 'react';
+import React, { useState, useEffect } from 'react';
 import { useDispatch } from "react-redux";
-import { registerUser, loginUser } from '../../../redux/actions/actions';
+import { registerUser, loginUser, googleLogRes } from '../../../redux/actions/actions';
 import Swal from "sweetalert2";
+import jwt_decode from "jwt-decode";
 
 function createUserValidator (createUserForm) {
     const re = /^[a-z0-9!#$%&'*+/=?^_`{|}~-]+(?:\.[a-z0-9!#$%&'*+/=?^_`{|}~-]+)*@(?:[a-z0-9](?:[a-z0-9-]*[a-z0-9])?\.)+[a-z0-9](?:[a-z0-9-]*[a-z0-9])?$/;
@@ -123,6 +124,27 @@ export default function Login() {
         }
     }
 
+    function handleCallbackResponse (response){
+        // console.log("Encoded JWT ID token: " + response.credential);
+        const googleLogin = jwt_decode(response.credential);
+        //console.log(googleLogin);
+        dispatch(googleLogRes(googleLogin))
+        // document.getElementById("signInDiv").hidden = true;
+    }
+
+    useEffect(() => {
+        /* global google */
+        google.accounts.id.initialize({
+            client_id: "569317957647-3eg4sjqbiotum9jak6kcc80qr0lt97gb.apps.googleusercontent.com",
+            callback: handleCallbackResponse
+        });
+
+        google.accounts.id.renderButton(
+            document.getElementById("signInDiv"),
+            { theme: "outline", size: "large"}
+        )
+    }, [])
+
     function handleUserFormSubmit (e) {
         e.preventDefault();
         let voidForm = false;
@@ -148,6 +170,7 @@ export default function Login() {
                     <div>
                         <form className = 'flex flex-col justify-center' onSubmit={e => handleCreateUserFormSubmit (e)}>
                             <h1 className = 'flex justify-center pb-1'>Registrarse</h1>
+                            <div id = "signInDiv"></div>
                             <div className = 'flex flex-row'>
                                 <div className = 'px-2'>
                                     <label>Nombre</label><br></br>
@@ -204,6 +227,7 @@ export default function Login() {
                     <div>
                         <form className = 'flex flex-col justify-center' onSubmit={e => handleUserFormSubmit (e)}>
                             <h1 className = 'flex justify-center'>Iniciar sesión</h1>
+                            <div id = "signInDiv"></div>
                             <label>E-mail</label><br></br>
                             <input type = 'email' name = 'mail' value = {userForm.mail} onChange={e => handleUserFormChange (e)} className = 'text-center rounded-lg text-slate-600'/><br></br>
                             {userForbidden.mail && ( <p key = 'mailError' className = "flex text-orange-600">{userForbidden.mail}</p> )}

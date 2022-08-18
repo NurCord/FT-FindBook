@@ -29,9 +29,9 @@ import PaymentSuccess from './components/dumbComponents/Shop/PaymentSuccess';
 function App() {
   let dispatch = useDispatch()
   useEffect(() => {
-    dispatch(getAllBooks())
-    dispatch(getGenres())
-    dispatch(getYears())
+    // dispatch(getAllBooks())
+    // dispatch(getGenres())
+    // dispatch(getYears())
     dispatch(userRole(window.localStorage.getItem('token')))
     dispatch(userCart())
   }, [dispatch])
