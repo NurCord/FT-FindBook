@@ -20,10 +20,9 @@ export default function root(state = initialState, actions){
                 books: actions.payload
             }
         case GET_DETAIL_BOOK_PANEL:
-            let book = state.books.find(e => e.id === actions.payload)
             return {
                 ...state,
-                bookDetail: book
+                bookDetail: actions.payload
             }
         default:
             return {...state}

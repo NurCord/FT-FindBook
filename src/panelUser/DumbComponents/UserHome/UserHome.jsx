@@ -7,7 +7,7 @@ import { yupResolver } from '@hookform/resolvers/yup';
 import * as yup from 'yup';
 import Swal from "sweetalert2"
 import { putUserPanel } from '../../../redux/actions/actions';
-
+import CardBook from '../CardBook/CardBook'
 const schema = yup.object().shape({
   name: yup.string().max(100),
   surname: yup.string().max(100),
@@ -17,6 +17,7 @@ const schema = yup.object().shape({
 function UserHome({ HomeUser }) {
   const [state, setState] = useState('hidden')
   const user = useSelector(state => state.user.userDetail)
+  const books = useSelector(state => state.user.books)
   const dispatch = useDispatch();
 
   const { register, handleSubmit, formState: { errors } } = useForm({
@@ -25,7 +26,6 @@ function UserHome({ HomeUser }) {
 
   let handleHidden = () => {
     setState(state === 'hidden' ? '' : 'hidden')
-    console.log(state);
   }
 
   function onSubmit(data) {
@@ -116,7 +116,7 @@ function UserHome({ HomeUser }) {
 
 
           <div style={{ backgroundImage: `url(${img2})` }} className='relative w-full h-full col-span-1 bg-cover'>
-            <img src={user?.img} alt='Not found' className='absolute duration-500 ease-in rounded-full top-48 left-16 scale-70 hover:scale-105' />
+            <img src={user?.url} alt='Not found' className='absolute duration-500 ease-in rounded-full top-48 left-16 scale-70 hover:scale-105' />
           </div>
           <div className='grid content-center w-full col-span-2 grid-rows-2 py-6 justify-items-center bg-zinc-300'>
             <div className='grid self-center grid-rows-4 row-span-1 gap-4 w-96'>
@@ -145,7 +145,9 @@ function UserHome({ HomeUser }) {
     return (
       <div className='w-full h-auto'>
         <div className='grid grid-cols-4 gap-4 justify-items-center '>
-          <h1>Libros</h1>
+          {
+            books.length > 0 && books?.map(e => <CardBook data={e}/>)  
+          }
         </div>
       </div>
     )

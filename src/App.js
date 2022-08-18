@@ -25,6 +25,7 @@ import Payment from './components/dumbComponents/Shop/Payment';
 import NoMatch from './components/dumbComponents/NoMatch/NoMatch.jsx';
 import { userCart } from './redux/actions/actionsShop';
 import PaymentSuccess from './components/dumbComponents/Shop/PaymentSuccess';
+import DetailBook from './panelUser/DumbComponents/CardBook/DetailBook';
 
 function App() {
   let dispatch = useDispatch()
@@ -64,13 +65,14 @@ function App() {
         
         {role !== 'loading'?<Route path='/paneluser/' element={<PanelUser SetHomeUser={SetHomeUser} />}>
           <Route path='' element={<UserHome HomeUser={HomeUser} />}/>
-        </Route>:<Route path='/paneluser/*' element={<div className = 'grid h-screen place-content-center text-7xl text-center'><h1 >INICIA SESION</h1><br></br><h1>PARA ACCEDER A</h1><br></br><h1>ESTE PATH</h1></div>}/>}
+          <Route path='book/:id' element={<DetailBook/>}/> 
+        </Route>:<Route path='/paneluser/*' element={<div className = 'grid h-screen text-center place-content-center text-7xl'><h1 >INICIA SESION</h1><br></br><h1>PARA ACCEDER A</h1><br></br><h1>ESTE PATH</h1></div>}/>}
 
         {role === 'admin'?<Route path='/layoutAdmin/' element={<LayoutAdmin SetHomeAdmin={SetHomeAdmin} />}>
           <Route path='' element={<AdminHome HomeAdmin={HomeAdmin} />}/>
           <Route path='book/:id' element={<AdminBooK/>}/> 
           <Route path='user/:id' element={<AdminUser/>}/>
-        </Route>:<Route path='/layoutAdmin/*' element={<div className = 'grid h-screen place-content-center text-7xl text-center'><h1 >NO TIENES PERMISOS</h1><br></br><h1>PARA ACCEDER A</h1><br></br><h1>ESTE PATH</h1></div>}/>}
+        </Route>:<Route path='/layoutAdmin/*' element={<div className = 'grid h-screen text-center place-content-center text-7xl'><h1 >NO TIENES PERMISOS</h1><br></br><h1>PARA ACCEDER A</h1><br></br><h1>ESTE PATH</h1></div>}/>}
         <Route path="*" element={<NoMatch />} />
       </Routes>
     </div>
