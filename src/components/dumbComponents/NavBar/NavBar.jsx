@@ -17,42 +17,48 @@ export default function NavBar() {
           <div className='col-start-2 col-end-5'>
             <SearchNavBar />
           </div>
-          <div className={`${role === 'invalid' ? 'col-start-7' : role === 'user' ? 'grid grid-cols-3 justify-items-center' : 'grid grid-cols-4 justify-items-center'} col-start-5 col-end-8 gap-5`}>
+          <div className={`${role === 'invalid' ? 'col-start-7' : role === 'user' ? 'grid grid-cols-4 justify-items-center' : 'grid grid-cols-5 justify-items-center'} col-start-5 col-end-8 gap-2`}>
             {
               role !== "invalid" ?
                 <div className='flex'>
-                  <svg xmlns="http://www.w3.org/2000/svg" className="w-6 h-6" fill="none" viewBox="0 0 24 24" stroke="currentColor" strokeWidth={1.5}>
+                  <svg xmlns="http://www.w3.org/2000/svg" className="self-center w-6 h-6" fill="none" viewBox="0 0 24 24" stroke="currentColor" strokeWidth={1.5}>
                     <path strokeLinecap="round" strokeLinejoin="round" d="M12 9v3m0 0v3m0-3h3m-3 0H9m12 0a9 9 0 11-18 0 9 9 0 0118 0z" />
                   </svg>
-                  <Link to={'/postbook'}>
-                    <h1 className='duration-700 border-b-2 border-cream-100 hover:border-cream-300'>Publicar</h1>
-                  </Link>
+                  <div className='self-center'>
+                    <Link to={'/postbook'}>
+                      <h1 className='duration-700 border-b-2 border-cream-100 hover:border-cream-300'>Publicar</h1>
+                    </Link>
+                  </div>
                 </div> : null
             }
 
             {role === 'invalid' ? null : <div className='flex'>
-              <svg xmlns="http://www.w3.org/2000/svg" className="w-6 h-6" fill="none" stroke="currentColor" strokeWidth={1.5}>
+              <svg xmlns="http://www.w3.org/2000/svg" className="self-center w-6 h-6" fill="none" stroke="currentColor" strokeWidth={1.5}>
                 <path strokeLinecap="round" strokeLinejoin="round" d="M16 11V7a4 4 0 00-8 0v4M5 9h14l1 12H4L5 9z" />
               </svg>
-              <Link to={'/shop'}>
-                <h1 className='duration-700 border-b-2 border-cream-100 hover:border-cream-300'>Carrito</h1>
-              </Link>
+              <div className='self-center'>
+                <Link to={'/shop'}>
+                  <h1 className='duration-700 border-b-2 border-cream-100 hover:border-cream-300'>Carrito</h1>
+                </Link>
+              </div>
             </div>}
 
             {
               role !== "invalid" ?
                 <div className='flex'>
-                  <svg xmlns="http://www.w3.org/2000/svg" className="w-6 h-6" fill="none" viewBox="0 0 24 24" stroke="currentColor" strokeWidth={1.5}>
+                  <svg xmlns="http://www.w3.org/2000/svg" className="self-center w-6 h-6" fill="none" viewBox="0 0 24 24" stroke="currentColor" strokeWidth={1.5}>
                     <path strokeLinecap="round" strokeLinejoin="round" d="M12 9v3m0 0v3m0-3h3m-3 0H9m12 0a9 9 0 11-18 0 9 9 0 0118 0z" />
                   </svg>
-                  <Link to={'/panelUser'}>
-                    <h1 className='duration-700 border-b-2 border-cream-100 hover:border-cream-300'>Usuario</h1>
-                  </Link>
+                  <div className='self-center'>
+                    <Link to={'/panelUser'}>
+                      <h1 className='duration-700 border-b-2 border-cream-100 hover:border-cream-300'>Usuario</h1>
+                    </Link>
+                  </div>
                 </div> : null
             }
 
             {role === 'admin' ? <div className='flex'>
-              <svg className="w-6 h-6" version="1.1" id="Capa_1" xmlns="http://www.w3.org/2000/svg" x="0px" y="0px" viewBox="0 0 488.1 488.1">
+              <svg className="self-center w-6 h-6" version="1.1" id="Capa_1" xmlns="http://www.w3.org/2000/svg" x="0px" y="0px" viewBox="0 0 488.1 488.1">
                 <g>
                   <g>
                     <g>
@@ -79,23 +85,25 @@ export default function NavBar() {
                   </g>
                 </g>
               </svg>
-              <Link to={'/layoutAdmin'}>
-                <h1 className='duration-700 border-b-2 border-cream-100 hover:border-cream-300'>Admin</h1>
-              </Link>
+              <div className='self-center'>
+                <Link to={'/layoutAdmin'}>
+                  <h1 className='duration-700 border-b-2 border-cream-100 hover:border-cream-300'>Admin</h1>
+                </Link>
+              </div>
             </div> : null}
 
             {role === 'invalid' ? <div className='flex'>
-              <svg xmlns="http://www.w3.org/2000/svg" className="w-6 h-6" fill="none" stroke="currentColor" strokeWidth={1.5}>
+              <svg xmlns="http://www.w3.org/2000/svg" className="self-center w-6 h-6" fill="none" stroke="currentColor" strokeWidth={1.5}>
                 <path strokeLinecap="round" strokeLinejoin="round" d="M12 6.253v13m0-13C10.832 5.477 9.246 5 7.5 5S4.168 5.477 3 6.253v13C4.168 18.477 5.754 18 7.5 18s3.332.477 4.5 1.253m0-13C13.168 5.477 14.754 5 16.5 5c1.747 0 3.332.477 4.5 1.253v13C19.832 18.477 18.247 18 16.5 18c-1.746 0-3.332.477-4.5 1.253" />
               </svg>
-              <Link to={'/login'}>
-                <h1 className='duration-700 border-b-2 border-cream-100 hover:border-cream-300'>Ingresar</h1>
-              </Link>
+                <Link to={'/login'}>
+                  <h1 className='duration-700 border-b-2 border-cream-100 hover:border-cream-300'>Ingresar</h1>
+                </Link>
             </div> : <div onClick={() => {
               window.localStorage.removeItem('token');
               window.location.reload()
             }} className='flex'>
-              <svg xmlns="http://www.w3.org/2000/svg" className="w-6 h-6" fill="none" stroke="currentColor" strokeWidth={1.5}>
+              <svg xmlns="http://www.w3.org/2000/svg" className="self-center w-6 h-6" fill="none" stroke="currentColor" strokeWidth={1.5}>
                 <path strokeLinecap="round" strokeLinejoin="round" d="M17.109,5.454c-0.242-0.289-0.673-0.327-0.962-0.086l-1.894,1.591l-0.871-2.158
                 c-0.031-0.081-0.078-0.149-0.132-0.209c-0.178-0.396-0.487-0.736-0.913-0.933c-0.185-0.084-0.376-0.129-0.567-0.151
                 c-0.042-0.022-0.08-0.051-0.128-0.066L8.309,2.513C8.122,2.462,7.934,2.495,7.78,2.585C7.597,2.647,7.44,2.78,7.365,2.973
@@ -109,7 +117,11 @@ export default function NavBar() {
                 c0.01,0.005,0.022,0.006,0.034,0.009c0.062,0.022,0.125,0.043,0.19,0.046c0.077,0.007,0.155-0.003,0.234-0.025
                 c0.002-0.001,0.003-0.001,0.003-0.001c0.021-0.005,0.042-0.001,0.063-0.01c0.111-0.042,0.196-0.113,0.269-0.196l2.718-2.307
                 C17.474,6.173,17.352,5.743,17.109,5.454z" />
-              </svg><h1 className='duration-700 border-b-2 border-cream-100 cursor-pointer hover:border-cream-300'>Cerrar sesión</h1></div>}
+              </svg>
+              <div className='self-center'>
+                <h1 className='duration-700 border-b-2 cursor-pointer border-cream-100 hover:border-cream-300'>Cerrar sesión</h1>
+              </div>  
+              </div>}
           </div>
         </div>
       </div>
