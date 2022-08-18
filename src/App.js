@@ -63,7 +63,7 @@ function App() {
           <Route path='payment/success/:session_id' element={<PaymentSuccess/>} />
         </Route>
         
-        {role !== 'loading'?<Route path='/paneluser/' element={<PanelUser SetHomeUser={SetHomeUser} />}>
+        {role === 'user'?<Route path='/paneluser/' element={<PanelUser SetHomeUser={SetHomeUser} />}>
           <Route path='' element={<UserHome HomeUser={HomeUser} />}/>
           <Route path='book/:id' element={<DetailBook/>}/> 
         </Route>:<Route path='/paneluser/*' element={<div className = 'grid h-screen text-center place-content-center text-7xl'><h1 >INICIA SESION</h1><br></br><h1>PARA ACCEDER A</h1><br></br><h1>ESTE PATH</h1></div>}/>}
