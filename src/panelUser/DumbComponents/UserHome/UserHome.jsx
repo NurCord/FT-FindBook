@@ -1,3 +1,4 @@
+/* eslint-disable no-unused-vars */
 import React, { useState } from 'react'
 import { useSelector, useDispatch } from 'react-redux';
 import img2 from '../../../assets/fondoAdmin.jpg'
@@ -8,6 +9,8 @@ import * as yup from 'yup';
 import Swal from "sweetalert2"
 import { putUserPanel } from '../../../redux/actions/actions';
 import CardBook from '../CardBook/CardBook'
+import clsx from 'clsx'
+
 const schema = yup.object().shape({
   name: yup.string().max(100),
   surname: yup.string().max(100),
@@ -41,7 +44,7 @@ function UserHome({ HomeUser }) {
       cancelButtonColor: '#d33',
       confirmButtonText: 'Si, Confirmar!'
     }).then((result) => {
-      
+
       if (result.isConfirmed) {
         if (data.name === '' && data.lastname === '' && data.username === '') {
           setState('hidden')
@@ -49,35 +52,40 @@ function UserHome({ HomeUser }) {
             'No se encontraron cambios!',
             'El Usuario no fue modificado',
             'warning'
-            )
-          }
-          if (data.name === '') delete data.name
-          if (data.surname === '') delete data.surname
-          if (data.username === '') delete data.username
-          if (data.emailput === '') delete data.emailput
-          if (data.password === '') delete data.password
-          setState('hidden')
+          )
+        }
+        if (data.name === '') delete data.name
+        if (data.surname === '') delete data.surname
+        if (data.username === '') delete data.username
+        if (data.emailput === '') delete data.emailput
+        if (data.password === '') delete data.password
+        setState('hidden')
         dispatch(putUserPanel(user?.email, data))
         Swal.fire(
           'Confirmar!',
           `El Usuario fue modificado`,
           'success'
-        ).then(()=> window.location.reload())
+        ).then(() => window.location.reload())
       }
     })
   }
 
   if (HomeUser === 'User') {
     return (
-      <div className='grid w-full h-full p-8 bg-cream-200'>
-        <div className='grid grid-cols-3'>
+      <div className={clsx(
+        'desktop:grid desktop:w-full desktop:h-full desktop:p-8 desktop:bg-cream-200')}>
+        <div className={clsx(
+          'mobile:grid mobile:grid-cols-1',
+          'desktop:grid desktop:grid-cols-3')}>
           <div className="absolute z-10 right-8">
             <button onClick={() => handleHidden()} className="grid w-12 h-12">
               <UilEditAlt className="w-8 h-8 duration-200 place-self-center text-greyBlack-400" aria-hidden="true" fill="currentColor" viewBox="0 0 20 20" />
             </button>
           </div>
 
-          <div className={`${state} absolute flex`}>
+          <div className={clsx(
+            'mobile:top-12',
+            `${state} absolute flex`)}>
             <div className={`z-10 bg-cream-300 rounded-md`}>
               <form onSubmit={handleSubmit(onSubmit)} className='grid h-full grid-cols-1 grid-rows-6 gap-4'>
                 <div className='grid content-center grid-cols-3'>
@@ -141,11 +149,18 @@ function UserHome({ HomeUser }) {
           </div>
 
 
-          <div style={{ backgroundImage: `url(${img2})` }} className='relative w-full h-full col-span-1 bg-cover'>
-            <img src={user?.url} alt='Not found' className='absolute duration-500 ease-in rounded-full top-48 left-16 scale-70 hover:scale-105' />
+          <div style={{ backgroundImage: `url(${img2})` }} className={clsx(
+            'mobile:relative mobile:grid mobile:justify-items-center mobile:content-center mobile:h-36 mobile:bg-cover',
+            'desktop:relative desktop:w-full desktop:h-full desktop:col-span-1 desktop:bg-cover')}>
+            <img src={user?.url} alt='Not found' className={clsx(
+              'mobile:rounded-full',
+              'desktop:absolute desktop:duration-500 desktop:ease-in desktop:rounded-full1 desktop:top-48 desktop:left-25 desktop:scale-70 desktop:scale-105')} />
           </div>
-          <div className='grid content-center w-full col-span-2 py-6 justify-items-center bg-zinc-300'>
-            <div className='grid self-center grid-rows-4 gap-4 w-96'>
+          <div className={clsx(
+            'desktop:grid desktop:content-center desktop:w-full desktop:col-span-2 desktop:py-6 desktop:justify-items-center desktop:bg-zinc-300')}>
+            <div className={clsx(
+              'mobile:grid mobile:mt-5 mobile:ml-3',
+              'desktop:grid desktop:self-center desktop:grid-rows-4 desktop:gap-4 desktop:w-96')}>
               <div className='grid grid-cols-2'>
                 <h1 className='font-semibold'>Nombre: </h1>
                 <h1>{user?.name}</h1>
@@ -155,7 +170,7 @@ function UserHome({ HomeUser }) {
                 <h2>{user?.lastname}</h2>
               </div>
               <div className='grid grid-cols-2'>
-                <h1 className='font-semibold'>Nombre de usuario: </h1>
+                <h1 className='font-semibold'>Nombre usuario: </h1>
                 <h2>{user?.username}</h2>
               </div>
               <div className='grid grid-cols-2'>
@@ -176,7 +191,7 @@ function UserHome({ HomeUser }) {
       <div className='w-full h-auto'>
         <div className='grid grid-cols-4 gap-4 justify-items-center '>
           {
-            books.length > 0 && books?.map(e => <CardBook data={e}/>)  
+            books.length > 0 && books?.map(e => <CardBook data={e} />)
           }
         </div>
       </div>
