@@ -53,7 +53,7 @@ function FavoCard({ id, name, author, image, price, language }) {
                 </div>
                 <div className="flex justify-center items-center">
                     <div className="pr-8 ">
-                        <span className="md:text-sm font-medium">U$D{price}</span>
+                        <span className="md:text-sm font-medium">USD${price}</span>
                     </div>
                     <div>
                         <i className="fa fa-close text-xs font-medium"></i>

@@ -25,6 +25,7 @@ export default function Payment() {
       })
     }
     if(cancel_session){
+      console.log('entre al if')
       dispatch(getSessionID(cancel_session))
     }
   }, [cartBooks, dispatch])
@@ -97,10 +98,10 @@ export default function Payment() {
                                       />
                                   </div>
                                   <div className="pr-8 ">
-                                    <span className="md:text-sm font-medium">Precio por unidad: U$D{book.price}</span>
+                                    <span className="md:text-sm font-medium">Precio por unidad: USD${book.price}</span>
                                   </div>
                                   <div>
-                                    <span className="md:text-sm font-medium">Subtotal: U$D{Number(parseFloat(book.price * quantity[book.id]).toFixed(2))}</span>                                    
+                                    <span className="md:text-sm font-medium">Subtotal: USD${Number(parseFloat(book.price * quantity[book.id]).toFixed(2))}</span>                                    
                                   </div>
                                 </div>
                               </div>
