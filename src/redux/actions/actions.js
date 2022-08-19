@@ -1,4 +1,4 @@
-import { GET_ALL_BOOKS, GET_BOOK_BY_ID, GET_BOOKS_BY_NAME, GET_BOOK_BY_GENRE, GET_GENRE, GET_YEARS, GET_BOOKS_BY_YEARS, GET_BOOKS_RATING, USER_ROLE, GET_ALL_USERS, GET_USERS_BY_NAME, GET_USER, ORDER_BY_NAME, ORDER_BY_BOOKS, BOOK_DETAIL, CLEAN_UP_DETAIL, GET_USER_PANEL, GET_BOOKS_PANEL, GET_DETAIL_BOOK_PANEL} from "./variables";
+import { GET_ALL_BOOKS, GET_BOOK_BY_ID, GET_BOOKS_BY_NAME, GET_BOOK_BY_GENRE, GET_GENRE, GET_YEARS, GET_BOOKS_BY_YEARS, GET_BOOKS_RATING, USER_ROLE, GET_ALL_USERS, GET_USERS_BY_NAME, GET_USER, ORDER_BY_NAME, ORDER_BY_BOOKS, BOOK_DETAIL, CLEAN_UP_DETAIL, GET_USER_PANEL, GET_BOOKS_PANEL, GET_DETAIL_BOOK_PANEL, USER_FAVO, DELETE_FAVO_BOOK, DELETE_ALL_FAVO_BOOKS} from "./variables";
 import axios from "axios";
 import Swal from "sweetalert2";
 
@@ -461,5 +461,114 @@ export let putUserBook = (id, data) => async()=>{
         })
     } catch (error) {
         console.log(error)
+    }
+}
+
+export let addToFavo = (id) => async()=>{
+    try {
+        const { data } = await axios.post(`/userPanel/addtofavo`, {id: id}, {headers:{Authorization: `Bearer ${window.localStorage.getItem("token")}`}})
+        if(data.hasOwnProperty("role")){
+            Swal.fire({
+                icon: 'error',
+                title: 'Usuario invalido',
+                text: 'Vuelve a conectarte',
+            }).then(result=>{
+                if(result.isConfirmed){
+                    window.localStorage.removeItem("token")
+                    window.location.reload()
+                    window.location.href = '/'
+                }
+            })
+        }else if(data.message === "El libro fue agregado"){
+            Swal.fire({
+                position: 'top-end',
+                icon: 'success',
+                title: 'Libro agregado a favoritos',
+                showConfirmButton: false,
+                timer: 1000
+            })
+        }else{
+            Swal.fire({
+                position: 'top',
+                icon: 'warning',
+                title: 'El libro ya se encuentra en favoritos',
+                showConfirmButton: false,
+                timer: 1500
+            })
+        }
+    } catch (error) {
+        console.log(error)
+    }
+}
+
+export const userFavo = () => async(dispatch) => {
+    const token = window.localStorage.getItem("token")
+    if(token !== null && token !== undefined){
+        const { data } = await axios.get("/userPanel/getfavo", {headers:{Authorization: `Bearer ${window.localStorage.getItem("token")}`}})
+        if(data.hasOwnProperty("role")){
+            Swal.fire({
+                icon: 'error',
+                title: 'Usuario invalido',
+                text: 'Vuelve a conectarte',
+            }).then(result=>{
+                if(result.isConfirmed){
+                    window.localStorage.removeItem("token")
+                    window.location.reload()
+                    window.location.href = '/'
+                }
+            })
+        }else{
+            const favoBooks = data.Libros
+            dispatch({
+                type: USER_FAVO,
+                payload: favoBooks
+            })
+        }
+    }
+}
+
+export const deleteFavoBook = (id) => async(dispatch) => {
+    try{
+        const {data} = await axios.delete("/userPanel/removetofavo",{headers:{Authorization: `Bearer ${window.localStorage.getItem("token")}`},data:{id:id}})
+        if(data.hasOwnProperty("role")){
+            Swal.fire({
+                icon: 'error',
+                title: 'Usuario invalido',
+                text: 'Vuelve a conectarte',
+            }).then(result=>{
+                if(result.isConfirmed){
+                    window.localStorage.removeItem("token")
+                    window.location.reload()
+                    window.location.href = '/'
+                }
+            })
+        }else{
+            dispatch({type:DELETE_FAVO_BOOK, payload:data})
+        }
+    }catch(err){
+        console.log(err)
+    }
+}
+
+export const deleteAllCartBooksFavo = () => async(dispatch) => {
+    try{
+        const {data} = await axios.delete('/userPanel/removeallbooksfavo', {headers:{Authorization: `Bearer ${window.localStorage.getItem("token")}`}});
+        if(data.hasOwnProperty("role")){
+            Swal.fire({
+                icon: 'error',
+                title: 'Usuario invalido',
+                text: 'Vuelve a conectarte',
+            }).then(result=>{
+                if(result.isConfirmed){
+                    window.localStorage.removeItem("token")
+                    window.location.reload()
+                    window.location.href = '/'
+                }
+            })
+        }else{
+            dispatch({type:DELETE_ALL_FAVO_BOOKS})
+        }
+    }catch(err){
+        console.log(err)
     }
 }

@@ -10,7 +10,7 @@ import Home from './components/dumbComponents/Home/Home';
 import CreatePost from './components/smartComponents/CreatePost/CreatePost';
 import {useEffect} from 'react'
 import { useDispatch,useSelector } from 'react-redux';
-import {getAllBooks, getGenres, getYears, userRole} from  './redux/actions/actions'
+import {getAllBooks, getGenres, getYears, userFavo, userRole} from  './redux/actions/actions'
 import SearchByCategory from './components/dumbComponents/SearchByCategory/SearchByCategory';
 import SearchByReleased from './components/dumbComponents/SearchByReleased/SearchByReleased';
 import AdminBooK from './componentsAdmin/DumbComponents/AdminBook/AdminBooK';
@@ -26,6 +26,7 @@ import NoMatch from './components/dumbComponents/NoMatch/NoMatch.jsx';
 import { userCart } from './redux/actions/actionsShop';
 import PaymentSuccess from './components/dumbComponents/Shop/PaymentSuccess';
 import DetailBook from './panelUser/DumbComponents/CardBook/DetailBook';
+import Favorites from './components/dumbComponents/Favorites/Favorites';
 
 function App() {
   let dispatch = useDispatch()
@@ -35,6 +36,7 @@ function App() {
     // dispatch(getYears())
     dispatch(userRole(window.localStorage.getItem('token')))
     dispatch(userCart())
+    dispatch(userFavo())
   }, [dispatch])
   let role = useSelector(state=>state.root.role)
   const [HomeAdmin, SetHomeAdmin] = useState('Users')
@@ -49,6 +51,7 @@ function App() {
           <Route path='' element={<Home/>}/>
           <Route path='detail/:id' element={<Detail/>}/>
           <Route path='shop' element={<Shop/>}/>
+          <Route path='Favorites' element={<Favorites/>}/>
           <Route path='postbook' element={<CreatePost/>}/>
           <Route path='login' element={<Login/>}/>
           <Route path='contacto' element={<Contact/>}/>
