@@ -3,7 +3,7 @@ import React from 'react';
 const MessageParser = ({ children, actions }) => {
    const parse = (message) => {
       if (message === '0') return actions.handleGoodBye();  
-      if (message.length > 0) return actions.handleHello(message);
+      if (message.length > 1) return actions.handleHello(message);
       return actions.handleQuestion(message.split(' ')[0]);
    }
 
