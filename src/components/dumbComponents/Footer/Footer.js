@@ -5,7 +5,7 @@ export default function Footer() {
     return (
         <div className={clsx(
             'mobile:text-sm',
-            'w-full desktop:h-24 grid grid-rows-3'
+            'w-full desktop:text-base desktop:h-24 grid grid-rows-3'
         )}>
             <div className='w-full row-span-2 bg-greyBlack-200'>
                 <Link to={'/contacto'}>

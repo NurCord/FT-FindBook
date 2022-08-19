@@ -9,6 +9,7 @@ import * as yup from 'yup';
 import Swal from "sweetalert2"
 import { putUserPanel } from '../../../redux/actions/actions';
 import CardBook from '../CardBook/CardBook'
+
 import clsx from 'clsx'
 
 const schema = yup.object().shape({
@@ -200,7 +201,7 @@ function UserHome({ HomeUser }) {
     return (
       <div className='w-full h-auto'>
         <div className='grid grid-cols-4 gap-4 justify-items-center '>
-          <h1>Historial</h1>
+          <UserOrders />
         </div>
       </div>
     )
