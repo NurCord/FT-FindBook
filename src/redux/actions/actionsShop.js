@@ -157,6 +157,7 @@ export const getSessionID = (session_id) => async(dispatch) =>{
             }) 
         }
     }catch(err){
+        console.log(err)
         if(err){
             Swal.fire({
                 icon: 'error',
@@ -164,7 +165,7 @@ export const getSessionID = (session_id) => async(dispatch) =>{
                 text: 'Aqui no hay nada',
                 showConfirmButton: false,
                 timer: 1500
-              }).then(() => {
+              }).then(()=>{
                 window.location.href = '/'
               })
         }
@@ -203,8 +204,7 @@ export const deleteAllCartBooks = () => async(dispatch) => {
 
 export const getUserOrders = () =>async(dispatch) => {
     try {
-        const { data } = await axios.get('/user/getOrders', {headers:{Authorization: `Bearer ${window.localStorage.getItem("token")}`}})
-
+        const { data } = await axios.get('/userPanel/orderlist', {headers:{Authorization: `Bearer ${window.localStorage.getItem("token")}`}})
         if(data.hasOwnProperty("role")){
             Swal.fire({
                 icon: 'error',
@@ -218,7 +218,7 @@ export const getUserOrders = () =>async(dispatch) => {
                 }
             })
         }else{
-            dispatch({type: GET_ALL_USER_ORDERS})
+            dispatch({type: GET_ALL_USER_ORDERS, payload:data})
         }    
     } catch (err) {
         console.log(err)

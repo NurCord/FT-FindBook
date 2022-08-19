@@ -2,7 +2,8 @@ import { DELETE_ALL_CART_BOOKS, DELETE_CART_BOOK, GET_SESSION_ID, SOLD_OUT, USER
 
 const initialState = {
     cartBooks: [],
-    soldOut: false
+    soldOut: false,
+    orderList: []
 }
 
 export default function shop(state = initialState, actions){
@@ -24,7 +25,11 @@ export default function shop(state = initialState, actions){
                     cartBooks: [],
                     soldOut: true
                 }
-            }break;
+            }else{
+                return{
+                    ...state
+                }
+            };
         case SOLD_OUT:
             return{
                 ...state,
@@ -34,6 +39,18 @@ export default function shop(state = initialState, actions){
             return{
                 ...state,
                 cartBooks: []
+            }
+        case GET_ALL_USER_ORDERS:
+            if(actions.payload.message === "No se han registrado operaciones" || actions.payload.message === "Usuario invalido"){
+                return{
+                    ...state,
+                    orderList: []
+                }
+            }else{
+                return{
+                    ...state,
+                    orderList: actions.payload
+                }
             }
         default:
             return {
