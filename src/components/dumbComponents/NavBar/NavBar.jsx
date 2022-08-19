@@ -5,14 +5,16 @@ import Filters from '../../smartComponents/Filters/Filters'
 import { Link } from 'react-router-dom'
 import { useSelector } from 'react-redux'
 import clsx from 'clsx'
+import NavBarRes from './NavBarRes'
 import { UilFidgetSpinner } from '@iconscout/react-unicons'
 
 export default function NavBar() {
   const role = useSelector(state => state.root.role)
   let [state, setState] = useState('hidden')
-
-  let handleHidden = () => {
-    setState(state === 'hidden' ? '' : 'hidden')
+  let [state2, setState2] = useState('hidden')
+  let handleHidden = (value) => {
+    if(value === 'search')setState(state === 'hidden' ? '' : 'hidden')
+    if(value === 'menu')setState2(state2 === 'hidden' ? '' : 'hidden')
   }
 
   return (
@@ -26,18 +28,21 @@ export default function NavBar() {
             'mobile: ',
             'tablet:',
             'desktop:hidden')}>
-            <svg xmlns="http://www.w3.org/2000/svg" className="mx-3 rounded-full w-7 h-7" onClick={handleHidden} fill="none" viewBox="0 0 24 24" stroke="currentColor" strokeWidth={2}>
+            <svg xmlns="http://www.w3.org/2000/svg" className="mx-3 rounded-full w-7 h-7" onClick={()=>handleHidden('search')} fill="none" viewBox="0 0 24 24" stroke="currentColor" strokeWidth={2}>
             <path strokeLinecap="round" strokeLinejoin="round" d="M21 21l-6-6m2-5a7 7 0 11-14 0 7 7 0 0114 0z" />
             </svg>
-          </div>
-          <div className={`${state} absolute flex`}>
-            <SearchNavBar />
+            <div className={`${state} absolute flex top-16 left-5 w-96 z-50 h-10`}>
+              <SearchNavBar />
+            </div>
           </div>
           <div className={clsx(
             'mobile:',
             'tablet:',
             'desktop:hidden')}>
-            <UilFidgetSpinner className='w-8 h-8'/>
+            <UilFidgetSpinner className='w-8 h-8' onClick={()=>handleHidden('menu')}/>
+            <div className={`${state2} absolute z-50 top-0 right-0 w-full`}>
+              <NavBarRes handleHidden={handleHidden}/>
+            </div>
           </div>
         <div className={clsx(
           'mobile:hidden',

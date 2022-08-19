@@ -29,7 +29,7 @@ export default function SwiperGenre() {
         window.scroll(0,100)
         navigate(`/categoria/${name}`)
     }
-
+    if (window.matchMedia("(min-width: 700px)").matches) {
     return (
         <Swiper
             modules={[Navigation, Pagination]}
@@ -40,17 +40,35 @@ export default function SwiperGenre() {
             <div className="flex justify-evenly">
                 {data?.map((e, i) => (
                 <SwiperSlide className={clsx(
-                    'mobile:flex mobile:justify-center mobile:w-48',
                     "desktop:p-10 desktop:w-full"
                 )} key={i}>
                     <button onClick={() => handleOnClick(e.name)}>
                     <img className={clsx(
-                        'mobile:w-20 mobile:h-20 mobile:rounded-lg',
                         'desktop:w-40 desktop:h-40'
                     )} src={e.img} alt='Not found'/>
                 </button>
             </SwiperSlide>))}
         </div>
     </Swiper>
-    )
+    )}else{
+        return (
+            <Swiper
+                modules={[Navigation, Pagination]}
+                slidesPerView={4}
+                className='bg-greyBlack-100 mobile:mb-5'
+            >
+                <div className="flex justify-evenly">
+                    {data?.map((e, i) => (
+                    <SwiperSlide className={clsx(
+                        'mobile:flex mobile:justify-center mobile:w-48',
+                    )} key={i}>
+                        <button onClick={() => handleOnClick(e.name)}>
+                        <img className={clsx(
+                            'mobile:w-20 mobile:h-20 mobile:rounded-lg',
+                        )} src={e.img} alt='Not found'/>
+                    </button>
+                </SwiperSlide>))}
+            </div>
+        </Swiper>)
+    }
 }

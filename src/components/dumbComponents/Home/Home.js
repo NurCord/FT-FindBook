@@ -6,6 +6,7 @@ import { useSelector } from "react-redux";
 import { useDispatch } from 'react-redux';
 import {getForRating} from '../../../redux/actions/actions'
 import clsx from 'clsx'
+import Chat from '../../smartComponents/ChatBot/ChatBot';
 
 export default function Home() {
     const dispatch = useDispatch()
@@ -39,6 +40,7 @@ export default function Home() {
                     <SwiperGenre/>
                 </div>
             </div>
+            <Chat/>
         </div>
     )
 }
