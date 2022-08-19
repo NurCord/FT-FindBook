@@ -9,7 +9,7 @@ import * as yup from 'yup';
 import Swal from "sweetalert2"
 import { putUserPanel } from '../../../redux/actions/actions';
 import CardBook from '../CardBook/CardBook'
-
+import UserOrders from '../UserOrders/UserOrders'
 import clsx from 'clsx'
 
 const schema = yup.object().shape({
