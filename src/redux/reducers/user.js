@@ -1,10 +1,11 @@
-import {GET_USER_PANEL, GET_BOOKS_PANEL, GET_DETAIL_BOOK_PANEL} from '../actions/variables'
+import {GET_USER_PANEL, GET_BOOKS_PANEL, GET_DETAIL_BOOK_PANEL, USER_FAVO, DELETE_FAVO_BOOK, DELETE_ALL_FAVO_BOOKS} from '../actions/variables'
 
 let initialState = {
     userDetail:{},
     bookDetail: {},
     books: [],
-    history: []
+    history: [],
+    favoBooks: []
 }
 
 export default function root(state = initialState, actions){
@@ -23,6 +24,21 @@ export default function root(state = initialState, actions){
             return {
                 ...state,
                 bookDetail: actions.payload
+            }
+        case USER_FAVO:
+            return {
+                ...state,
+                favoBooks: actions.payload
+            }
+        case DELETE_FAVO_BOOK:
+            return {
+                ...state,
+                favoBooks: state.cartBooks.filter((book) => book.id !== actions.payload)
+            }
+        case DELETE_ALL_FAVO_BOOKS:
+            return{
+                ...state,
+                favoBooks: []
             }
         default:
             return {...state}
