@@ -8,7 +8,6 @@ import 'swiper/css/autoplay';
 import Cards from "./Cards";
 
 export default function SwiperCard({ data }) {
-    
         if (window.matchMedia("(min-width: 700px)").matches) {
             return (<Swiper
                 modules={[Navigation, Pagination]}
@@ -23,10 +22,9 @@ export default function SwiperCard({ data }) {
                 </div>
             </Swiper>)
         }else{
-           return (<Swiper
+            return (<Swiper
                 modules={[Navigation, Pagination]}
                 slidesPerView={3}
-                navigation
             >
                 <div className="flex justify-evenly">
                     {data && data.length > 0 && data.map((e, i) => (
