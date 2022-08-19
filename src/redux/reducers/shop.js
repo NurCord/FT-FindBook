@@ -1,4 +1,4 @@
-import { DELETE_ALL_CART_BOOKS, DELETE_CART_BOOK, GET_SESSION_ID, SOLD_OUT, USER_CART } from "../actions/variables";
+import { DELETE_ALL_CART_BOOKS, DELETE_CART_BOOK, GET_SESSION_ID, SOLD_OUT, USER_CART, GET_ALL_USER_ORDERS } from "../actions/variables";
 
 const initialState = {
     cartBooks: [],
@@ -24,7 +24,7 @@ export default function shop(state = initialState, actions){
                     cartBooks: [],
                     soldOut: true
                 }
-            }
+            }break;
         case SOLD_OUT:
             return{
                 ...state,
