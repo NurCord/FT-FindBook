@@ -1,4 +1,4 @@
-import { DELETE_ALL_CART_BOOKS, DELETE_CART_BOOK, GET_SESSION_ID, SOLD_OUT, USER_CART } from "./variables";
+import { DELETE_ALL_CART_BOOKS, DELETE_CART_BOOK, GET_SESSION_ID, SOLD_OUT, USER_CART, GET_ALL_USER_ORDERS } from "./variables";
 import axios from 'axios'
 import Swal from "sweetalert2";
 
@@ -197,6 +197,30 @@ export const deleteAllCartBooks = () => async(dispatch) => {
             dispatch({type:DELETE_ALL_CART_BOOKS})
         }
     }catch(err){
+        console.log(err)
+    }
+}
+
+export const getUserOrders = () =>async(dispatch) => {
+    try {
+        const { data } = await axios.get('/user/getOrders', {headers:{Authorization: `Bearer ${window.localStorage.getItem("token")}`}})
+
+        if(data.hasOwnProperty("role")){
+            Swal.fire({
+                icon: 'error',
+                title: 'Usuario invalido',
+                text: 'Vuelve a conectarte',
+            }).then(result=>{
+                if(result.isConfirmed){
+                    window.localStorage.removeItem("token")
+                    window.location.reload()
+                    window.location.href = '/'
+                }
+            })
+        }else{
+            dispatch({type: GET_ALL_USER_ORDERS})
+        }    
+    } catch (err) {
         console.log(err)
     }
 }

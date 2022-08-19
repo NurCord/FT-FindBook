@@ -10,6 +10,7 @@ import Swal from "sweetalert2"
 import { putUserPanel } from '../../../redux/actions/actions';
 import CardBook from '../CardBook/CardBook'
 import UserOrders from '../UserOrders/UserOrders'
+
 import clsx from 'clsx'
 
 const schema = yup.object().shape({
@@ -199,7 +200,7 @@ function UserHome({ HomeUser }) {
     )
   } else if (HomeUser === 'Historial') {
     return (
-      <div className='w-full h-auto'>
+      <div className='w-full h-full'>
         <div className='grid grid-cols-4 gap-4 justify-items-center '>
           <UserOrders />
         </div>
