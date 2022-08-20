@@ -13,11 +13,13 @@ export default function SearchByCategory() {
         dispatch(getBooksGenres(window.location.pathname.split('/')[2]))
     },[dispatch, data])
     return (
-        <div className='w-full h-full bg-greyBlack-100'>
+        <div className={clsx(
+            'mobile:w-screen mobile:h-full',
+            'bg-greyBlack-100 desktop:w-full')}>
             <div className='relative'>
                 <span className={clsx(
                     'mobile:text-5xl mobile:left-16 mobile:top-6',
-                    'absolute desktop:text-7xl desktop:top-6 desktop:left-32'
+                    'absolute desktop:text-6xl desktop:top-10 desktop:left-72'
                 )}>{state[0]?.genre.replace(/(^\w{1})/g, letra => letra.toUpperCase())}</span>
                 <img className={clsx(
                     'mobile:h-24',
@@ -26,7 +28,7 @@ export default function SearchByCategory() {
             </div>
             <div className={clsx(
                 'mobile:grid-cols-1 mobile:grid mobile:justify-items-center',
-                'desktop:grid-cols-4 '
+                'desktop:grid-cols-4 desktop:h-full'
                 )}>
                 <div className={clsx(
                     'mobile:px-10 mobile:py-5',
@@ -37,7 +39,7 @@ export default function SearchByCategory() {
                 <div className={clsx(
                     'desktop:w-full desktop:col-span-3'
                     )}>
-                    <div className='w-full h-auto'>
+                    <div className='w-full h-full'>
                         <ContainCards data={data}/>
                     </div>
                 </div>

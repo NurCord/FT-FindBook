@@ -32,9 +32,9 @@ import OrderDetail from './panelUser/DumbComponents/UserOrders/OrderDetail';
 function App() {
   let dispatch = useDispatch()
   useEffect(() => {
-    // dispatch(getAllBooks())
-    // dispatch(getGenres())
-    // dispatch(getYears())
+    dispatch(getAllBooks())
+    dispatch(getGenres())
+    dispatch(getYears())
     dispatch(userRole(window.localStorage.getItem('token')))
     dispatch(userCart())
     dispatch(userFavo())
@@ -52,7 +52,7 @@ function App() {
           <Route path='' element={<Home/>}/>
           <Route path='detail/:id' element={<Detail/>}/>
           <Route path='shop' element={<Shop/>}/>
-          <Route path='Favorites' element={<Favorites/>}/>
+          <Route path='favorites' element={<Favorites/>}/>
           <Route path='postbook' element={<CreatePost/>}/>
           <Route path='login' element={<Login/>}/>
           <Route path='contacto' element={<Contact/>}/>

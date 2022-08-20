@@ -572,3 +572,35 @@ export const deleteAllCartBooksFavo = () => async(dispatch) => {
         console.log(err)
     }
 }
+
+export let postComent = (id, Comentario) => async(dispatch)=>{
+    try {
+        const nuevoComentario = await axios.post(`/userPanel/addtoComent/${id}`, {Comentario}, {
+            headers:{
+                Authorization: `Bearer ${window.localStorage.getItem('token')}`
+            }
+        })
+        if(nuevoComentario.hasOwnProperty("role")){
+            Swal.fire({
+                icon: 'error',
+                title: 'Usuario invalido',
+                text: 'Vuelve a conectarte',
+            }).then(result=>{
+                if(result.isConfirmed){
+                    window.localStorage.removeItem("token")
+                    window.location.reload()
+                    window.location.href = '/'
+                }
+            })
+        }else if(nuevoComentario.message === "El comentario fue creado"){
+            Swal.fire({
+                icon: 'success',
+                title: 'Comentario posteado',
+                showConfirmButton: false,
+                timer: 1000
+            })
+        }
+    } catch (error) {
+        console.log(error)
+    }
+}

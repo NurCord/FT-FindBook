@@ -50,7 +50,7 @@ export default function Favorites() {
                                 <div className="w-full p-4 px-5 py-5">
                                     <div className="md:grid md:grid-cols-3 gap-2 ">
                                         <div className="col-span-2 p-5">
-                                            <h1 className="text-xl font-medium ">Tu carrito</h1>
+                                            <h1 className="text-xl font-medium ">Favoritos</h1>
                                             {favoBooks && favoBooks.length ?
                                                 <FavoCards books={favoBooks} /> :
                                                 <span>Favoritos está vacío</span>}

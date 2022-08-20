@@ -1,32 +1,45 @@
 /* eslint-disable react-hooks/exhaustive-deps */
-import React , {useEffect}from 'react'
+import React , {useEffect, useState}from 'react'
 import { H1Detail, DivDetail, TextDetail, DivTableDetail, DivTableColDetail, H1DetailSwiper} from './stayleComponentDetail'
 import { useDispatch, useSelector } from 'react-redux';
 import loading from '../../../assets/loading.gif';
 import CardImag from '../Card/CardImag';
 import { useParams } from 'react-router-dom';
-import { cleanUpDetailState, getBookByID, getBooksGenres } from '../../../redux/actions/actions';
+import { cleanUpDetailState, getBookByID, getBooksGenres, postComent } from '../../../redux/actions/actions';
 import AddToList from './AddToList';
 import Buy from './Buy';
 import AddToCart from './AddToCart';
 import clsx from 'clsx'
+import Comment from '../../smartComponents/Comment/Comment';
 
 export default function Detail() {
     let state = useSelector(s => s.root.bookById)
     let {id} = useParams()
     let dispatch = useDispatch()
+
+    const [ comment, setComment ] = useState('');
+
+    const handleOnChange = (e) => {
+        setComment(e.target.value);                
+    }
+
+    const handleOnSubmit = (e) => {
+        e.preventDefault();
+        dispatch(postComent(id, comment));
+    }
+
     useEffect(() => {
         dispatch(getBookByID(parseInt(id)))
         return () => {
             dispatch(cleanUpDetailState())
         }
-    }, [])
+    }, [dispatch, id])
 
     useEffect(() => {
         if(state?.hasOwnProperty('generos')){
             dispatch(getBooksGenres(state?.generos[0]?.genre))
         }
-    }, [state])
+    }, [state, comment])
     
     if(state?.hasOwnProperty('generos')){ return (
         <>
@@ -48,6 +61,7 @@ export default function Detail() {
                         <span><a href='#descripcion'>Descripcion</a></span>
                         <span><a href='#caracteristicas'>Caracteristicas</a></span>
                         <span><a href='#recomendados'>Recomendados</a></span>
+                        <span><a href='#recomendados'>Comentarios</a></span>
                     </div>
                 </div>
                 <div className={clsx(
@@ -66,7 +80,7 @@ export default function Detail() {
                         </div>
                         <div className='mobile:grid mobile:grid-rows-2'>
                             <div className='grid content-center grid-rows-3 pb-10 rounded-md min-h-min min-w-min bg-cream-200 justify-items-center'>
-                                <h1 className='m-auto'>US${state.price}</h1>                      
+                                <h1 className='m-auto'>USD${state.price}</h1>                      
                                 <Buy id={id}/>
                                 <AddToCart id={id}/>
                             </div>
@@ -82,40 +96,55 @@ export default function Detail() {
                         <H1Detail id='caracteristicas'>Características</H1Detail>
                         <div className='w-full my-6'>
                             <DivTableColDetail>
-                                <h1>Publisher</h1>
+                                <h1>Editorial</h1>
                                 <h2>{state.publisher}</h2>
                             </DivTableColDetail>
                             <DivTableDetail/>
                             <DivTableColDetail>
-                                    <h1>Pages</h1>
+                                    <h1>Páginas</h1>
                                     <h2>{state.pages}</h2>
                             </DivTableColDetail>
                             <DivTableDetail/>
                             <DivTableColDetail>
-                                <h1>Category</h1>
+                                <h1>Categoría</h1>
                                 <h2>{state.category}</h2>
                             </DivTableColDetail>
                             <DivTableDetail/>
                             <DivTableColDetail>
-                                <h1>Author</h1>
+                                <h1>Autor</h1>
                                 <h2>{state.author}</h2>
                             </DivTableColDetail>
                             <DivTableDetail/>
                             <DivTableColDetail>
-                                <h1>Genre</h1>
+                                <h1>Género(s)</h1>
                                 <h2>{state.generos.map(g => g.genre).join(' - ')}</h2>
                             </DivTableColDetail>
                             <DivTableDetail/>
                             <DivTableColDetail>
-                                <h1>Released</h1>
+                                <h1>Fecha lanzamiento</h1>
                                 <h2>{state.released}</h2>
                             </DivTableColDetail>
                             <DivTableDetail/>
                             <DivTableColDetail>
-                                <h1>Language</h1>
+                                <h1>Idioma</h1>
                                 <h2>{state.language}</h2>
                             </DivTableColDetail>
                             <DivTableDetail/>
+                        </div>
+                    </DivDetail>
+                    <DivDetail>
+                        <H1Detail id='descripcion'>Comentarios</H1Detail>
+                        <TextDetail>
+                            <form onSubmit={e => handleOnSubmit (e)}>
+                            <textarea type = 'text' value = {comment} name = 'comment' onChange = {e => handleOnChange (e)} className = "w-full rounded-lg"/>
+                            <button type='submit'>Publicar</button>
+                            </form>
+                        </TextDetail>
+                        <div>
+                            {state.comentarios?.map((c, i) => {
+                                return (<Comment key={i}
+                                    comentario = { c.Comentario }
+                                />)})}
                         </div>
                     </DivDetail>
                     <DivDetail id='recomendados' style={{border: 'none', position: 'relative'}}>

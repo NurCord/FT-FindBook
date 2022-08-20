@@ -28,19 +28,19 @@ const ActionProvider = ({ createChatBotMessage, setState, children }) => {
       let answerMessage = '';
       switch (m) {
          case '1': //Buscar libro
-            answerMessage = 'Puedes utilizar nuestra barra de búsqueda ubicada en la parte superior de la página';
+            answerMessage = 'Seleccionaste "Buscar libro". Para ésto, puedes utilizar nuestra barra de búsqueda ubicada en la parte superior de la página';
             break;
          case '2': //Comprar libro
-            answerMessage = 'Para comprar debes iniciar sesión, agregar al carrito el libro deseado y diligenciar la información requerida durante el proceso de pago';
+            answerMessage = 'Seleccionaste "Comprar libro". Para comprar debes iniciar sesión, agregar al carrito el libro deseado y diligenciar la información requerida durante el proceso de pago';
             break;
          case '3': //Vender libro
-            answerMessage = 'Para vender un libro debes iniciar sesión, ingresar al apartado "publicar" diligenciando la información solicitada y publicar tu libro';
+            answerMessage = 'Seleccionaste "Vender libro". Para vender un libro debes iniciar sesión, ingresar al apartado "publicar" diligenciando la información solicitada y publicar tu libro';
             break;
          case '4': //Panel de usuario
-            answerMessage = 'Puedes acceder a la información de tus compras / ventas / opciones en tu panel de usuario';
+            answerMessage = 'Seleccionaste "Panel de administración". Puedes acceder a la información de tus compras / ventas / opciones en tu panel de usuario';
             break;
          case '5': //Otra información
-            answerMessage = 'Para información más específica y detallada puedes contactar a un administrador en el apartado "Contacto" ubicado en la parte inferior de la página';
+            answerMessage = 'Seleccionaste "Otra información". Para información más específica y detallada puedes contactar a un administrador en el apartado "Contacto" ubicado en la parte inferior de la página';
             break;
          default:
             answerMessage = 'No has seleccionado ninguna opción válida';
