@@ -2,12 +2,13 @@ import React, { useEffect, useState } from 'react'
 import { useDispatch, useSelector } from 'react-redux';
 import Swal from 'sweetalert2';
 import { useNavigate } from "react-router-dom";
-import { getSessionID, stripe } from '../../../redux/actions/actionsShop';
+import { getButtonStatus, getSessionID, stripe } from '../../../redux/actions/actionsShop';
 
 export default function Payment() {
   const role = useSelector(state => state.root.role);
-  const navigate = useNavigate()
   const cartBooks = useSelector(state => state.shop.cartBooks)
+  const buttonStatus = useSelector(state => state.shop.buttonStatus)
+  const navigate = useNavigate()
   const dispatch = useDispatch()
 
   const queryParams = new URLSearchParams(window.location.search);
@@ -15,6 +16,7 @@ export default function Payment() {
   const [quantity, setQuantity] = useState({})
 
   useEffect(() => {
+    dispatch(getButtonStatus())
     if(cartBooks?.length){
       let state
       cartBooks.forEach(book =>{
@@ -25,7 +27,6 @@ export default function Payment() {
       })
     }
     if(cancel_session){
-      console.log('entre al if')
       dispatch(getSessionID(cancel_session))
     }
   }, [cartBooks, dispatch])
