@@ -573,14 +573,14 @@ export const deleteAllCartBooksFavo = () => async(dispatch) => {
     }
 }
 
-export let postComent = (id, Cometario) => async(dispatch)=>{
+export let postComent = (id, Comentario) => async(dispatch)=>{
     try {
-        const { Comentario } = await axios.post(`/userPanel/${id}`, Cometario, {
+        const nuevoComentario = await axios.post(`/userPanel/addtoComent/${id}`, {Comentario}, {
             headers:{
                 Authorization: `Bearer ${window.localStorage.getItem('token')}`
             }
         })
-        if(Comentario.hasOwnProperty("role")){
+        if(nuevoComentario.hasOwnProperty("role")){
             Swal.fire({
                 icon: 'error',
                 title: 'Usuario invalido',
@@ -592,7 +592,7 @@ export let postComent = (id, Cometario) => async(dispatch)=>{
                     window.location.href = '/'
                 }
             })
-        }else if(Comentario.message === "El comentario fue creado"){
+        }else if(nuevoComentario.message === "El comentario fue creado"){
             Swal.fire({
                 icon: 'success',
                 title: 'Comentario posteado',
