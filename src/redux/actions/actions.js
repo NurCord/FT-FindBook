@@ -580,8 +580,8 @@ export let postComent = (id, Comentario) => async(dispatch)=>{
                 Authorization: `Bearer ${window.localStorage.getItem('token')}`
             }
         })
-        if(nuevoComentario.hasOwnProperty("role")){
-            Swal.fire({
+        if(nuevoComentario.data.hasOwnProperty("role")){
+            return Swal.fire({
                 icon: 'error',
                 title: 'Usuario invalido',
                 text: 'Vuelve a conectarte',
@@ -592,13 +592,19 @@ export let postComent = (id, Comentario) => async(dispatch)=>{
                     window.location.href = '/'
                 }
             })
-        }else if(nuevoComentario.message === "El comentario fue creado"){
-            Swal.fire({
+        } else if (nuevoComentario.data.error){
+            return Swal.fire({
+                icon: 'error',
+                title: nuevoComentario.data.error,
+            })
+        }
+        else {
+            return Swal.fire({
                 icon: 'success',
-                title: 'Comentario posteado',
+                title: nuevoComentario.data,
                 showConfirmButton: false,
                 timer: 1000
-            })
+            }).then(()=>window.location.reload())
         }
     } catch (error) {
         console.log(error)

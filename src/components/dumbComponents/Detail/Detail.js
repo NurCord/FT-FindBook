@@ -14,6 +14,7 @@ import Comment from '../../smartComponents/Comment/Comment';
 
 export default function Detail() {
     let state = useSelector(s => s.root.bookById)
+    let role = useSelector(s => s.root.role)
     let {id} = useParams()
     let dispatch = useDispatch()
 
@@ -25,7 +26,8 @@ export default function Detail() {
 
     const handleOnSubmit = (e) => {
         e.preventDefault();
-        dispatch(postComent(id, comment));
+
+        dispatch(postComent(id, comment));        
     }
 
     useEffect(() => {
@@ -121,7 +123,7 @@ export default function Detail() {
                             </DivTableColDetail>
                             <DivTableDetail/>
                             <DivTableColDetail>
-                                <h1>Fecha lanzamiento</h1>
+                                <h1>Lanzamiento</h1>
                                 <h2>{state.released}</h2>
                             </DivTableColDetail>
                             <DivTableDetail/>
@@ -134,17 +136,20 @@ export default function Detail() {
                     </DivDetail>
                     <DivDetail>
                         <H1Detail id='descripcion'>Comentarios</H1Detail>
-                        <TextDetail>
-                            <form onSubmit={e => handleOnSubmit (e)}>
+                        {(role === 'user' || role === 'admin') && 
+                            <form className = 'flex flex-col items-end pt-5 w-full' onSubmit={e => handleOnSubmit (e)}>
                             <textarea type = 'text' value = {comment} name = 'comment' onChange = {e => handleOnChange (e)} className = "w-full rounded-lg"/>
-                            <button type='submit'>Publicar</button>
+                            <button className = "py-1 justify-self-end font-medium no-underline w-60 text-neutral-900 rounded-2xl bg-stone-400 hover:text-white hover:border-solid hover:border-slate-50 hover:bg-stone-400" type='submit'>Publicar</button>
                             </form>
-                        </TextDetail>
-                        <div>
+                        }
+
+                        <div className='w-full'>
                             {state.comentarios?.map((c, i) => {
                                 return (<Comment key={i}
                                     comentario = { c.Comentario }
-                                />)})}
+                                    timestamp = { c.createdAt }
+                                    usuario = { c.usuario }
+                                />)}).reverse()}
                         </div>
                     </DivDetail>
                     <DivDetail id='recomendados' style={{border: 'none', position: 'relative'}}>
