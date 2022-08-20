@@ -26,7 +26,6 @@ export default function Detail() {
 
     const handleOnSubmit = (e) => {
         e.preventDefault();
-
         dispatch(postComent(id, comment));        
     }
 
@@ -136,7 +135,8 @@ export default function Detail() {
                     </DivDetail>
                     <DivDetail>
                         <H1Detail id='descripcion'>Comentarios</H1Detail>
-                        {(role === 'user' || role === 'admin') && 
+                        {
+                        (role === 'user' || role === 'admin') && 
                         <div className='my-6'>
                             <form onSubmit={e => handleOnSubmit (e)} className={clsx(
                                 'mobile:gap-4',
@@ -149,12 +149,16 @@ export default function Detail() {
                         <div className={clsx(
                             'grid desktop:grid-cols-1 desktop:w-full desktop:h-auto desktop:gap-4')}>
 
-                            {state.comentarios?.map((c, i) => {
-                                return (<Comment key={i}
-                                    comentario = { c.Comentario }
+                        <div className='w-full'>
+                            {state.comentarios?.map((c) => {
+                                return (<Comment key = {c.id}
+                                    newcomment = { c.Comentario }
                                     timestamp = { c.createdAt }
-                                    usuario = { c.usuario }
+                                    user = { c.usuario }
+                                    closeButton = { role === 'admin' ? true : false }
+                                    id = { c.id }
                                 />)}).reverse()}
+                        </div>
                         </div>
                     </DivDetail>
                     <DivDetail id='recomendados' style={{border: 'none', position: 'relative'}}>

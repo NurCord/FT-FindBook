@@ -1,6 +1,6 @@
 import React from 'react';
 
-const MessageParser = ({ children, actions }) => {
+const messageParser = ({ children, actions }) => {
    const parse = (message) => {
       if (message === '0') return actions.handleGoodBye();  
       if (message.length > 1) return actions.handleHello(message);
@@ -19,4 +19,4 @@ const MessageParser = ({ children, actions }) => {
    );
 };
 
-export default MessageParser;
+export default messageParser;

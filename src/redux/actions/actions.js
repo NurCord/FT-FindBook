@@ -139,33 +139,23 @@ export let getForRating = () => async(dispatch)=>{
 }
 
 export const registerUser = (user) => async()=>{
-    // try{
-        await axios.post('/auth/register',user)
-            .then(({data})=>{
-                if(typeof data === 'object') {
-                    return Swal.fire({
-                        icon: 'error',
-                        title: 'Oops...',
-                        text: data.error,
-                        })
-                    } else {
-                        return Swal.fire(
-                            'Confirmar!',
-                            `${data}`,
-                            'success'
-                        ).then(()=>window.location.reload())
-                    }
-                }
-            )
-            // .catch(error => alert(error.message))
-    // }
-    // catch(error){
-    //     console.log(error);
-        // dispatch({
-        //     type: REGISTER_USER_ERROR,
-        //     payload: error
-        // })
-    // }
+    await axios.post('/auth/register',user)
+        .then(({data})=>{
+            if(typeof data === 'object') {
+                return Swal.fire({
+                    icon: 'error',
+                    title: 'Oops...',
+                    text: data.error,
+                })
+            } else {
+                return Swal.fire(
+                    'Confirmar!',
+                    `${data}`,
+                    'success'
+                ).then(()=>window.location.reload())
+            }
+        }
+    )
 }
 
 export const googleLogRes = (user) => async() => {
@@ -606,6 +596,24 @@ export let postComent = (id, Comentario) => async(dispatch)=>{
                 timer: 1000
             }).then(()=>window.location.reload())
         }
+    } catch (error) {
+        console.log(error)
+    }
+}
+
+export const deleteComment = (id) => async() => {
+    try {
+        const commentToDelete = await axios.delete(`/admin/deletecomment/${id}`, {
+            headers:{
+                Authorization: `Bearer ${window.localStorage.getItem('token')}`
+            }
+        })
+        return Swal.fire(
+            'Eliminado!',
+            commentToDelete.data,
+            'success'
+            )
+        .then(r => window.location.reload())
     } catch (error) {
         console.log(error)
     }
