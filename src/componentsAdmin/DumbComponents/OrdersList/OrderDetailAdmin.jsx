@@ -1,6 +1,6 @@
 import React from 'react' 
 
-export default function OrderDetail({ items }) {
+export default function OrderDetailAdmin({ items }) {
 
   return (
     <div>

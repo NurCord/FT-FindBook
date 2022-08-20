@@ -5,7 +5,8 @@ let initialState = {
     bookDetail: {},
     books: [],
     history: [],
-    favoBooks: []
+    favoBooks: [],
+    orderDetail: [],
 }
 
 export default function root(state = initialState, actions){
