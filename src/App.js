@@ -28,6 +28,7 @@ import PaymentSuccess from './components/dumbComponents/Shop/PaymentSuccess';
 import DetailBook from './panelUser/DumbComponents/CardBook/DetailBook';
 import Favorites from './components/dumbComponents/Favorites/Favorites';
 import OrderDetail from './panelUser/DumbComponents/UserOrders/OrderDetail';
+import OrderDetailAdmin from './componentsAdmin/DumbComponents/OrdersList/OrderDetailAdmin'
 
 function App() {
   let dispatch = useDispatch()

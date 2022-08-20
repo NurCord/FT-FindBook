@@ -10,7 +10,7 @@ export default function OrderCard({
   const navigate = useNavigate();
 
   const handleOnClick = () => {
-    //navigate(`/layoutAdmin/orderlist/${id}`);
+    navigate(`/paneluser/detail/${id}`);
   };
 
   return (
@@ -19,7 +19,7 @@ export default function OrderCard({
         <div className="flex  items-center">
           <div className="flex flex-col ml-3">
             <span onClick={handleOnClick} className="md:text-md font-medium">
-              {id}
+              {id?.slice(0,9)}...{id?.slice(-5)}
             </span>
             {/* <span className="md:text-xs font-light text-gray-400">{items}</span> */}
             <span className="md:text-xs font-light text-gray-400">
