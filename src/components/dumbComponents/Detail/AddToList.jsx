@@ -3,12 +3,10 @@ import { ButtonDetail } from './stayleComponentDetail'
 import Swal from "sweetalert2";
 import { useNavigate } from 'react-router-dom';
 import { useSelector, useDispatch } from 'react-redux';
-import { addToFavo, deleteFavoBook } from '../../../redux/actions/actions';
+import { addToFavo } from '../../../redux/actions/actions';
 import clsx from 'clsx'
 
 export default function AddToList({ id }) {
-
-  const [added, SetAdded] = useState(false)
   const role = useSelector(state => state.root.role)
 
   const dispatch = useDispatch()
@@ -32,23 +30,14 @@ export default function AddToList({ id }) {
         }
       })
     } else {
-      if (added) {
-        dispatch(addToFavo(id))
-        SetAdded(!added)
-      } else {
-        dispatch(deleteFavoBook(id))
-        SetAdded(!added)
-      }
+      dispatch(addToFavo(id))
     }
   }
   return (
     <div>
       {
-        !added ?
-          <ButtonDetail onClick={handleOnClick}>Agregar a lista de deseados</ButtonDetail> :
-          <ButtonDetail onClick={handleOnClick}>Quitar de lista de deseados</ButtonDetail>
+          <ButtonDetail onClick={handleOnClick}>Agregar a lista de deseados</ButtonDetail> 
       }
-
     </div>
   )
 }
