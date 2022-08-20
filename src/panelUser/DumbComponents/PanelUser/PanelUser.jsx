@@ -17,13 +17,20 @@ function PanelUser({ SetHomeUser }) {
     if (role !== "loading") {
         return (
             <div className={clsx(
-                'mobile:h-screen',
-                'desktop:w-full desktop:h-screen')}>
-                <div className='grid w-full h-auto grid-cols-6'>
-                    <div className='h-auto col-span-1 bg-greyBlack-100'>
+                'desktop:w-full h-screen')}>
+                <div className={clsx(
+                    'mobile:grid-cols-1',
+                    'grid w-full h-full desktop:grid-cols-6')}>
+                    <div className={clsx(
+                        'mobile:fixed mobile:bottom-0 mobile:bg-cream-200 mobile:py-2',
+                        'h-auto desktop:col-span-1 desktop:relative desktop:py-0 desktop:bg-greyBlack-100'
+                        )}>
                         <NavBarHome SetHomeUser={SetHomeUser} />
                     </div>
-                    <div className='h-auto col-span-5 bg-greyBlack-100'>
+                    <div className={clsx(
+                        '',
+                        'h-auto desktop:col-span-5 bg-greyBlack-100'
+                        )}>
                         <Outlet />
                     </div>
                 </div>
