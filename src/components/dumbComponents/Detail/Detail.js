@@ -173,7 +173,12 @@ export default function Detail() {
                 </div>
             }
         </>
-    )}else{
+    )}else if(state?.hasOwnProperty('error')){
+        return(
+        <div className='grid h-screen place-content-center text-9xl uppercase'>{state.error}</div>
+        )
+    }
+    else{
         return (
             <div className='grid h-screen place-content-center'><img className='rounded-lg' src={loading} alt='Cargando' /></div>
         )
