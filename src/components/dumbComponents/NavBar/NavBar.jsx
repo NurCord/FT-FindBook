@@ -3,21 +3,31 @@ import SearchNavBar from '../../smartComponents/SearchNavBar/SearchNavBar'
 import Logo from '../../../assets/FindBookLogo.png'
 import Filters from '../../smartComponents/Filters/Filters'
 import { Link } from 'react-router-dom'
-import { useSelector } from 'react-redux'
+import { useDispatch, useSelector } from 'react-redux'
 import clsx from 'clsx'
 import NavBarRes from './NavBarRes'
 import { UilFidgetSpinner } from '@iconscout/react-unicons'
 import { UilEstate } from '@iconscout/react-unicons'
 import { UilUser } from '@iconscout/react-unicons'
+import { useEffect } from 'react'
+import { userCart } from '../../../redux/actions/actionsShop'
 
 export default function NavBar() {
   const role = useSelector(state => state.root.role)
+  const cartBooks = useSelector(state => state.shop.cartBooks)
   let [state, setState] = useState('hidden')
   let [state2, setState2] = useState('hidden')
   let handleHidden = (value) => {
     if(value === 'search')setState(state === 'hidden' ? '' : 'hidden')
     if(value === 'menu')setState2(state2 === 'hidden' ? '' : 'hidden')
   }
+
+  let dispatch = useDispatch()
+  useEffect(() => {
+    dispatch(userCart())
+  // eslint-disable-next-line react-hooks/exhaustive-deps
+  }, [cartBooks])
+  
 
   return (
     <>
@@ -87,7 +97,15 @@ export default function NavBar() {
                 </div> : null
             }
 
-            {role === 'invalid' ? null : <div className={clsx('flex')}>
+            {role === 'invalid' ? null : 
+            <div className='relative'>
+              { cartBooks && cartBooks.length ?
+                    <span class="flex h-3 absolute -right-5 top-0">
+                    <span class="animate-ping absolute inline-flex h-3 w-3 rounded-full bg-cream-300 opacity-75"></span>
+                    <span class="relative inline-flex rounded-full h-3 w-3 bg-cream-300"></span>
+                  </span> : ''
+              }
+            <div className={clsx('flex relative')}>
               <svg xmlns="http://www.w3.org/2000/svg" className={clsx("self-center w-6 h-6")} fill="none" stroke="currentColor" strokeWidth={1.5}>
                 <path strokeLinecap="round" strokeLinejoin="round" d="M16 11V7a4 4 0 00-8 0v4M5 9h14l1 12H4L5 9z" />
               </svg>
@@ -96,8 +114,8 @@ export default function NavBar() {
                   <h1 className={clsx('duration-700 border-b-2 border-cream-100 hover:border-cream-300')}>Carrito</h1>
                 </Link>
               </div>
+            </div>
             </div>}
-
             {
               role === "user" ?
                 <div className={clsx('flex')}>

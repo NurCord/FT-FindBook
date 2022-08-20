@@ -1,6 +1,6 @@
 /* eslint-disable react-hooks/exhaustive-deps */
 import React , {useEffect, useState}from 'react'
-import { H1Detail, DivDetail, TextDetail, DivTableDetail, DivTableColDetail, H1DetailSwiper} from './stayleComponentDetail'
+import { H1Detail, DivDetail, TextDetail, DivTableDetail, DivTableColDetail, H1DetailSwiper, ButtonDetail} from './stayleComponentDetail'
 import { useDispatch, useSelector } from 'react-redux';
 import loading from '../../../assets/loading.gif';
 import CardImag from '../Card/CardImag';
@@ -135,12 +135,19 @@ export default function Detail() {
                     </DivDetail>
                     <DivDetail>
                         <H1Detail id='descripcion'>Comentarios</H1Detail>
-                        {(role === 'user' || role === 'admin') && 
-                            <form className = 'flex flex-col items-end pt-5 w-full' onSubmit={e => handleOnSubmit (e)}>
-                            <textarea type = 'text' value = {comment} name = 'comment' onChange = {e => handleOnChange (e)} className = "w-full rounded-lg"/>
-                            <button className = "py-1 justify-self-end font-medium no-underline w-60 text-neutral-900 rounded-2xl bg-stone-400 hover:text-white hover:border-solid hover:border-slate-50 hover:bg-stone-400" type='submit'>Publicar</button>
+                        {
+                        (role === 'user' || role === 'admin') && 
+                        <div className='my-6'>
+                            <form onSubmit={e => handleOnSubmit (e)} className={clsx(
+                                'mobile:gap-4',
+                                'w-full grid desktop:gap-0 grid-cols-2 h-auto content-center justify-items-center')}>
+                                <textarea type = 'text' value = {comment} name = 'comment' onChange = {e => handleOnChange (e)} className = "w-full rounded-lg"/>
+                                <ButtonDetail type='submit'>Publicar</ButtonDetail>
                             </form>
+                        </div>
                         }
+                        <div className={clsx(
+                            'grid desktop:grid-cols-1 desktop:w-full desktop:h-auto desktop:gap-4')}>
 
                         <div className='w-full'>
                             {state.comentarios?.map((c) => {
@@ -151,6 +158,7 @@ export default function Detail() {
                                     closeButton = { role === 'admin' ? true : false }
                                     id = { c.id }
                                 />)}).reverse()}
+                        </div>
                         </div>
                     </DivDetail>
                     <DivDetail id='recomendados' style={{border: 'none', position: 'relative'}}>

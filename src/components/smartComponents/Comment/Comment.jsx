@@ -1,7 +1,10 @@
+
 import React from 'react';
 import Swal from 'sweetalert2';
 import { useDispatch } from 'react-redux';
 import { deleteComment } from '../../../redux/actions/actions';
+import clsx from 'clsx'
+
 
 
 export default function Comment({ newcomment, timestamp, user, closeButton, id }) {
@@ -36,21 +39,31 @@ export default function Comment({ newcomment, timestamp, user, closeButton, id }
 
    return (
       <div>
-         <div className='flex items-center justify-center mt-2'>  
-            <div className="rounded-xl border p-5 shadow-md w-full bg-white">
-               <div className="flex w-full items-center justify-between border-b pb-3">
-                  <div className="flex items-center space-x-3">                   
+         <div className={clsx(
+            'mobile:py-2','flex justify-center h-auto items-stretch w-full')}>  
+            <div className="rounded-xl border p-4 shadow-md w-full bg-white">
+               <div className="flex w-full items-center justify-between border-b pb-2">
+                  <div className="flex items-center space-x-3 h-4">                   
                      <img className="h-8 w-8 rounded-full" src={`${user.url}`}/>
-                     <div className="text-lg font-bold text-slate-700">{`${user.name} ${user.lastname}`}</div>
+                     <div className={clsx(
+                        'mobile:text-sm',
+                        "desktop:text-lg font-bold text-slate-700")}>{`${user.name} ${user.lastname}`}
+                     </div>
                   </div>
                <div className="flex items-center space-x-8">
                   <div className="text-xs text-neutral-500">{postDate}</div>
                </div>
             </div>
 
-            <div className="mt-4 mb-6">
-               <div className="mb-3 text-xl font-bold">Comentó:</div>
-               <h1 className="text-sm text-neutral-600">{newcomment}</h1>
+            <div className={clsx(
+               'mobile:grid-cols-2',
+               "my-4 grid desktop:grid-cols-3 content-center w-full justify-items-start")}>
+               <div  className={clsx(
+                  'mobile:text-sm',
+                  "desktop:text-base font-bold")}>Comentó:</div>
+               <h1 className={clsx(
+                  '',
+                  "text-sm text-neutral-600 desktop:col-span-2")}>{newcomment}</h1>
             </div>
             {closeButton &&
             <div className='flex justify-end'>
