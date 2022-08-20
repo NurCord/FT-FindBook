@@ -7,6 +7,7 @@ import { useSelector } from 'react-redux'
 import clsx from 'clsx'
 import NavBarRes from './NavBarRes'
 import { UilFidgetSpinner } from '@iconscout/react-unicons'
+import { UilEstate } from '@iconscout/react-unicons'
 
 export default function NavBar() {
   const role = useSelector(state => state.root.role)
@@ -34,6 +35,14 @@ export default function NavBar() {
             <div className={`${state} duration-500 absolute flex top-16 left-0 w-screen z-50 h-10`}>
               <SearchNavBar handleHidden={handleHidden}/>
             </div>
+          </div>
+          <div className={clsx(
+            'mobile:col-span-1 mobile:col-start-4',
+            'tablet:',
+            'desktop:hidden')}>
+              <Link to='/'>
+                <UilEstate className='w-8 h-8'/>
+              </Link>
           </div>
           <div className={clsx(
             'mobile:col-span-1 mobile:col-start-5',

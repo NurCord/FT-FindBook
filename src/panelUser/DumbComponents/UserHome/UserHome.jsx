@@ -84,16 +84,29 @@ function UserHome({ HomeUser }) {
               <UilEditAlt className="w-8 h-8 duration-200 place-self-center text-greyBlack-400" aria-hidden="true" fill="currentColor" viewBox="0 0 20 20" />
             </button>
           </div>
+          <div style={{ backgroundImage: `url(${img2})` }} className={clsx(
+            'mobile:relative mobile:grid mobile:justify-items-center mobile:content-center mobile:h-36 mobile:bg-cover',
+            'desktop:relative desktop:w-full desktop:h-full desktop:col-span-1 desktop:bg-cover')}>
+            <img src={user?.url} alt='Not found' className={clsx(
+              'mobile:rounded-full',
+              'desktop:absolute desktop:duration-500 desktop:ease-in desktop:rounded-full1 desktop:top-48 desktop:left-25 desktop:scale-70 desktop:scale-105')} />
+          </div>
 
           <div className={clsx(
-            'mobile:top-12',
-            `${state} absolute flex`)}>
-            <div className={`z-10 bg-cream-300 rounded-md`}>
-              <form onSubmit={handleSubmit(onSubmit)} className='grid h-full grid-cols-1 grid-rows-6 gap-4'>
+            'mobile:top-44',
+            `absolute flex desktop:top-28 desktop:right-20`)}>
+            <div className={`z-10 bg-cream-200 desktop:bg-cream-100 rounded-md`}>
+              <form onSubmit={handleSubmit(onSubmit)} className={clsx(
+                'mobile:h-96 mobile:gap-0',
+                'grid h-full grid-cols-1 grid-rows-6 gap-4'
+                )}>
                 <div className='grid content-center grid-cols-3'>
                   <label className='col-span-1 font-semibold place-self-center'>Nombre:</label>
+                  <h1 className={state === 'hidden' ? 'col-span-2 m-4 text-center' : 'hidden'}>{user?.name}</h1>
                   <input
-                    className='col-span-2 m-4 rounded-md bg-cream-100'
+                    className={clsx(
+                      `${state} col-span-2 m-4 rounded-md bg-cream-100`
+                    )}
                     key='name'
                     type='text'
                     name='name'
@@ -103,8 +116,9 @@ function UserHome({ HomeUser }) {
                 </div>
                 <div className='grid content-center grid-cols-3'>
                   <label className='col-span-1 font-semibold place-self-center'>Apellido:</label>
+                  <h1 className={state === 'hidden' ? 'col-span-2 m-4 text-center' : 'hidden'}>{user?.lastname}</h1>
                   <input
-                    className='col-span-2 m-4 rounded-md bg-cream-100'
+                    className={`${state} col-span-2 m-4 rounded-md bg-cream-100`}
                     key='surname'
                     type='text'
                     name='surname'
@@ -114,8 +128,9 @@ function UserHome({ HomeUser }) {
                 </div>
                 <div className='grid content-center grid-cols-3'>
                   <label className='col-span-1 ml-6 font-semibold place-self-center'>Nombre de usuario:</label>
+                  <h1 className={state === 'hidden' ? 'col-span-2 m-4 text-center' : 'hidden'}>{user?.username}</h1>
                   <input
-                    className='col-span-2 m-4 rounded-md bg-cream-100'
+                    className={`${state} col-span-2 m-4 rounded-md bg-cream-100`}
                     key='username'
                     type='text'
                     name='username'
@@ -125,8 +140,9 @@ function UserHome({ HomeUser }) {
                 </div>
                 <div className='grid content-center grid-cols-3'>
                   <label className='col-span-1 ml-6 font-semibold place-self-center'>Email:</label>
+                  <h1 className={state === 'hidden' ? 'col-span-2 m-4 text-center' : 'hidden'}>{user?.email}</h1>
                   <input
-                    className='col-span-2 m-4 rounded-md bg-cream-100'
+                    className={`${state} col-span-2 m-4 rounded-md bg-cream-100`}
                     key='emailput'
                     type='email'
                     name='emailput'
@@ -136,8 +152,9 @@ function UserHome({ HomeUser }) {
                 </div>
                 <div className='grid content-center grid-cols-3'>
                   <label className='col-span-1 ml-6 font-semibold place-self-center'>Contraseña:</label>
+                  <h1 className={state === 'hidden' ? 'col-span-2 m-4 text-center' : 'hidden'}>* * * * * *</h1>
                   <input
-                    className='col-span-2 m-4 rounded-md bg-cream-100'
+                    className={`${state} col-span-2 m-4 rounded-md bg-cream-100`}
                     key='password'
                     type='text'
                     name='password'
@@ -145,53 +162,23 @@ function UserHome({ HomeUser }) {
                     {...register("password")}
                   />
                 </div>
-                <button type="submit" className='px-4 py-2 m-auto font-semibold duration-200 rounded-md bg-cream-100 hover:bg-greyBlack-400 hover:text-cream-100'>Confirmar</button>
+                <button type="submit" className={state === 'hidden' ? 'hidden' : 'px-4 py-2 m-auto font-semibold duration-200 rounded-md desktop:bg-cream-300 bg-cream-100 hover:bg-greyBlack-400 hover:text-cream-100'}>Confirmar</button>
               </form>
             </div>
           </div>
 
 
-          <div style={{ backgroundImage: `url(${img2})` }} className={clsx(
-            'mobile:relative mobile:grid mobile:justify-items-center mobile:content-center mobile:h-36 mobile:bg-cover',
-            'desktop:relative desktop:w-full desktop:h-full desktop:col-span-1 desktop:bg-cover')}>
-            <img src={user?.url} alt='Not found' className={clsx(
-              'mobile:rounded-full',
-              'desktop:absolute desktop:duration-500 desktop:ease-in desktop:rounded-full1 desktop:top-48 desktop:left-25 desktop:scale-70 desktop:scale-105')} />
-          </div>
-          <div className={clsx(
-            'desktop:grid desktop:content-center desktop:w-full desktop:col-span-2 desktop:py-6 desktop:justify-items-center desktop:bg-zinc-300')}>
-            <div className={clsx(
-              'mobile:grid mobile:mt-5 mobile:ml-3',
-              'desktop:grid desktop:self-center desktop:grid-rows-4 desktop:gap-4 desktop:w-96')}>
-              <div className='grid grid-cols-2'>
-                <h1 className='font-semibold'>Nombre: </h1>
-                <h1>{user?.name}</h1>
-              </div>
-              <div className='grid grid-cols-2'>
-                <h1 className='font-semibold'>Apellido: </h1>
-                <h2>{user?.lastname}</h2>
-              </div>
-              <div className='grid grid-cols-2'>
-                <h1 className='font-semibold'>Nombre usuario: </h1>
-                <h2>{user?.username}</h2>
-              </div>
-              <div className='grid grid-cols-2'>
-                <h1 className='font-semibold'>Email: </h1>
-                <h2>{user?.email}</h2>
-              </div>
-              <div className='grid grid-cols-2'>
-                <h1 className='font-semibold'>Contraseña: </h1>
-                <h2>* * * * * *</h2>
-              </div>
-            </div>
-          </div>
+          
         </div>
       </div>
     )
   } else if (HomeUser === 'Books') {
     return (
       <div className='w-full h-auto'>
-        <div className='grid grid-cols-4 gap-4 justify-items-center '>
+        <div className={clsx(
+          'mobile:grid-cols-2 mobile:mt-3',
+          'grid desktop:grid-cols-4 desktop:gap-4 justify-items-center'
+        )}>
           {
             books.length > 0 && books?.map(e => <CardBook data={e} />)
           }
@@ -201,7 +188,8 @@ function UserHome({ HomeUser }) {
   } else if (HomeUser === 'Historial') {
     return (
       <div className='w-full h-full'>
-        <div className='grid grid-cols-4 gap-4 justify-items-center '>
+        <div className={clsx(
+          'grid grid-cols-4 gap-4 justify-items-center')}>
           <UserOrders />
         </div>
       </div>

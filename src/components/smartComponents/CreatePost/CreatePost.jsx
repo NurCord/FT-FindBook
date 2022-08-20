@@ -5,7 +5,7 @@ import { useDispatch, useSelector } from "react-redux";
 import { useState } from "react";
 import { postBook } from "../../../redux/actions/actions";
 import Swal from "sweetalert2";
-
+import clsx from 'clsx'
 
 // lógica validación
 function validator(form) {
@@ -195,7 +195,10 @@ export default function CreatePost() {
         const possibleRatings = [1, 2, 3, 4, 5];
         return (
             <div>
-                <select name = 'rating' className = "w-56 text-center rounded-lg text-slate-600" onChange = {(e) => handleSelectRating(e)}> {/*RatingSelector*/}
+                <select name = 'rating' className ={clsx( 
+                    "desktop:w-56 desktop:text-center desktop:rounded-lg text-slate-600"
+                )} 
+                onChange = {(e) => handleSelectRating(e)}> {/*RatingSelector*/}
                     <option /*disabled={true}*/ value="disabled">--Seleccionar--</option>
                     {
                         possibleRatings.map(r  => ( <option key = {r} value = {r}>{r}</option> ))
@@ -282,54 +285,76 @@ export default function CreatePost() {
     // Renderizar formulario
     if(role !== "invalid"){
     return (
-        <div className = "flex flex-col items-center justify-center h-full mt-8 text-center"> {/*Container*/}
-            <div className = "w-2/3 px-20 rounded bg-cream-100"> {/*Background bg-slate-900*/}
-                <h1 className = "pt-5 text-lg text-zinc-600">PUBLICA TU LIBRO PARA VENTA</h1>
+        <div className ={clsx( 
+            "flex flex-col items-center justify-center h-full desktop:mt-8 text-center"
+            )}> {/*Container*/}
+            <div className ={clsx(  
+                'mobile:px-2',
+                "desktop:w-2/3 desktop:px-20 rounded bg-cream-100"
+                )}> {/*Background bg-slate-900*/}
+                <h1 className ={clsx(  
+                    "pt-5 desktop:text-lg text-zinc-600")}>PUBLICA TU LIBRO PARA VENTA</h1>
                 <br></br>
                 <form onSubmit={e => handleFormSubmit (e)}> {/*FormContainer*/}
-                    <div className = "flex justify-between mb-1 text-zinc-600"> {/*FormItem*/}
-                        <div className = "flex items-center">
+                    <div className ={clsx(   
+                        'mobile:grid mobile:justify-items-center',
+                        "desktop:flex desktop:justify-between mb-1 text-zinc-600")}> {/*FormItem*/}
+                        <div className ={clsx(   
+                            "flex items-center"
+                        )}>
                             <label>Título:</label>
                             <label className = "text-orange-600 justify-self-center">{forbidden.name && forbidden.name}</label>
                         </div>
                         <input type = 'text' value = {form.name} name = 'name' onChange={e => handleFormChange (e)} className = "w-56 rounded-lg"/>
                     </div>
-                    <div className = "flex justify-between mb-1 text-zinc-600"> {/*FormItem*/}
+                    <div className ={clsx(   
+                        'mobile:grid mobile:justify-items-center', 
+                        "desktop:flex desktop:justify-between mb-1 text-zinc-600")}> {/*FormItem*/}
                         <div className = "flex items-center">
                             <label>Autor:</label>
                             <label className = "text-orange-600">{forbidden.author && forbidden.author}</label>
                         </div>
                         <input type = 'text' value = {form.author} name = 'author' onChange={e => handleFormChange (e)} className = "w-56 rounded-lg"/>
                     </div>
-                    <div className = "flex justify-between mb-1 text-zinc-600"> {/*FormItem*/}
+                    <div className ={clsx(   
+                        'mobile:grid mobile:justify-items-center', 
+                        "desktop:flex desktop:justify-between mb-1 text-zinc-600")}>  {/*FormItem*/}
                         <div className = "flex items-center">
                             <label>Género(s):</label>
                             <label className = "text-orange-600">{forbidden.genre && forbidden.genre}</label>
                         </div>
                         {GenreSelector()}
                     </div>
-                    <div className = "flex justify-between mb-1 text-zinc-600"> {/*FormItem text-slate-50*/}
+                    <div className ={clsx(   
+                        'mobile:grid mobile:justify-items-center', 
+                        "desktop:flex desktop:justify-between mb-1 text-zinc-600")}>{/*FormItem text-slate-50*/}
                         <div className = "flex items-center">
                             <label>Categoría:</label>
                             <label className = "text-orange-600">{forbidden.category && forbidden.category}</label>
                         </div>
                         {CategorySelector()}
                     </div>
-                    <div className = "flex justify-between mb-1 text-zinc-600"> {/*FormItem*/}
+                    <div className ={clsx(   
+                        'mobile:grid mobile:justify-items-center', 
+                        "desktop:flex desktop:justify-between mb-1 text-zinc-600")}> {/*FormItem*/}
                         <div className = "flex items-center">
                             <label>Número de páginas:</label>
                             <label className = "text-orange-600">{forbidden.pages && forbidden.pages}</label>
                         </div>
                         <input type = 'text' value = {form.pages} name = 'pages' onChange={e => handleFormChange (e)} className = "w-56 rounded-lg"/>
                     </div>
-                    <div className = "flex justify-between mb-1 text-zinc-600"> {/*FormItem*/}
+                    <div className ={clsx(   
+                        'mobile:grid mobile:justify-items-center', 
+                        "desktop:flex desktop:justify-between mb-1 text-zinc-600")}> {/*FormItem*/}
                         <div className = "flex items-center">
                             <label>Editorial:</label>
                             <label className = "text-orange-600">{forbidden.publisher && forbidden.publisher}</label>
                         </div>
                         <input type = 'text' value = {form.publisher} name = 'publisher' onChange={e => handleFormChange (e)} className = "w-56 rounded-lg"/>
                     </div>
-                    <div className = "flex justify-between mb-1 text-zinc-600"> {/*FormItem*/}
+                    <div className ={clsx(   
+                        'mobile:grid mobile:justify-items-center', 
+                        "desktop:flex desktop:justify-between mb-1 text-zinc-600")}>{/*FormItem*/}
                         <div className = "flex items-center">
                             <label>Imagen o Portada:</label>
                             <label className = "text-orange-600 justify-self-center">{forbidden.image && forbidden.image}</label>
@@ -339,35 +364,45 @@ export default function CreatePost() {
                             <input type = 'file' name = 'file' accept = ".jpg, .jpeg, .png" onChange={ upLoadBookCover } className = "w-56"/>
                         </div>
                     </div>
-                    <div className = "flex justify-between mb-1 text-zinc-600"> {/*FormItem*/}
+                    <div className ={clsx(   
+                        'mobile:grid mobile:justify-items-center', 
+                        "desktop:flex desktop:justify-between mb-1 text-zinc-600")}> {/*FormItem*/}
                         <div className = "flex items-center">
                             <label>Puntaje:</label>
                             <label className = "text-orange-600">{forbidden.rating && forbidden.rating}</label>
                         </div>
                         {RatingSelector()}
                     </div>
-                    <div className = "flex justify-between mb-1 text-zinc-600"> {/*FormItem*/}
+                    <div className ={clsx(   
+                        'mobile:grid mobile:justify-items-center', 
+                        "desktop:flex desktop:justify-between mb-1 text-zinc-600")}> {/*FormItem*/}
                         <div className = "flex items-center">
                             <label>Precio:</label>
                             <label className = "text-orange-600">{forbidden.price && forbidden.price}</label>
                         </div>
                         <input type = 'text' value = {form.price} name = 'price' onChange={e => handleFormChange (e)} className = "w-56 rounded-lg"/>
                     </div>
-                    <div className = "flex justify-between mb-1 text-zinc-600"> {/*FormItem*/}
+                    <div className ={clsx(   
+                        'mobile:grid mobile:justify-items-center', 
+                        "desktop:flex desktop:justify-between mb-1 text-zinc-600")}> {/*FormItem*/}
                         <div className = "flex items-center">
                             <label>Fecha de publicación:</label>
                             <label className = "text-orange-600">{forbidden.released && forbidden.released}</label>
                         </div>
                         <input type = 'date' value = {form.released} name = 'released' onChange={e => handleFormChange (e)} className = "w-56 text-center rounded-lg text-slate-600"/>
                     </div>
-                    <div className = "flex justify-between mb-1 text-zinc-600"> {/*FormItem*/}
+                    <div className ={clsx(   
+                        'mobile:grid mobile:justify-items-center', 
+                        "desktop:flex desktop:justify-between mb-1 text-zinc-600")}>{/*FormItem*/}
                         <div className = "flex items-center">
                             <label>Idioma:</label>
                             <label className = "text-orange-600">{forbidden.language && forbidden.language}</label>
                         </div>
                         {LanguageSelector()}
                     </div>
-                    <div className = "flex flex-col mb-1 text-zinc-600"> {/*FormItem*/}
+                    <div className ={clsx(   
+                        'mobile:grid mobile:justify-items-center', 
+                        "desktop:flex desktop:justify-between mb-1 text-zinc-600")}> {/*FormItem*/}
                         <div className = "flex items-center pt-2">
                             <label className = "flex items-start">Descripción:</label>
                             <label className = "text-orange-600">{forbidden.description && forbidden.description}</label>
@@ -381,20 +416,29 @@ export default function CreatePost() {
                     </div>
                     <br></br>
                     <br></br>
-                    <div className = "flex flex-wrap pb-4 justify-evenly"> {/*ButtonsDiv*/}
+                    <div className = "flex flex-nowrap pb-4 justify-evenly"> {/*ButtonsDiv*/}
                         {
                             Object.entries(forbidden).length === 0 ?
                                 <div> {/*PostButtonDiv*/}
-                                    <button type = 'submit' className = "px-4 py-1 font-medium no-underline w-60 text-neutral-900 rounded-2xl bg-stone-400 hover:text-white hover:border-solid hover:border-slate-50 hover:bg-stone-400">Publicar</button>
+                                    <button type = 'submit' className ={clsx(  
+                                        'mobile:w-40 mobile:mx-2 mobile:h-14',
+                                        "px-4 py-3 mb-2 font-medium no-underline desktop:w-60 text-neutral-900 rounded-2xl bg-stone-400 hover:text-white hover:border-solid hover:border-slate-50 hover:bg-stone-400"
+                                    )}>Publicar</button>
                                 </div>
                                 :
                                 <div> {/*PostButtonDisabledDiv*/}
-                                    <button type = 'submit' className = "px-4 py-1 font-medium text-gray-800 no-underline pointer-events-none w-60 rounded-2xl bg-zinc-600">Publicar</button>
+                                    <button type = 'submit' className ={clsx(  
+                                        'mobile:w-40 mobile:h-14 mobile:mx-2 ',
+                                        "px-4 py-1 mb-2 font-medium text-gray-800 no-underline pointer-events-none desktop:w-60 rounded-2xl bg-zinc-600")}>Publicar</button>
                                 </div>
                         }
                         <div> {/*GoBackDiv*/}
                             <Link to = '/'>
-                                <button className = "px-4 py-1 font-medium no-underline w-60 text-neutral-900 rounded-2xl bg-stone-400 hover:text-white hover:border-solid hover:border-slate-50 hover:bg-stone-400">Cancelar {'&'} Volver</button>
+                                <button className =
+                                {clsx(  
+                                    'mobile:w-40 mobile:h-14 mobile:mx-2 ', 
+                                    "px-4 py-1 font-medium no-underline desktop:w-60 text-neutral-900 rounded-2xl bg-stone-400 hover:text-white hover:border-solid hover:border-slate-50 hover:bg-stone-400"
+                                    )}>Cancelar {'&'} Volver</button>
                             </Link>
                         </div>
                     </div>
