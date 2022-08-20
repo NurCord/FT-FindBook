@@ -17,7 +17,7 @@ export default function SearchByReleased() {
             <div className='relative h-full'>
                 <span className={clsx(
                     'mobile:text-5xl mobile:left-16 mobile:top-6',
-                    'absolute desktop:grid w-full desktop:text-5xl desktop:place-content-center desktop:top-10')}>{state.yearsToFilter}</span>
+                    'absolute desktop:grid desktop:w-full desktop:text-5xl desktop:place-content-center desktop:top-10')}>{state.yearsToFilter}</span>
                 <img className={clsx(
                     'mobile:h-24',
                     'w-full desktop:h-36'

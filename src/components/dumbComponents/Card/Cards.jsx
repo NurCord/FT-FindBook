@@ -89,7 +89,7 @@ export default function Cards({ data }) {
                     </div>
                     <h2 className={clsx(
                         'mobile:text-xs mobile:h-4',
-                        "overflow-hidden desktop:text-lg desktop:italic desktop:font-semibold desktop:h-8 desktop:mt-1 desktop:tracking-tight desktop:text-left desktop:min-text-sm text-greyBlack-300 desktop:min-max-h-5 desktop:max-h-7"
+                        "overflow-hidden desktop:text-lg desktop:italic desktop:font-semibold desktop:h-8 desktop:mt-1 desktop:tracking-tight desktop:text-left desktop:min-text-sm text-greyBlack-300 desktop:max-h-7"
                     )}>{data?.name}
                     </h2>
                     <h4 className={clsx(

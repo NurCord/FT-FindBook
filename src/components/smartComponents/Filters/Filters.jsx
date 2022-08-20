@@ -7,11 +7,15 @@ export default function Filters() {
   let year = useSelector(s => s.root.year)
   return (
     <div className={clsx(
-      'mobile:z-50 mobile:h-full mobile:grid-cols-2 mobile:grid mobile:justify-items-center',
+      'mobile:z-50 mobile:h-full mobile:flex',
       'tablet:',
-      'desktop:pt-1 desktop:mx-40')}>
+      'desktop:pt-1 desktop:mx-56 desktop:grid desktop:grid-cols-2 desktop:gap-4')}>
       <Filter text={'Genero'} filtros={state} />
-      <Filter text={'Año'} filtros={year} />
+      <div className={clsx(
+        'desktop:relative',
+        'mobile:absolute mobile:z-10 mobile:right-0')}>
+        <Filter text={'Año'} filtros={year} />
+      </div>
     </div>
   )
 }
