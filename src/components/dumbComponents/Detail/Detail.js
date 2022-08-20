@@ -1,6 +1,6 @@
 /* eslint-disable react-hooks/exhaustive-deps */
 import React , {useEffect, useState}from 'react'
-import { H1Detail, DivDetail, TextDetail, DivTableDetail, DivTableColDetail, H1DetailSwiper} from './stayleComponentDetail'
+import { H1Detail, DivDetail, TextDetail, DivTableDetail, DivTableColDetail, H1DetailSwiper, ButtonDetail} from './stayleComponentDetail'
 import { useDispatch, useSelector } from 'react-redux';
 import loading from '../../../assets/loading.gif';
 import CardImag from '../Card/CardImag';
@@ -134,13 +134,16 @@ export default function Detail() {
                     </DivDetail>
                     <DivDetail>
                         <H1Detail id='descripcion'>Comentarios</H1Detail>
-                        <TextDetail>
-                            <form onSubmit={e => handleOnSubmit (e)}>
-                            <textarea type = 'text' value = {comment} name = 'comment' onChange = {e => handleOnChange (e)} className = "w-full rounded-lg"/>
-                            <button type='submit'>Publicar</button>
+                        <div className='my-6'>
+                            <form onSubmit={e => handleOnSubmit (e)} className={clsx(
+                                'mobile:gap-4',
+                                'w-full grid desktop:gap-0 grid-cols-2 h-auto content-center justify-items-center')}>
+                                <textarea type = 'text' value = {comment} name = 'comment' onChange = {e => handleOnChange (e)} className = "w-full rounded-lg"/>
+                                <ButtonDetail type='submit'>Publicar</ButtonDetail>
                             </form>
-                        </TextDetail>
-                        <div>
+                        </div>
+                        <div className={clsx(
+                            'grid desktop:grid-cols-1 desktop:w-full desktop:h-auto desktop:gap-4')}>
                             {state.comentarios?.map((c, i) => {
                                 return (<Comment key={i}
                                     comentario = { c.Comentario }
