@@ -44,7 +44,7 @@ export default function SwiperGenre() {
                 )} key={i}>
                     <button onClick={() => handleOnClick(e.name)}>
                     <img className={clsx(
-                        'desktop:w-40 desktop:h-40'
+                        'desktop:w-40 desktop:h-40 rounded-lg'
                     )} src={e.img} alt='Not found'/>
                 </button>
             </SwiperSlide>))}

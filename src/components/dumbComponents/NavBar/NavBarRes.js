@@ -4,6 +4,7 @@ import clsx from 'clsx'
 import { UilUser } from '@iconscout/react-unicons'
 import { useSelector } from 'react-redux'
 import { Link } from 'react-router-dom'
+
 export default function NavBarRes({handleHidden}) {
     const value = useSelector(state => state.root.role)
     return (
