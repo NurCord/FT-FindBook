@@ -145,6 +145,7 @@ export default function Detail() {
                                 <ButtonDetail type='submit'>Publicar</ButtonDetail>
                             </form>
                         </div>
+                        }
                         <div className={clsx(
                             'grid desktop:grid-cols-1 desktop:w-full desktop:h-auto desktop:gap-4')}>
 
