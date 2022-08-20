@@ -13,11 +13,13 @@ export default function SearchByReleased() {
     },[state, dispatch])
     if(state.hasOwnProperty('filterBooks')) {
     return (
-        <div className='w-full h-full bg-greyBlack-100'>
-            <div className='relative h-full'>
+        <div className={clsx(
+            'mobile:w-screen mobile:h-full',
+            'bg-greyBlack-100 desktop:w-full')}>
+            <div className='relative'>
                 <span className={clsx(
                     'mobile:text-5xl mobile:left-16 mobile:top-6',
-                    'absolute desktop:grid desktop:w-full desktop:text-5xl desktop:place-content-center desktop:top-10')}>{state.yearsToFilter}</span>
+                    'absolute desktop:text-6xl desktop:top-10 desktop:left-72')}>{state.yearsToFilter}</span>
                 <img className={clsx(
                     'mobile:h-24',
                     'w-full desktop:h-36'
@@ -25,7 +27,7 @@ export default function SearchByReleased() {
             </div>
             <div className={clsx(
                 'mobile:grid-cols-1 mobile:grid mobile:justify-items-center',
-                'desktop:grid-cols-4 '
+                'desktop:grid-cols-4 desktop:h-full'
                 )}>
                 <div className={clsx(
                     'mobile:px-10 mobile:py-5',
@@ -36,7 +38,7 @@ export default function SearchByReleased() {
                 <div className={clsx(
                     'desktop:w-full desktop:col-span-3'
                     )}>
-                    <div className='w-full h-auto'>
+                    <div className='w-full h-full'>
                         <ContainCards data={state.filterBooks} />
                     </div>
                 </div>

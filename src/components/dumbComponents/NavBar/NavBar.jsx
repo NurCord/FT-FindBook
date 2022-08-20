@@ -20,23 +20,23 @@ export default function NavBar() {
   return (
     <>
       <div className={clsx(
-        'mobile:h-14 mobile:flex mobile:justify-around w-screen mobile:items-center mobile:bg-cream-100',
+        'mobile:h-14 mobile:grid mobile:grid-cols-5 mobile:content-center mobile:justify-items-center mobile:w-screen mobile:items-center mobile:bg-cream-100',
         'tablet:',
-        'desktop:w-full desktop:h-20 desktop:bg-cream-100',
+        'desktop:w-full desktop:flex desktop:h-20 desktop:bg-cream-100',
         )}>
           <div className={clsx(
-            'mobile: ',
+            'mobile:col-span-1',
             'tablet:',
             'desktop:hidden')}>
             <svg xmlns="http://www.w3.org/2000/svg" className="mx-3 rounded-full w-7 h-7" onClick={()=>handleHidden('search')} fill="none" viewBox="0 0 24 24" stroke="currentColor" strokeWidth={2}>
             <path strokeLinecap="round" strokeLinejoin="round" d="M21 21l-6-6m2-5a7 7 0 11-14 0 7 7 0 0114 0z" />
             </svg>
-            <div className={`${state} absolute flex top-16 left-5 w-96 z-50 h-10`}>
-              <SearchNavBar />
+            <div className={`${state} duration-500 absolute flex top-16 left-0 w-screen z-50 h-10`}>
+              <SearchNavBar handleHidden={handleHidden}/>
             </div>
           </div>
           <div className={clsx(
-            'mobile:',
+            'mobile:col-span-1 mobile:col-start-5',
             'tablet:',
             'desktop:hidden')}>
             <UilFidgetSpinner className='w-8 h-8' onClick={()=>handleHidden('menu')}/>
@@ -60,7 +60,7 @@ export default function NavBar() {
             'mobile:',
             'tablet:',
             'desktop:col-start-2 desktop:col-end-5')}>
-            <SearchNavBar />
+            <SearchNavBar setState={()=>setState()}/>
           </div>
           <div className={clsx('mobile: inline-flex',`${role === 'invalid' ? 'col-start-7' : role === 'user' ? 'grid grid-cols-4 justify-items-center' : 'grid grid-cols-5 justify-items-center'} col-start-5 col-end-8 gap-2`)}>
             {
