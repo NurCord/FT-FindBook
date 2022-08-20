@@ -1,11 +1,12 @@
-import {GET_USER_PANEL, GET_BOOKS_PANEL, GET_DETAIL_BOOK_PANEL, USER_FAVO, DELETE_FAVO_BOOK, DELETE_ALL_FAVO_BOOKS} from '../actions/variables'
+import {GET_USER_PANEL, GET_BOOKS_PANEL, GET_DETAIL_BOOK_PANEL, USER_FAVO, DELETE_FAVO_BOOK, DELETE_ALL_FAVO_BOOKS, GET_USER_ORDERS_BY_ID, } from '../actions/variables'
 
 let initialState = {
     userDetail:{},
     bookDetail: {},
     books: [],
     history: [],
-    favoBooks: []
+    favoBooks: [],
+    orderDetail: {},
 }
 
 export default function root(state = initialState, actions){
@@ -40,6 +41,11 @@ export default function root(state = initialState, actions){
                 ...state,
                 favoBooks: []
             }
+        case GET_USER_ORDERS_BY_ID:
+            return{
+               ...state,
+                orderDetail: actions.payload
+            }	
         default:
             return {...state}
     }

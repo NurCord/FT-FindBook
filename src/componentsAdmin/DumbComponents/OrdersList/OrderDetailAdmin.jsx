@@ -32,6 +32,9 @@ export default function OrderDetail() {
               <span className="md:text-md font-medium">
                 ID de la compra: {orderDetail.compras_id}
               </span>
+              <span className="md:text-xs font-light text-gray-400">
+                      {orderDetail.user?.name}
+                    </span>
               {orderDetail.items?.map((item) => {
                 return (
                   <div>

@@ -7,7 +7,7 @@ export default function OrderCards({ orderUser }) {
         {orderUser && orderUser?.map(order => {
             return <OrderCard 
                 key={order.order.id} 
-                id={`${order.order.id?.slice(0,9)}...${order.order.id?.slice(-5)}`}
+                id={order.order.id}
                 user_id={order.order.user_id}
                 totalPrice={order.order.totalPrice}
                 status={order.order.status}

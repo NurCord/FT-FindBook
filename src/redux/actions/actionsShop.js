@@ -1,4 +1,4 @@
-import { DELETE_ALL_CART_BOOKS, DELETE_CART_BOOK, GET_SESSION_ID, SOLD_OUT, USER_CART, GET_ALL_USER_ORDERS, BUTTON_STATUS } from "./variables";
+import { DELETE_ALL_CART_BOOKS, DELETE_CART_BOOK, GET_SESSION_ID, SOLD_OUT, USER_CART, GET_ALL_USER_ORDERS, BUTTON_STATUS, GET_USER_ORDERS_BY_ID } from "./variables";
 import axios from 'axios'
 import Swal from "sweetalert2";
 
@@ -243,6 +243,47 @@ export const getButtonStatus = () => async(dispatch) => {
         }else{
             dispatch({type: BUTTON_STATUS, payload:data})
         }    
+    } catch (error) {
+        console.log(error)
+    }
+}
+
+export const getUserOrdersById = (id, user_id) => async(dispatch) => {
+try {
+    if(user_id){
+        const { data } = await axios.get(`/userPanel/orderlist/${id}?user_id=${user_id}`,{headers:{Authorization: `Bearer ${window.localStorage.getItem("token")}`}})
+        if(data.hasOwnProperty("role")){
+            Swal.fire({
+                icon: 'error',
+                title: 'Usuario invalido',
+                text: 'Vuelve a conectarte',
+            }).then(result=>{
+                if(result.isConfirmed){
+                    window.localStorage.removeItem("token")
+                    window.location.reload()
+                    window.location.href = '/'
+                }
+            })
+        }else{
+            dispatch({type: GET_USER_ORDERS_BY_ID, payload:data})
+        }
+    }
+    const { data } = await axios.get(`/userPanel/orderlist/${id}`,{headers:{Authorization: `Bearer ${window.localStorage.getItem("token")}`}})
+        if(data.hasOwnProperty("role")){
+            Swal.fire({
+                icon: 'error',
+                title: 'Usuario invalido',
+                text: 'Vuelve a conectarte',
+            }).then(result=>{
+                if(result.isConfirmed){
+                    window.localStorage.removeItem("token")
+                    window.location.reload()
+                    window.location.href = '/'
+                }
+            })
+        }else{
+            dispatch({type: GET_USER_ORDERS_BY_ID, payload:data})
+        }
     } catch (error) {
         console.log(error)
     }
