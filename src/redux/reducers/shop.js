@@ -1,9 +1,10 @@
-import { DELETE_ALL_CART_BOOKS, DELETE_CART_BOOK, GET_SESSION_ID, SOLD_OUT, USER_CART, GET_ALL_USER_ORDERS } from "../actions/variables";
+import { DELETE_ALL_CART_BOOKS, DELETE_CART_BOOK, GET_SESSION_ID, SOLD_OUT, USER_CART, GET_ALL_USER_ORDERS, BUTTON_STATUS } from "../actions/variables";
 
 const initialState = {
     cartBooks: [],
     soldOut: false,
-    orderList: []
+    orderList: [],
+    buttonStatus: 'enabled'
 }
 
 export default function shop(state = initialState, actions){
@@ -50,6 +51,18 @@ export default function shop(state = initialState, actions){
                 return{
                     ...state,
                     orderList: actions.payload
+                }
+            }
+        case BUTTON_STATUS:
+            if(actions.payload === "boton deshabilitado"){
+                return{
+                    ...state,
+                    buttonStatus: "disabled"
+                }
+            }else{
+                return{
+                    ...state,
+                    buttonStatus: "enabled"
                 }
             }
         default:
