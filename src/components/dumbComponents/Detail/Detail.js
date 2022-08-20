@@ -26,7 +26,6 @@ export default function Detail() {
 
     const handleOnSubmit = (e) => {
         e.preventDefault();
-
         dispatch(postComent(id, comment));        
     }
 
@@ -144,11 +143,13 @@ export default function Detail() {
                         }
 
                         <div className='w-full'>
-                            {state.comentarios?.map((c, i) => {
-                                return (<Comment key={i}
-                                    comentario = { c.Comentario }
+                            {state.comentarios?.map((c) => {
+                                return (<Comment key = {c.id}
+                                    newcomment = { c.Comentario }
                                     timestamp = { c.createdAt }
-                                    usuario = { c.usuario }
+                                    user = { c.usuario }
+                                    closeButton = { role === 'admin' ? true : false }
+                                    id = { c.id }
                                 />)}).reverse()}
                         </div>
                     </DivDetail>

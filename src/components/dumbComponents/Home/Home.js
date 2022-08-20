@@ -40,7 +40,7 @@ export default function Home() {
                     <SwiperGenre/>
                 </div>
             </div>
-            <Chat/>
+            <Chat />
         </div>
     )
 }
