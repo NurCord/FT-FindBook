@@ -54,15 +54,15 @@ export default function Detail() {
                     'mobile:px-6 mobile:h-20 mobile:text-sm',
                     'grid w-full grid-cols-1 desktop:px-20 desktop:pt-2 justify-items-center bg-greyBlack-200 desktop:text-xl'
                 )}>
-                    <h1 className='text-center'>{state.name}</h1>
+                    <h1 className='text-center text-white font-black text-2xl'>{state.name}</h1>
                     <div className={clsx(
                         'mobile:h-6 mobile:text-sm',
-                        'grid desktop:content-center desktop:text-lg desktop:justify-between w-full desktop:h-12 grid-cols-3 desktop:justify-items-center'
+                        'grid desktop:content-center desktop:text-lg desktop:justify-between w-full desktop:h-12 grid-cols-4 desktop:justify-items-center'
                         )}>
-                        <span><a href='#descripcion'>Descripcion</a></span>
-                        <span><a href='#caracteristicas'>Caracteristicas</a></span>
-                        <span><a href='#recomendados'>Recomendados</a></span>
-                        <span><a href='#recomendados'>Comentarios</a></span>
+                        <span><a href='#descripcion' className='font-bold p-1 hover:bg-white rounded'>Descripción</a></span>
+                        <span><a href='#caracteristicas' className='font-bold p-1 hover:bg-white rounded'>Caracteristicas</a></span>
+                        <span><a href='#recomendados' className='font-bold p-1 hover:bg-white rounded'>Recomendados</a></span>
+                        <span><a href='#recomendados' className='font-bold p-1 hover:bg-white rounded'>Comentarios</a></span>
                     </div>
                 </div>
                 <div className={clsx(
