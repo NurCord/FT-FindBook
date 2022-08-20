@@ -14,6 +14,7 @@ import Comment from '../../smartComponents/Comment/Comment';
 
 export default function Detail() {
     let state = useSelector(s => s.root.bookById)
+    let role = useSelector(s => s.root.role)
     let {id} = useParams()
     let dispatch = useDispatch()
 
@@ -25,7 +26,8 @@ export default function Detail() {
 
     const handleOnSubmit = (e) => {
         e.preventDefault();
-        dispatch(postComent(id, comment));
+
+        dispatch(postComent(id, comment));        
     }
 
     useEffect(() => {
@@ -121,7 +123,7 @@ export default function Detail() {
                             </DivTableColDetail>
                             <DivTableDetail/>
                             <DivTableColDetail>
-                                <h1>Fecha lanzamiento</h1>
+                                <h1>Lanzamiento</h1>
                                 <h2>{state.released}</h2>
                             </DivTableColDetail>
                             <DivTableDetail/>
@@ -134,6 +136,7 @@ export default function Detail() {
                     </DivDetail>
                     <DivDetail>
                         <H1Detail id='descripcion'>Comentarios</H1Detail>
+                        {(role === 'user' || role === 'admin') && 
                         <div className='my-6'>
                             <form onSubmit={e => handleOnSubmit (e)} className={clsx(
                                 'mobile:gap-4',
@@ -144,10 +147,13 @@ export default function Detail() {
                         </div>
                         <div className={clsx(
                             'grid desktop:grid-cols-1 desktop:w-full desktop:h-auto desktop:gap-4')}>
+
                             {state.comentarios?.map((c, i) => {
                                 return (<Comment key={i}
                                     comentario = { c.Comentario }
-                                />)})}
+                                    timestamp = { c.createdAt }
+                                    usuario = { c.usuario }
+                                />)}).reverse()}
                         </div>
                     </DivDetail>
                     <DivDetail id='recomendados' style={{border: 'none', position: 'relative'}}>
