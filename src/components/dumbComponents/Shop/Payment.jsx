@@ -50,17 +50,35 @@ export default function Payment() {
 
   const handleOnSubmit = (e) => {
     e.preventDefault();
-    let bookQuantityArray = []
+    if(buttonStatus === "disabled")return;
+    else{
+      Swal.fire({
+        title: '¿Estas seguro?',
+        text: "Tendrás que esperar 30 min para volver a intentarlo",
+        icon: 'warning',
+        showCancelButton: true,
+        confirmButtonColor: '#3085d6',
+        cancelButtonColor: '#d33',
+        confirmButtonText: 'Si',
+        cancelButtonText: 'No'
+      }).then((result) => {
+        if (result.isConfirmed) {
+          let bookQuantityArray = []
 
-    for(let i=0; i<cartBooks.length; i++){
-      let bookQuantity= {
-        id: cartBooks[i].id,
-        quantity: quantity[cartBooks[i].id]
-      }
-      bookQuantityArray.push(bookQuantity)
+          for(let i=0; i<cartBooks.length; i++){
+            let bookQuantity= {
+              id: cartBooks[i].id,
+              quantity: quantity[cartBooks[i].id]
+            }
+            bookQuantityArray.push(bookQuantity)
+          }
+
+          dispatch(stripe(bookQuantityArray))
+        }
+      })
+      
     }
-
-    dispatch(stripe(bookQuantityArray))
+    
   }
 
   if(role === "user" || role === "admin"){
@@ -119,10 +137,10 @@ export default function Payment() {
                         <div>
                           <button onClick={(e) => handleBackToCart(e)} className="h-12 w-full bg-blue-500 rounded focus:outline-none text-white hover:bg-blue-600">
                             Volver al carrito
-                          </button>
-                          <button className="h-12 w-full mt-4 bg-green-500 rounded focus:outline-none text-white hover:bg-blue-600">
+                          </button> 
+                          <button className={buttonStatus === "enabled" ? "h-12 w-full mt-4 bg-green-500 rounded focus:outline-none text-white hover:bg-blue-600" : "h-12 w-full mt-4 bg-gray-500 rounded focus:outline-none text-white pointer-events-none"}>
                             Pagar
-                          </button>
+                          </button> 
                         </div>
                          :
                         <div></div>}

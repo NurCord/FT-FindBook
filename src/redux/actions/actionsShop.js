@@ -228,6 +228,7 @@ export const getUserOrders = () =>async(dispatch) => {
 export const getButtonStatus = () => async(dispatch) => {
     try {
         const { data } = await axios.get('/payment/secret/buttonstate',{headers:{Authorization: `Bearer ${window.localStorage.getItem("token")}`}})
+        console.log(data)
         if(data.hasOwnProperty("role")){
             Swal.fire({
                 icon: 'error',
