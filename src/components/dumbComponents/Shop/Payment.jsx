@@ -16,7 +16,7 @@ export default function Payment() {
   const [quantity, setQuantity] = useState({})
 
   useEffect(() => {
-    dispatch(getButtonStatus())
+    // dispatch(getButtonStatus())
     if(cartBooks?.length){
       let state
       cartBooks.forEach(book =>{

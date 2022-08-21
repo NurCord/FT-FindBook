@@ -26,7 +26,7 @@ export default function NavBar() {
   useEffect(() => {
     dispatch(userCart())
   // eslint-disable-next-line react-hooks/exhaustive-deps
-  }, [cartBooks])
+  }, [cartBooks,dispatch])
   
 
   return (

@@ -23,7 +23,7 @@ import UserHome from './panelUser/DumbComponents/UserHome/UserHome';
 import loading from './assets/loading.gif';
 import Payment from './components/dumbComponents/Shop/Payment';
 import NoMatch from './components/dumbComponents/NoMatch/NoMatch.jsx';
-import { userCart } from './redux/actions/actionsShop';
+import { getButtonStatus, userCart } from './redux/actions/actionsShop';
 import PaymentSuccess from './components/dumbComponents/Shop/PaymentSuccess';
 import DetailBook from './panelUser/DumbComponents/CardBook/DetailBook';
 import Favorites from './components/dumbComponents/Favorites/Favorites';
@@ -39,6 +39,7 @@ function App() {
     dispatch(userRole(window.localStorage.getItem('token')))
     dispatch(userCart())
     dispatch(userFavo())
+    dispatch(getButtonStatus())
   }, [dispatch])
   let role = useSelector(state=>state.root.role)
   const [HomeAdmin, SetHomeAdmin] = useState('Users')
