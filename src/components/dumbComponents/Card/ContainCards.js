@@ -7,7 +7,7 @@ export default function ContainCards({data}) {
       'mobile:grid-cols-3 mobile:p-4',
       'grid desktop:grid-cols-4 gap-4 ')}>
         {
-            data && data.length > 0 && data.map(e=> <Cards key={e.id} data={e}/>)
+            data?.length > 0 && data.map(e=> <Cards key={e.id} data={e}/>)
         }
     </div>
   )

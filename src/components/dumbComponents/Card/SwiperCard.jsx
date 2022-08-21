@@ -8,11 +8,10 @@ import 'swiper/css/autoplay';
 import Cards from "./Cards";
 
 export default function SwiperCard({ data }) {
-        if (window.matchMedia("(min-width: 700px)").matches) {
             return (<Swiper
                 modules={[Navigation, Pagination]}
-                slidesPerView={4}
-                navigation
+                slidesPerView={window.matchMedia("(min-width: 700px)").matches ? 4 : 3}
+                navigation={window.matchMedia("(min-width: 700px)").matches}
             >
                 <div className="flex justify-evenly">
                     {data && data.length > 0 && data.map((e, i) => (
@@ -21,19 +20,6 @@ export default function SwiperCard({ data }) {
                         </SwiperSlide>))}
                 </div>
             </Swiper>)
-        }else{
-            return (<Swiper
-                modules={[Navigation, Pagination]}
-                slidesPerView={3}
-            >
-                <div className="flex justify-evenly">
-                    {data && data.length > 0 && data.map((e, i) => (
-                        <SwiperSlide className="flex justify-center w-full h-full p-6 bg-greyBlack-100" key={i}>
-                            <Cards data={e} key={e.id} />
-                        </SwiperSlide>))}
-                </div>
-            </Swiper>)
-        }
 }
 
 

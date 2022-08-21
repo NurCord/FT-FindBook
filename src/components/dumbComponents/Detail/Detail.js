@@ -58,7 +58,7 @@ export default function Detail() {
                     <h1 className='text-center'>{state.name}</h1>
                     <div className={clsx(
                         'mobile:h-6 mobile:text-sm',
-                        'grid desktop:content-center desktop:text-lg desktop:justify-between w-full desktop:h-12 grid-cols-3 desktop:justify-items-center'
+                        'grid desktop:content-center desktop:text-lg desktop:justify-between w-full desktop:h-12 grid-cols-4 desktop:justify-items-center'
                         )}>
                         <span><a href='#descripcion'>Descripcion</a></span>
                         <span><a href='#caracteristicas'>Caracteristicas</a></span>

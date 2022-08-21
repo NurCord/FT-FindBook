@@ -146,11 +146,11 @@ export default function DetailBook() {
           </button>
         </div>
 
-        <div className={clsx('mobile:h-auto mobile:p-4 ','desktop:grid desktop:grid-cols-3 desktop:h-80')}>
+        <div className={clsx('mobile:h-auto mobile:p-4 ','desktop:grid desktop:grid-cols-3 desktop:h-auto')}>
           <img src={Book?.image} alt='Not found' className={clsx(
-            'mobile:h-40 mobile:float-left',
+            'mobile:h-40 float-left',
             'desktop:col-span-1 desktop:duration-500 desktop:ease-in desktop:rounded-md desktop:h-80 desktop:top-48 desktop:left-16 desktop:scale-70 desktop:hover:scale-105')}/>
-            <p className='desktop:pr-2 desktop:text-base desktop:tracking-tight text-justify desktop:max-h-80 desktop:columns-2'>{Book?.description}</p>
+            <p className='desktop:pr-2 desktop:text-base desktop:col-span-2 desktop:columns-2 desktop:tracking-tight text-justify'>{Book?.description}</p>
         </div>
 
           <button onClick={() => handleHidden()} className="grid w-full h-8 my-2 px-2">
