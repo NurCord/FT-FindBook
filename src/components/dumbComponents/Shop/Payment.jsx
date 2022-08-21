@@ -29,7 +29,7 @@ export default function Payment() {
     if(cancel_session){
       dispatch(getSessionID(cancel_session))
     }
-  }, [cartBooks, dispatch])
+  }, [cartBooks, dispatch, buttonStatus])
   
   const handleOnChange = (e) => {
     e.preventDefault();
