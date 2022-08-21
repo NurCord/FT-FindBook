@@ -127,7 +127,6 @@ export default function Login() {
     function handleCallbackResponse (response){
         // console.log("Encoded JWT ID token: " + response.credential);
         const googleLogin = jwt_decode(response.credential);
-        console.log(googleLogin);
         dispatch(googleLogRes(googleLogin))
         // document.getElementById("signInDiv").hidden = true;
     }
@@ -145,7 +144,7 @@ export default function Login() {
         )
 
         google.accounts.id.prompt();
-    }, [])
+    }, [showLogin])
 
     function handleUserFormSubmit (e) {
         e.preventDefault();
@@ -172,7 +171,7 @@ export default function Login() {
                     <div>
                         <form className = 'flex flex-col justify-center' onSubmit={e => handleCreateUserFormSubmit (e)}>
                             <h1 className = 'flex justify-center pb-1'>Registrarse</h1>
-                            <div id = "signInDiv"></div>
+                            {/* <div id = "signInDiv"></div> */}
                             <div className = 'flex flex-row'>
                                 <div className = 'px-2'>
                                     <label>Nombre</label><br></br>
@@ -229,13 +228,14 @@ export default function Login() {
                     <div>
                         <form className = 'flex flex-col justify-center' onSubmit={e => handleUserFormSubmit (e)}>
                             <h1 className = 'flex justify-center'>Iniciar sesión</h1>
-                            <div id = "signInDiv"></div>
                             <label>E-mail</label><br></br>
                             <input type = 'email' name = 'mail' value = {userForm.mail} onChange={e => handleUserFormChange (e)} className = 'text-center rounded-lg text-slate-600'/><br></br>
                             {userForbidden.mail && ( <p key = 'mailError' className = "flex text-orange-600">{userForbidden.mail}</p> )}
                             <label>Contraseña</label><br></br>
                             <input type = 'password' name = 'password' value = {userForm.password} onChange={e => handleUserFormChange (e)} className = 'text-center rounded-lg text-slate-600'/><br></br>
                             <input type = 'submit' value = 'Ingresar' className = 'font-sans bg-sky-500 text-slate-50 border-none font-normal px-2 py-2 my-3 rounded cursor-pointer hover:text-white hover:border-solid hover:border-slate-50 hover:bg-stone-400'/>
+                            <label className = 'flex justify-center'>¿Tienes cuenta google?</label><br></br>
+                            <div id = "signInDiv" className = 'w-5/6 self-center py-2'></div>
                             <label className = 'flex justify-center'>¿Aún no tienes cuenta?</label><br></br>
                             <label className = 'flex justify-center'>Puedes registrarte gratis</label><br></br>
                             <input type = 'submit' value = 'Crear cuenta' onClick = { (e) => handleClick(e) } className = 'font-sans bg-sky-500 text-slate-50 border-none font-normal px-2 py-2 my-3 rounded cursor-pointer hover:text-white hover:border-solid hover:border-slate-50 hover:bg-stone-400'></input>
