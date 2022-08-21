@@ -12,7 +12,7 @@ export default function SearchByName() {
     }, [dispatch, books])
     return (
         <div className={clsx(
-            'w-full desktop:h-screen bg-greyBlack-100'
+            'w-full desktop:h-full bg-greyBlack-100'
         )}>
             <div className={clsx(
                 'mobile:grid-cols-1 mobile:grid mobile:justify-items-center mobile:h-full',

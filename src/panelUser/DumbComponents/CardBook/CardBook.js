@@ -20,11 +20,11 @@ export default function CardBook({ data }) {
   return (
     <div className={clsx(
       'mobile:h-60 mobile:w-40 mobile:rounded-sm',
-      "max-w-sm duration-500 ease-in border rounded-lg shadow-md w-60 h-96 scale-70 bg-cream-300 border-cream-200 hover:scale-105"
+      "max-w-sm duration-500 ease-in border rounded-lg shadow-md desktop:w-52 desktop:h-80 scale-70 bg-cream-300 border-cream-200 hover:scale-105"
     )}>
       <div className="grid content-center h-full grid-rows-2 justify-items-center">
         <img className={clsx(
-                            'mobile:h-32 mobile:w-28 mobile:mt-1 mobile:self-center mobile:p-2',"desktop:h-48 col-span-1 desktop:mt-4  shadow-lg desktop:w-44")} src={data.image} alt={data.name} />
+                            'mobile:h-32 mobile:w-28 mobile:mt-1 mobile:self-center mobile:p-2',"desktop:h-48 col-span-1 desktop:mt-4 shadow-lg desktop:w-40")} src={data.image} alt={data.name} />
         <div className={clsx(
           'mobile:w-32 mobile:mt-2 mobile:h-auto',
           "grid desktop:w-48 grid-cols-1 mt-4 h-36"
@@ -32,7 +32,7 @@ export default function CardBook({ data }) {
           <div className='grid content-center'>
             <h5 className={clsx(
               'mobile:max-h-5 mobile:text-sm',
-              "overflow-hidden text-base italic desktop:font-medium desktop:tracking-tight text-left text-white desktop:min-text-sm desktop:min-max-h-5 desktop:max-h-7"
+              "overflow-hidden text-base italic desktop:font-medium desktop:tracking-tight text-left text-white desktop:min-text-sm desktop:min-max-h-5 desktop:mt-4 desktop:max-h-7"
             )}>{data.name}</h5>
           </div>
           <div className={clsx('mobile:py-3 mobile:gap-2',"grid grid-cols-2 gap-4 desktop:py-4")}>
