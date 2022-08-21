@@ -98,14 +98,14 @@ export default function NavBar() {
             }
 
             {role === 'invalid' ? null : 
-            <div className='relative'>
-              { cartBooks && cartBooks.length ?
+            <div className='relative flex items-center'>
+              { cartBooks?.length > 0 ?
                     <span class="flex h-3 absolute -right-5 top-0">
                     <span class="animate-ping absolute inline-flex h-3 w-3 rounded-full bg-cream-300 opacity-75"></span>
                     <span class="relative inline-flex rounded-full h-3 w-3 bg-cream-300"></span>
                   </span> : ''
               }
-            <div className={clsx('flex relative')}>
+            <div className={clsx('flex')}>
               <svg xmlns="http://www.w3.org/2000/svg" className={clsx("self-center w-6 h-6")} fill="none" stroke="currentColor" strokeWidth={1.5}>
                 <path strokeLinecap="round" strokeLinejoin="round" d="M16 11V7a4 4 0 00-8 0v4M5 9h14l1 12H4L5 9z" />
               </svg>

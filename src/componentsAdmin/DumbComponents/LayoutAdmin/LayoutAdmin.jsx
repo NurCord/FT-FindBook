@@ -19,23 +19,16 @@ function LayoutAdmin({ SetHomeAdmin }) {
                 )}>
             <NavBarAdmin SetHomeAdmin={SetHomeAdmin} />
           </div>
-          <div className='col-span-5 h-auto bg-greyBlack-100'>
+          <div className={clsx(
+                        'mobile:h-screen',
+                        'h-auto desktop:col-span-5 bg-greyBlack-100'
+                        )}>
             <Outlet />
           </div>
         </div>
       </div>
     )
   }
-  // return (
-  //   <div className='grid w-full h-screen grid-cols-6'>
-  //     <div className='col-span-1'>
-  //       <NavBarAdmin SetHomeAdmin={SetHomeAdmin} />
-  //     </div>
-  //     <div className='col-span-5'>
-  //       <Outlet />
-  //     </div>
-  //   </div>
-  // )
 }
 
 export default LayoutAdmin

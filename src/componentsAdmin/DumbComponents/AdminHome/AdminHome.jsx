@@ -6,7 +6,7 @@ import CardBooks from '../CardBooks/CardBooks'
 import NavHome from '../NavHome/NavHome'
 import HomeAdmins from '../../SmartComponents/HomeAdmin/HomeAdmin'
 import OrderList from '../OrdersList/OrderList'
-
+import clsx from 'clsx'
 function AdminHome({ HomeAdmin }) {
   const dispatch = useDispatch();
   const Books = useSelector(s => s.user.books)
@@ -44,21 +44,14 @@ function AdminHome({ HomeAdmin }) {
         </div>
       </div>
     )
-  } else if (HomeAdmin === 'Cupones') {
-    return (
-      <div className='w-full h-full'>
-        <NavHome />
-        <div className='grid grid-cols-4 gap-4 justify-items-center '>
-          <h1>Cupones</h1>
-        </div>
-      </div>
-    )
   }else{
     return (
-      <div className='w-full h-full'>
-        <NavHome />
-        <div className='grid grid-cols-4 gap-4 justify-items-center '>
-          <OrderList />
+      <div>
+        <NavHome/>
+        <div className='w-full h-full'>
+          <div className='grid grid-cols-1 gap-4 bg-gray-300'>
+            <OrderList />
+          </div>
         </div>
       </div>
     )
