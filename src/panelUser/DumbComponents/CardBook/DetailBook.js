@@ -48,8 +48,8 @@ export default function DetailBook() {
   
   useEffect(() => {
     dispatch(userRole(window.localStorage.getItem('token')))
-    dispatch(bookDetailPanel(+id))
-  }, [Book])
+    dispatch(bookDetailPanel(id))
+  }, [])
 
   let image = '';
 
@@ -135,8 +135,11 @@ export default function DetailBook() {
       }
     })
   }
-
-
+  if(Book.error){
+    return (
+      <div className='grid h-screen place-content-center text-9xl uppercase'>{Book.error}</div>
+    )
+  }
   return (
     <div className='grid w-full h-full mobile:pt-5 desktop:p-8 bg-cream-100'>
       <div>

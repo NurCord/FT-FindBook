@@ -396,7 +396,10 @@ export let booksPanel = () => async(dispatch) => {
 
 export let bookDetailPanel = (id) => async(dispatch) => {
     try {
-        let bookByID = (await axios.get(`/books/${id}`)).data;
+        let bookByID = (await axios.get(`/userPanel/getBooks/${id}`,{headers:{
+            Authorization: `Bearer ${window.localStorage.getItem('token')}`
+        }})).data;
+
         dispatch({
             type: GET_DETAIL_BOOK_PANEL,
             payload: bookByID
