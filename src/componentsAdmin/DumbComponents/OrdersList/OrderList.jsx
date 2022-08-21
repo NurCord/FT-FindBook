@@ -20,20 +20,20 @@ export default function UserOrders() {
     console.log(orderList)
     return (
       <div>
-      <div className="h-screen bg-gray-300">
+      <div className="w-full h-full bg-gray-300">
         <div className="py-12">
-          <div className="max-w-md mx-auto bg-gray-100 shadow-lg rounded-lg  md:max-w-5xl">
+          <div className="max-w-md mx-auto bg-gray-100 rounded-lg shadow-lg md:max-w-5xl">
             <div className="md:flex ">
               <div className="w-full p-4 px-5 py-5">
-                <div className="md:grid md:grid-cols-3 gap-2 ">
+                <div className="gap-2 md:grid md:grid-cols-3 ">
                   <div className="col-span-2 p-5">
                     <h1 className="text-xl font-medium ">Historial de compras</h1>
                     { orderList && orderList.length ?
                     <OrderCards orderUser={orderList}/> :
                     <span>No tienes historial de compra</span>}
-                    <div className="flex justify-between items-center mt-6 pt-6 border-t">
+                    <div className="flex items-center justify-between pt-6 mt-6 border-t">
                       <div className="flex items-center">
-                        <i className="fa fa-arrow-left text-sm pr-2"></i>
+                        <i className="pr-2 text-sm fa fa-arrow-left"></i>
                       </div>
                     </div>
                   </div>
