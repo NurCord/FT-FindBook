@@ -3,7 +3,7 @@
 /* eslint-disable use-isnan */
 import React, { useEffect, useState } from 'react'
 import { useDispatch, useSelector } from 'react-redux';
-import { useNavigate, useParams } from 'react-router-dom';
+import { useParams } from 'react-router-dom';
 import { UilEditAlt } from '@iconscout/react-unicons'
 import { UilArrowCircleLeft } from '@iconscout/react-unicons'
 import { useForm } from 'react-hook-form';
@@ -137,13 +137,13 @@ export default function DetailBook() {
   }
   if(Book.error){
     return (
-      <div className='grid h-screen place-content-center text-9xl uppercase'>{Book.error}</div>
+      <div className='grid h-screen uppercase place-content-center text-9xl'>{Book.error}</div>
     )
   }
   return (
     <div className='grid w-full h-full mobile:pt-5 desktop:p-8 bg-cream-100'>
       <div>
-        <div className=" mobile:right-2 absolute z-10 desktop:right-8 mobile:top-0">
+        <div className="absolute z-10  mobile:right-2 desktop:right-8 mobile:top-0">
           <button onClick={handleOnClick} className="grid w-12 h-12">
             <UilArrowCircleLeft className="w-9 h-9 place-self-center text-greyBlack-400" />
           </button>
@@ -153,10 +153,10 @@ export default function DetailBook() {
           <img src={Book?.image} alt='Not found' className={clsx(
             'mobile:h-40 float-left',
             'desktop:col-span-1 desktop:duration-500 desktop:ease-in desktop:rounded-md desktop:h-80 desktop:top-48 desktop:left-16 desktop:scale-70 desktop:hover:scale-105')}/>
-            <p className='desktop:pr-2 desktop:text-base desktop:col-span-2 desktop:columns-2 desktop:tracking-tight text-justify'>{Book?.description}</p>
+            <p className='text-justify desktop:pr-2 desktop:text-base desktop:col-span-2 desktop:columns-2 desktop:tracking-tight'>{Book?.description}</p>
         </div>
 
-          <button onClick={() => handleHidden()} className="grid w-full h-8 my-2 px-2">
+          <button onClick={() => handleHidden()} className="grid w-full h-8 px-2 my-2">
             <UilEditAlt className="w-8 h-8 duration-200 place-self-end text-greyBlack-400" aria-hidden="true" fill="currentColor" viewBox="0 0 20 20" />
           </button>
 

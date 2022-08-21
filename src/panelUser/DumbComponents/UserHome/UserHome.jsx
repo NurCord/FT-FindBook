@@ -48,7 +48,7 @@ function UserHome({ HomeUser }) {
     }).then((result) => {
 
       if (result.isConfirmed) {
-        if (data.name === '' && data.lastname === '' && data.username === '') {
+        if (data.name === '' && data.surname === '' && data.username === ''  && data.emailput === ''  && data.password === '') {
           setState('hidden')
           return Swal.fire(
             'No se encontraron cambios!',

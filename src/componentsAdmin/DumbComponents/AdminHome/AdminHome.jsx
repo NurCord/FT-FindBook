@@ -26,7 +26,9 @@ function AdminHome({ HomeAdmin }) {
     return (
       <div className='w-full h-auto'>
         <NavHome />
-        <div className='grid grid-cols-4 gap-4 justify-items-center '>
+        <div className={clsx(
+          'mobile:grid-cols-2',
+          'grid desktop:grid-cols-4 gap-4 justify-items-center')}>
           {
             users ? users.map((e, i) => <CardUser key={i} data={e} />) : <h2>No Hay Usuarios</h2>
           }
@@ -37,7 +39,9 @@ function AdminHome({ HomeAdmin }) {
     return (
       <div className='w-full h-auto'>
         <NavHome />
-        <div className='grid grid-cols-4 gap-4 justify-items-center '>
+        <div className={clsx(
+          'mobile:grid-cols-2 mobile:pb-20',
+          'grid desktop:grid-cols-4 desktop:pb-0 gap-4 justify-items-center')}>
           {
             Books?.map((b, i) => <CardBooks key={i} data={b} />)
           }
