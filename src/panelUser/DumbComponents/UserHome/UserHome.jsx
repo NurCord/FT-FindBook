@@ -166,9 +166,6 @@ function UserHome({ HomeUser }) {
               </form>
             </div>
           </div>
-
-
-          
         </div>
       </div>
     )
@@ -189,7 +186,7 @@ function UserHome({ HomeUser }) {
     return (
       <div className='w-full h-full'>
         <div className={clsx(
-          'grid grid-cols-4 gap-4 justify-items-center')}>
+          'grid grid-cols-1 gap-4')}>
           <UserOrders />
         </div>
       </div>
