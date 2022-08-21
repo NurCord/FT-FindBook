@@ -22,7 +22,7 @@ export default function SearchByName() {
                     'mobile:px-10 mobile:py-5',
                     'w-full desktop:col-span-1 desktop:text-2xl desktop:p-10'
                     )}>
-                    <h1>{books?.length} Resultados</h1>
+                    <h2>{books?.length ? books.length: 0} Resultados</h2>
                 </div>
                 <div className='desktop:w-full desktop:col-span-3'>
                     <div className='w-full h-auto'>

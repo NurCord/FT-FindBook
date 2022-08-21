@@ -1,4 +1,4 @@
-import { DELETE_ALL_CART_BOOKS, DELETE_CART_BOOK, GET_SESSION_ID, SOLD_OUT, USER_CART, GET_ALL_USER_ORDERS, BUTTON_STATUS, GET_USER_ORDERS_BY_ID } from "./variables";
+import { DELETE_ALL_CART_BOOKS, DELETE_CART_BOOK, GET_SESSION_ID, SOLD_OUT, USER_CART, GET_ALL_USER_ORDERS, BUTTON_STATUS, GET_USER_ORDERS_BY_ID, GET_ALL_USER_SALES } from "./variables";
 import axios from 'axios'
 import Swal from "sweetalert2";
 
@@ -286,5 +286,28 @@ try {
         }
     } catch (error) {
         console.log(error)
+    }
+}
+
+export const getUserSales = () =>async(dispatch) => {
+    try {
+        const { data } = await axios.get('/userPanel/sellUser', {headers:{Authorization: `Bearer ${window.localStorage.getItem("token")}`}})
+        if(data.hasOwnProperty("role")){
+            Swal.fire({
+                icon: 'error',
+                title: 'Usuario invalido',
+                text: 'Vuelve a conectarte',
+            }).then(result=>{
+                if(result.isConfirmed){
+                    window.localStorage.removeItem("token")
+                    window.location.reload()
+                    window.location.href = '/'
+                }
+            })
+        }else{
+            dispatch({type: GET_ALL_USER_SALES, payload:data})
+        }    
+    } catch (err) {
+        console.log(err)
     }
 }

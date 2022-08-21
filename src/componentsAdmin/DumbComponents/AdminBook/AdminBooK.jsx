@@ -133,10 +133,12 @@ export default function AdminBooK() {
     })
   }
 
-  const allBooks = useSelector(s => s.root.allBooks)
-
   const Book = useSelector(s => s.admin.bookDetail)
-
+  if(Book.error){
+    return (
+      <div className='grid h-screen place-content-center text-9xl uppercase'>{Book.error}</div>
+    )
+  }
   return (
     <div className='grid w-full h-full p-8 bg-cream-200'>
       <div>

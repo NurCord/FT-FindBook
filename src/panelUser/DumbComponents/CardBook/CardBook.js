@@ -13,7 +13,7 @@ export default function CardBook({ data }) {
     dispatch(deleteBookPanel(id))
   }
   const handleOnClick = (id)=>{
-    dispatch(bookDetailPanel(id))
+    // dispatch(bookDetailPanel(id))
     navigate(`/paneluser/book/${id}`)
   }
 

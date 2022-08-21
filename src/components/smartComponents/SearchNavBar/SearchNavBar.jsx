@@ -14,9 +14,9 @@ export default function SearchNavBar({handleHidden}) {
     e.preventDefault();
     if (name === '') return;
     dispatch(getBookByName(name));
+    setName('');
     navigate(`/busqueda/${name ? name : nameSearch}`);
     handleHidden('search')
-    setName('');
   }
 
   function handleOnchange(e) {
