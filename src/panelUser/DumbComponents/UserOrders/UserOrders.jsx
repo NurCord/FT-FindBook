@@ -3,8 +3,8 @@ import { useSelector, useDispatch } from 'react-redux'
 import { getUserOrders, getUserSales } from '../../../redux/actions/actionsShop'
 import OrderCards from './OrderCards'
 import Swal from "sweetalert2";
-import { Link } from 'react-router-dom';
 import { useNavigate } from 'react-router-dom';
+import SaleCards from './SaleCards';
 
 
 export default function UserOrders() {
@@ -56,7 +56,7 @@ export default function UserOrders() {
                       <div className="col-span-2 p-5">
                         <h1 className="text-xl font-medium ">Historial de ventas</h1>
                         { salesList && salesList.length ?
-                        <OrderCards orderUser={salesList}/> :
+                        <SaleCards salesUser={salesList}/> :
                         <span>No tienes historial de venta</span>}
                         <div className="flex justify-between items-center mt-6 pt-6 border-t">
                           <div className="flex items-center">

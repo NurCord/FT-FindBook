@@ -8,10 +8,8 @@ export default function OrderCards({ orderUser }) {
             return <OrderCard 
                 key={order.id} 
                 id={order.id}
-                user_id={order.user_id}
-                totalPrice={order.totalPrice}
-                status={order.status}
-                items={order.items}
+                totalPrice={order.totalPrice || order.item.total}
+                status={order.status || order.item.status}
                 />
         })
         }

@@ -2,15 +2,16 @@ import React from "react";
 import { useNavigate } from "react-router-dom";
 
 
-export default function OrderCard({
+export default function SaleCard({
   id,
   totalPrice,
   status,
+  libroid
 }) {
   const navigate = useNavigate();
 
   const handleOnClick = () => {
-    navigate(`/paneluser/detail/${id}`);
+    navigate(`/paneluser/detailsale/${id}/${libroid}`);
   };
 
   return (
@@ -22,7 +23,7 @@ export default function OrderCard({
               {id?.slice(0,9)}...{id?.slice(-5)}
             </span>
             {/* <span className="md:text-xs font-light text-gray-400">{items}</span> */}
-            <span className={`md:text-xs font-light ${status ==='expired'?'text-red-500':'text-gray-400'}`}>
+            <span className={`md:text-xs font-light ${status ==='expired'?'text-red-500':'text-gray-400'   }`}>
               {status}
             </span>
           </div>
