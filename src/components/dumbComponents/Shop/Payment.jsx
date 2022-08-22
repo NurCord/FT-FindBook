@@ -2,12 +2,13 @@ import React, { useEffect, useState } from 'react'
 import { useDispatch, useSelector } from 'react-redux';
 import Swal from 'sweetalert2';
 import { useNavigate } from "react-router-dom";
-import { getButtonStatus, getSessionID, stripe } from '../../../redux/actions/actionsShop';
+import { getButtonStatus, getSessionID, getTimer, stripe } from '../../../redux/actions/actionsShop';
 
 export default function Payment() {
   const role = useSelector(state => state.root.role);
   const cartBooks = useSelector(state => state.shop.cartBooks)
   const buttonStatus = useSelector(state => state.shop.buttonStatus)
+  const timer = useSelector(state => state.shop.timer)
   const navigate = useNavigate()
   const dispatch = useDispatch()
 
@@ -16,7 +17,7 @@ export default function Payment() {
   const [quantity, setQuantity] = useState({})
 
   useEffect(() => {
-    // dispatch(getButtonStatus())
+    dispatch(getButtonStatus())
     if(cartBooks?.length){
       let state
       cartBooks.forEach(book =>{
@@ -30,6 +31,22 @@ export default function Payment() {
       dispatch(getSessionID(cancel_session))
     }
   }, [cartBooks, dispatch, buttonStatus])
+
+  useEffect(() => {
+    if(buttonStatus === "disabled"){
+      dispatch(getTimer())
+      Swal.fire({
+        title: `Debes esperar ${timer} para poder comprar`,
+        icon: 'warning',
+        confirmButtonText: 'ir al inicio'
+      }).then((result) => {
+        if (result.isConfirmed) {
+          navigate('/')
+        }
+      })
+    }
+  })
+
   
   const handleOnChange = (e) => {
     e.preventDefault();
