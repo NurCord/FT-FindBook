@@ -65,6 +65,7 @@ export let buyBook = (id) => async()=>{
 
 export const userCart = () => async(dispatch) => {
     const token = window.localStorage.getItem("token")
+    if(window.localStorage.getItem("token")==='null')return;
     if(token !== null && token !== undefined){
         const { data } = await axios.get("/user/getcart", {headers:{Authorization: `Bearer ${window.localStorage.getItem("token")}`}})
         if(data.hasOwnProperty("role")){
@@ -227,6 +228,7 @@ export const getUserOrders = () =>async(dispatch) => {
 
 export const getButtonStatus = () => async(dispatch) => {
     try {
+        if(window.localStorage.getItem("token")==='null')return;
         const { data } = await axios.get('/payment/secret/buttonstate',{headers:{Authorization: `Bearer ${window.localStorage.getItem("token")}`}})
         if(data.hasOwnProperty("role")){
             Swal.fire({

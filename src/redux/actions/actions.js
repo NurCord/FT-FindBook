@@ -496,6 +496,7 @@ export let addToFavo = (id) => async()=>{
 
 export const userFavo = () => async(dispatch) => {
     const token = window.localStorage.getItem("token")
+    if(window.localStorage.getItem("token")==='null')return;
     if(token !== null && token !== undefined){
         const { data } = await axios.get("/userPanel/getfavo", {headers:{Authorization: `Bearer ${window.localStorage.getItem("token")}`}})
         if(data.hasOwnProperty("role")){
