@@ -13,7 +13,7 @@ export let getAllBooks = ()=> async(dispatch)=>{
             payload: getAllBooks.content
         })
     } catch (error) {
-        alert(error)
+        console.log(error)
     }
 }
 
@@ -25,7 +25,7 @@ export let getBookByID = (id)=> async(dispatch)=>{
             payload: bookByID
         })
     } catch (error) {
-        alert(error)
+        console.log(error)
     }
 }
 
@@ -37,7 +37,7 @@ export let getBookByName = (name)=> async(dispatch)=>{
             payload: {Books: bookByName.content, name} 
         })
     } catch (error) {
-        alert(error)
+        console.log(error)
     }
 }
 
@@ -49,7 +49,7 @@ export let getBooksGenres = (genre)=> async(dispatch)=>{
             payload: getGenresDB.content
         }) 
     } catch (error) {
-        alert(error)
+        console.log(error)
     }
 }
 
@@ -61,7 +61,7 @@ export let getGenres = ()=> async(dispatch)=>{
             payload: getGenresDB
         })
     } catch (error) {
-        alert(error)
+        console.log(error)
     }
 }
 
@@ -74,7 +74,7 @@ export let getYears = () => async(dispatch)=>{
             payload: getyears.content
         })
     } catch (error) {
-        alert(error)
+        console.log(error)
     }
 }
 
@@ -96,31 +96,35 @@ export let getBooksByYears = (yearsToFilter) => async (dispatch) =>{
 
 export let postBook = (data2) => async(dispatch)=>{
     try {
-        const { data } = await axios.post('/books', data2, {
+        const token = window.localStorage.getItem('token');
+        if(token !== undefined && token !== null){
+            const { data } = await axios.post('/books', data2, {
             headers:{
-                Authorization: `Bearer ${window.localStorage.getItem('token')}`
+                Authorization: `Bearer ${token}`
             }
-        })
-        if(data.hasOwnProperty("role")){
-            Swal.fire({
-                icon: 'error',
-                title: 'Usuario invalido',
-                text: 'Vuelve a conectarte',
-              }).then(result=>{
-                if(result.isConfirmed){
-                    window.localStorage.removeItem("token")
-                    window.location.reload()
-                    window.location.href = '/'
-                }
-              })
-        }else if(data.message === "El libro fue creado"){
-            Swal.fire({
-                icon: 'success',
-                title: 'Libro posteado',
-                showConfirmButton: false,
-                timer: 1000
-              })
+            })
+            if(data.hasOwnProperty("role")){
+                Swal.fire({
+                    icon: 'error',
+                    title: 'Usuario invalido',
+                    text: 'Vuelve a conectarte',
+                }).then(result=>{
+                    if(result.isConfirmed){
+                        window.localStorage.removeItem("token")
+                        window.location.reload()
+                        window.location.href = '/'
+                    }
+                })
+            }else if(data.message === "El libro fue creado"){
+                Swal.fire({
+                    icon: 'success',
+                    title: 'Libro posteado',
+                    showConfirmButton: false,
+                    timer: 1000
+                })
+            }
         }
+        
     } catch (error) {
         console.log(error)
     }
@@ -248,46 +252,54 @@ export let getAllUsers = (token)=> async(dispatch)=>{
             payload: getAllUsers
         })
     } catch (error) {
-        alert(error)
+        console.log(error)
     }
 }
 
 export let getUser = (token)=> async(dispatch)=>{
     try {
-        let getUser = await axios.get(`/admin/usersDetail`,{
-            headers:{
-                Authorization: `Bearer ${token}`
-            }
-        }).then(({data})=>data)
+        if(token !== undefined && token !== null){
+            let getUser = await axios.get(`/admin/usersDetail`,{
+                headers:{
+                    Authorization: `Bearer ${token}`
+                }
+            }).then(({data})=>data)
 
-        dispatch({
-            type: GET_USER,
-            payload: getUser
-        })
+            dispatch({
+                type: GET_USER,
+                payload: getUser
+            })  
+        }
+        
     } catch (error) {
-        alert(error)
+        console.log(error)
     }
 }
 
 export let getUserByName = (name)=> async(dispatch)=>{
     try {
+
         let userByName = (await axios.get(`/admin/users?name=${name}`)).data;
         dispatch({
             type: GET_USERS_BY_NAME,
             payload: userByName 
         })
     } catch (error) {
-        alert(error)
+        console.log(error)
     }
 }
 
 export let putUser = (email, data) => async()=>{
     try {
-        await axios.put(`/admin/putuser/${email}`, data, {
-            headers:{
-                Authorization: `Bearer ${window.localStorage.getItem('token')}`
-            }
-        })
+        const token = window.localStorage.getItem('token')
+        if(token !== undefined && token !== null){
+            await axios.put(`/admin/putuser/${email}`, data, {
+                headers:{
+                    Authorization: `Bearer ${token}`
+                }
+            })   
+        }
+        
     } catch (error) {
         console.log(error)
     }
@@ -295,11 +307,15 @@ export let putUser = (email, data) => async()=>{
 
 export let putBook = (id, data) => async()=>{
     try {
-        await axios.put(`/admin/putbook/${id}`, data, {
-            headers:{
-                Authorization: `Bearer ${window.localStorage.getItem('token')}`
-            }
-        })
+        const token = window.localStorage.getItem('token')
+        if(token !== undefined && token !== null){
+            await axios.put(`/admin/putbook/${id}`, data, {
+                headers:{
+                    Authorization: `Bearer ${token}`
+                }
+            }) 
+        }
+        
     } catch (error) {
         console.log(error)
     }
@@ -307,11 +323,15 @@ export let putBook = (id, data) => async()=>{
 
 export let deleteUser = (email) => async()=>{
     try {
-        await axios.delete(`/admin/deleteuser/${email}`, {
-            headers:{
-                Authorization: `Bearer ${window.localStorage.getItem('token')}`
-            }
-        }).then(r => window.location.reload())
+        const token = window.localStorage.getItem('token')
+        if(token !== undefined && token !== null){
+            await axios.delete(`/admin/deleteuser/${email}`, {
+                headers:{
+                    Authorization: `Bearer ${token}`
+                }
+            }).then(r => window.location.reload()) 
+        }
+        
     } catch (error) {
         console.log(error)
     }
@@ -319,11 +339,14 @@ export let deleteUser = (email) => async()=>{
 
 export let deleteBook = (id) => async()=>{
     try {
-        await axios.delete(`/admin/deletebook/${id}`, {
-            headers:{
-                Authorization: `Bearer ${window.localStorage.getItem('token')}`
-            }
-        }).then(r => window.location.reload())
+        const token = window.localStorage.getItem('token')
+        if(token !== undefined && token !== null){
+            await axios.delete(`/admin/deletebook/${id}`, {
+                headers:{
+                    Authorization: `Bearer ${token}`
+                }
+            }).then(r => window.location.reload())
+        }
     } catch (error) {
         console.log(error)
     }
@@ -351,7 +374,7 @@ export let bookDetail = (id) => async(dispatch) => {
             payload: bookByID
         })
     } catch (error) {
-        alert(error)
+        console.log(error)
     }
 }
 
@@ -364,58 +387,70 @@ export const cleanUpDetailState = () => {
 
 export let userDetailPanel = () => async(dispatch) => {
     try {
-        let detailUserPanel = (await axios.get(`/userPanel/getUser`, {
-            headers:{
-                Authorization: `Bearer ${window.localStorage.getItem('token')}`
-            }
-        })).data;
-        dispatch({
-            type: GET_USER_PANEL,
-            payload: detailUserPanel
-        })
+        const token = window.localStorage.getItem('token')
+        if(token !== undefined && token !== null){
+            let detailUserPanel = (await axios.get(`/userPanel/getUser`, {
+                headers:{
+                    Authorization: `Bearer ${token}`
+                }
+            })).data;
+            dispatch({
+                type: GET_USER_PANEL,
+                payload: detailUserPanel
+            }) 
+        }   
     } catch (error) {
-        alert(error)
+        console.log(error)
     }
 }
 
 export let booksPanel = () => async(dispatch) => {
     try {
-        let getBooks = (await axios.get(`/userPanel/getBooks`, {
-            headers:{
-                Authorization: `Bearer ${window.localStorage.getItem('token')}`
-            }
-        })).data;
-        dispatch({
-            type: GET_BOOKS_PANEL,
-            payload: getBooks
-        })
+        const token = window.localStorage.getItem('token');
+        if(token !== undefined && token !== null){
+            let getBooks = (await axios.get(`/userPanel/getBooks`, {
+                headers:{
+                    Authorization: `Bearer ${token}`
+                }
+            })).data;
+            dispatch({
+                type: GET_BOOKS_PANEL,
+                payload: getBooks
+            })
+        }
     } catch (error) {
-        alert(error)
+        console.log(error)
     }
 }
 
 export let bookDetailPanel = (id) => async(dispatch) => {
     try {
-        let bookByID = (await axios.get(`/userPanel/getBooks/${id}`,{headers:{
-            Authorization: `Bearer ${window.localStorage.getItem('token')}`
-        }})).data;
+        const token = window.localStorage.getItem('token')
+        if(token !== undefined && token !== null){
+            let bookByID = (await axios.get(`/userPanel/getBooks/${id}`,{headers:{
+                Authorization: `Bearer ${token}`
+            }})).data;
 
-        dispatch({
-            type: GET_DETAIL_BOOK_PANEL,
-            payload: bookByID
-        })
+            dispatch({
+                type: GET_DETAIL_BOOK_PANEL,
+                payload: bookByID
+            }) 
+        }
     } catch (error) {
-        alert(error)
+        console.log(error)
     }
 }
 
 export let deleteBookPanel = (id) => async()=>{
     try {
-        await axios.delete(`/userPanel/deleteBook/${id}`, {
-            headers:{
-                Authorization: `Bearer ${window.localStorage.getItem('token')}`
-            }
-        }).then(r => window.location.reload())
+        const token = window.localStorage.getItem('token');
+        if(token !== undefined && token !== null){
+            await axios.delete(`/userPanel/deleteBook/${id}`, {
+                headers:{
+                    Authorization: `Bearer ${token}`
+                }
+            }).then(r => window.location.reload()) 
+        }
     } catch (error) {
         console.log(error)
     }
@@ -423,11 +458,14 @@ export let deleteBookPanel = (id) => async()=>{
 
 export let deleteUserPanel = (email) => async()=>{
     try {
-        await axios.delete(`/userPanel/deleteUser/${email}`, {
-            headers:{
-                Authorization: `Bearer ${window.localStorage.getItem('token')}`
-            }
-        }).then(r => window.location.reload())
+        const token = window.localStorage.getItem('token');
+        if(token !== undefined && token !== null){
+            await axios.delete(`/userPanel/deleteUser/${email}`, {
+                headers:{
+                    Authorization: `Bearer ${token}`
+                }
+            }).then(r => window.location.reload())
+        }
     } catch (error) {
         console.log(error)
     }
@@ -435,11 +473,14 @@ export let deleteUserPanel = (email) => async()=>{
 
 export let putUserPanel = (email, data) => async()=>{
     try {
-        await axios.put(`/userPanel/putUser/${email}`, data, {
-            headers:{
-                Authorization: `Bearer ${window.localStorage.getItem('token')}`
-            }
-        })
+        const token = window.localStorage.getItem('token')
+        if(token !== undefined && token !== null){
+            await axios.put(`/userPanel/putUser/${email}`, data, {
+                headers:{
+                    Authorization: `Bearer ${token}`
+                }
+            })
+        }
     } catch (error) {
         console.log(error)
     }
@@ -447,11 +488,14 @@ export let putUserPanel = (email, data) => async()=>{
 
 export let putUserBook = (id, data) => async()=>{
     try {
-        await axios.put(`/userPanel/putBook/${id}`, data, {
-            headers:{
-                Authorization: `Bearer ${window.localStorage.getItem('token')}`
-            }
-        })
+        const token = window.localStorage.getItem('token');
+        if(token !== undefined && token !== null){
+            await axios.put(`/userPanel/putBook/${id}`, data, {
+                headers:{
+                    Authorization: `Bearer ${token}`
+                }
+            })
+        }
     } catch (error) {
         console.log(error)
     }
@@ -459,35 +503,38 @@ export let putUserBook = (id, data) => async()=>{
 
 export let addToFavo = (id) => async()=>{
     try {
-        const { data } = await axios.post(`/userPanel/addtofavo`, {id: id}, {headers:{Authorization: `Bearer ${window.localStorage.getItem("token")}`}})
-        if(data.hasOwnProperty("role")){
-            Swal.fire({
-                icon: 'error',
-                title: 'Usuario invalido',
-                text: 'Vuelve a conectarte',
-            }).then(result=>{
-                if(result.isConfirmed){
-                    window.localStorage.removeItem("token")
-                    window.location.reload()
-                    window.location.href = '/'
-                }
-            })
-        }else if(data.message === "El libro fue agregado"){
-            Swal.fire({
-                position: 'top-end',
-                icon: 'success',
-                title: 'Libro agregado a favoritos',
-                showConfirmButton: false,
-                timer: 1000
-            })
-        }else{
-            Swal.fire({
-                position: 'top',
-                icon: 'warning',
-                title: 'El libro ya se encuentra en favoritos',
-                showConfirmButton: false,
-                timer: 1500
-            })
+        const token = window.localStorage.getItem("token");
+        if(token !== undefined && token !== null){
+            const { data } = await axios.post(`/userPanel/addtofavo`, {id: id}, {headers:{Authorization: `Bearer ${token}`}})
+            if(data.hasOwnProperty("role")){
+                Swal.fire({
+                    icon: 'error',
+                    title: 'Usuario invalido',
+                    text: 'Vuelve a conectarte',
+                }).then(result=>{
+                    if(result.isConfirmed){
+                        window.localStorage.removeItem("token")
+                        window.location.reload()
+                        window.location.href = '/'
+                    }
+                })
+            }else if(data.message === "El libro fue agregado"){
+                Swal.fire({
+                    position: 'top-end',
+                    icon: 'success',
+                    title: 'Libro agregado a favoritos',
+                    showConfirmButton: false,
+                    timer: 1000
+                })
+            }else{
+                Swal.fire({
+                    position: 'top',
+                    icon: 'warning',
+                    title: 'El libro ya se encuentra en favoritos',
+                    showConfirmButton: false,
+                    timer: 1500
+                })
+            }
         }
     } catch (error) {
         console.log(error)
@@ -523,21 +570,24 @@ export const userFavo = () => async(dispatch) => {
 
 export const deleteFavoBook = (id) => async(dispatch) => {
     try{
-        const {data} = await axios.delete("/userPanel/removetofavo",{headers:{Authorization: `Bearer ${window.localStorage.getItem("token")}`},data:{id:id}})
-        if(data.hasOwnProperty("role")){
-            Swal.fire({
-                icon: 'error',
-                title: 'Usuario invalido',
-                text: 'Vuelve a conectarte',
-            }).then(result=>{
-                if(result.isConfirmed){
-                    window.localStorage.removeItem("token")
-                    window.location.reload()
-                    window.location.href = '/'
-                }
-            })
-        }else{
-            dispatch({type:DELETE_FAVO_BOOK, payload:data})
+        const token = window.localStorage.getItem("token")
+        if(token !== undefined && token !== null){
+            const {data} = await axios.delete("/userPanel/removetofavo",{headers:{Authorization: `Bearer ${token}`},data:{id:id}})
+            if(data.hasOwnProperty("role")){
+                Swal.fire({
+                    icon: 'error',
+                    title: 'Usuario invalido',
+                    text: 'Vuelve a conectarte',
+                }).then(result=>{
+                    if(result.isConfirmed){
+                        window.localStorage.removeItem("token")
+                        window.location.reload()
+                        window.location.href = '/'
+                    }
+                })
+            }else{
+                dispatch({type:DELETE_FAVO_BOOK, payload:data})
+            }
         }
     }catch(err){
         console.log(err)
@@ -546,21 +596,24 @@ export const deleteFavoBook = (id) => async(dispatch) => {
 
 export const deleteAllCartBooksFavo = () => async(dispatch) => {
     try{
-        const {data} = await axios.delete('/userPanel/removeallbooksfavo', {headers:{Authorization: `Bearer ${window.localStorage.getItem("token")}`}});
-        if(data.hasOwnProperty("role")){
-            Swal.fire({
-                icon: 'error',
-                title: 'Usuario invalido',
-                text: 'Vuelve a conectarte',
-            }).then(result=>{
-                if(result.isConfirmed){
-                    window.localStorage.removeItem("token")
-                    window.location.reload()
-                    window.location.href = '/'
-                }
-            })
-        }else{
-            dispatch({type:DELETE_ALL_FAVO_BOOKS})
+        const token = window.localStorage.getItem("token");
+        if(token !== undefined && token !== null){
+            const {data} = await axios.delete('/userPanel/removeallbooksfavo', {headers:{Authorization: `Bearer ${token}`}});
+            if(data.hasOwnProperty("role")){
+                Swal.fire({
+                    icon: 'error',
+                    title: 'Usuario invalido',
+                    text: 'Vuelve a conectarte',
+                }).then(result=>{
+                    if(result.isConfirmed){
+                        window.localStorage.removeItem("token")
+                        window.location.reload()
+                        window.location.href = '/'
+                    }
+                })
+            }else{
+                dispatch({type:DELETE_ALL_FAVO_BOOKS})
+            }
         }
     }catch(err){
         console.log(err)
@@ -569,36 +622,39 @@ export const deleteAllCartBooksFavo = () => async(dispatch) => {
 
 export let postComent = (id, Comentario) => async(dispatch)=>{
     try {
-        const nuevoComentario = await axios.post(`/userPanel/addtoComent/${id}`, {Comentario}, {
-            headers:{
-                Authorization: `Bearer ${window.localStorage.getItem('token')}`
-            }
-        })
-        if(nuevoComentario.data.hasOwnProperty("role")){
-            return Swal.fire({
-                icon: 'error',
-                title: 'Usuario invalido',
-                text: 'Vuelve a conectarte',
-            }).then(result=>{
-                if(result.isConfirmed){
-                    window.localStorage.removeItem("token")
-                    window.location.reload()
-                    window.location.href = '/'
+        const token = window.localStorage.getItem('token')
+        if(token !== undefined && token !== null){
+            const nuevoComentario = await axios.post(`/userPanel/addtoComent/${id}`, {Comentario}, {
+                headers:{
+                    Authorization: `Bearer ${token}`
                 }
             })
-        } else if (nuevoComentario.data.error){
-            return Swal.fire({
-                icon: 'error',
-                title: nuevoComentario.data.error,
-            })
-        }
-        else {
-            return Swal.fire({
-                icon: 'success',
-                title: nuevoComentario.data,
-                showConfirmButton: false,
-                timer: 1000
-            }).then(()=>window.location.reload())
+            if(nuevoComentario.data.hasOwnProperty("role")){
+                return Swal.fire({
+                    icon: 'error',
+                    title: 'Usuario invalido',
+                    text: 'Vuelve a conectarte',
+                }).then(result=>{
+                    if(result.isConfirmed){
+                        window.localStorage.removeItem("token")
+                        window.location.reload()
+                        window.location.href = '/'
+                    }
+                })
+            } else if (nuevoComentario.data.error){
+                return Swal.fire({
+                    icon: 'error',
+                    title: nuevoComentario.data.error,
+                })
+            }
+            else {
+                return Swal.fire({
+                    icon: 'success',
+                    title: nuevoComentario.data,
+                    showConfirmButton: false,
+                    timer: 1000
+                }).then(()=>window.location.reload())
+            }
         }
     } catch (error) {
         console.log(error)
@@ -607,17 +663,20 @@ export let postComent = (id, Comentario) => async(dispatch)=>{
 
 export const deleteComment = (id) => async() => {
     try {
-        const commentToDelete = await axios.delete(`/admin/deletecomment/${id}`, {
-            headers:{
-                Authorization: `Bearer ${window.localStorage.getItem('token')}`
-            }
-        })
-        return Swal.fire(
-            'Eliminado!',
-            commentToDelete.data,
-            'success'
-            )
-        .then(r => window.location.reload())
+        const token = window.localStorage.getItem('token');
+        if(token !== undefined && token !== null){
+            const commentToDelete = await axios.delete(`/admin/deletecomment/${id}`, {
+                headers:{
+                    Authorization: `Bearer ${token}`
+                }
+            })
+            return Swal.fire(
+                'Eliminado!',
+                commentToDelete.data,
+                'success'
+                )
+            .then(r => window.location.reload())
+        }
     } catch (error) {
         console.log(error)
     }

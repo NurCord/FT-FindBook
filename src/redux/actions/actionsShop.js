@@ -5,35 +5,38 @@ import Swal from "sweetalert2";
 
 export let addToCart = (id) => async()=>{
     try {
-        const { data } = await axios.post(`/user/addtocart`, {id: id}, {headers:{Authorization: `Bearer ${window.localStorage.getItem("token")}`}})
-        if(data.hasOwnProperty("role")){
-            Swal.fire({
-                icon: 'error',
-                title: 'Usuario invalido',
-                text: 'Vuelve a conectarte',
-              }).then(result=>{
-                if(result.isConfirmed){
-                    window.localStorage.removeItem("token")
-                    window.location.reload()
-                    window.location.href = '/'
-                }
-              })
-        }else if(data.message === "El libro fue agregado"){
-            Swal.fire({
-                position: 'top-end',
-                icon: 'success',
-                title: 'Libro agregado al carrito',
-                showConfirmButton: false,
-                timer: 1000
-              })
-        }else{
-            Swal.fire({
-                position: 'top',
-                icon: 'warning',
-                title: 'El libro ya se encuentra en el carrito',
-                showConfirmButton: false,
-                timer: 1500
-              })
+        const token = window.localStorage.getItem("token");
+        if(token !== undefined && token !== null){
+            const { data } = await axios.post(`/user/addtocart`, {id: id}, {headers:{Authorization: `Bearer ${token}`}})
+            if(data.hasOwnProperty("role")){
+                Swal.fire({
+                    icon: 'error',
+                    title: 'Usuario invalido',
+                    text: 'Vuelve a conectarte',
+                  }).then(result=>{
+                    if(result.isConfirmed){
+                        window.localStorage.removeItem("token")
+                        window.location.reload()
+                        window.location.href = '/'
+                    }
+                  })
+            }else if(data.message === "El libro fue agregado"){
+                Swal.fire({
+                    position: 'top-end',
+                    icon: 'success',
+                    title: 'Libro agregado al carrito',
+                    showConfirmButton: false,
+                    timer: 1000
+                  })
+            }else{
+                Swal.fire({
+                    position: 'top',
+                    icon: 'warning',
+                    title: 'El libro ya se encuentra en el carrito',
+                    showConfirmButton: false,
+                    timer: 1500
+                  })
+            }
         }
     } catch (error) {
         console.log(error)
@@ -42,21 +45,24 @@ export let addToCart = (id) => async()=>{
 
 export let buyBook = (id) => async()=>{
     try {
-        const { data } = await axios.post(`/user/addtocart`, {id: id}, {headers:{Authorization: `Bearer ${window.localStorage.getItem("token")}`}})
-        if(data.hasOwnProperty("role")){
-            Swal.fire({
-                icon: 'error',
-                title: 'Usuario invalido',
-                text: 'Vuelve a conectarte',
-              }).then(result=>{
-                if(result.isConfirmed){
-                    window.localStorage.removeItem("token")
-                    window.location.reload()
-                    window.location.href = '/'
-                }
-              })
-        }else{
-            window.location.href = '/shop'
+        const token = window.localStorage.getItem("token");
+        if(token !== undefined && token !== null){
+            const { data } = await axios.post(`/user/addtocart`, {id: id}, {headers:{Authorization: `Bearer ${token}`}})
+            if(data.hasOwnProperty("role")){
+                Swal.fire({
+                    icon: 'error',
+                    title: 'Usuario invalido',
+                    text: 'Vuelve a conectarte',
+                  }).then(result=>{
+                    if(result.isConfirmed){
+                        window.localStorage.removeItem("token")
+                        window.location.reload()
+                        window.location.href = '/'
+                    }
+                  })
+            }else{
+                window.location.href = '/shop'
+            }
         }
     } catch (error) {
         console.log(error)
@@ -65,9 +71,9 @@ export let buyBook = (id) => async()=>{
 
 export const userCart = () => async(dispatch) => {
     const token = window.localStorage.getItem("token")
-    if(window.localStorage.getItem("token")==='null')return;
+    if(token ==='null')return;
     if(token !== null && token !== undefined){
-        const { data } = await axios.get("/user/getcart", {headers:{Authorization: `Bearer ${window.localStorage.getItem("token")}`}})
+        const { data } = await axios.get("/user/getcart", {headers:{Authorization: `Bearer ${token}`}})
         if(data.hasOwnProperty("role")){
             Swal.fire({
                 icon: 'error',
@@ -92,21 +98,24 @@ export const userCart = () => async(dispatch) => {
 
 export const deleteCartBook = (id) => async(dispatch) => {
     try{
-        const {data} = await axios.delete("/user/removetocart",{headers:{Authorization: `Bearer ${window.localStorage.getItem("token")}`},data:{id:id}})
-        if(data.hasOwnProperty("role")){
-            Swal.fire({
-                icon: 'error',
-                title: 'Usuario invalido',
-                text: 'Vuelve a conectarte',
-              }).then(result=>{
-                if(result.isConfirmed){
-                    window.localStorage.removeItem("token")
-                    window.location.reload()
-                    window.location.href = '/'
-                }
-              })
-        }else{
-            dispatch({type:DELETE_CART_BOOK, payload:data})
+        const token = window.localStorage.getItem("token")
+        if(token !== undefined && token !== null){
+            const {data} = await axios.delete("/user/removetocart",{headers:{Authorization: `Bearer ${token}`},data:{id:id}})
+            if(data.hasOwnProperty("role")){
+                Swal.fire({
+                    icon: 'error',
+                    title: 'Usuario invalido',
+                    text: 'Vuelve a conectarte',
+                  }).then(result=>{
+                    if(result.isConfirmed){
+                        window.localStorage.removeItem("token")
+                        window.location.reload()
+                        window.location.href = '/'
+                    }
+                  })
+            }else{
+                dispatch({type:DELETE_CART_BOOK, payload:data})
+            }
         }
     }catch(err){
         console.log(err)
@@ -115,21 +124,24 @@ export const deleteCartBook = (id) => async(dispatch) => {
 
 export const stripe = (array) => async() => {
     try{
-        const { data } = await axios.post('/payment/secret',{data: array}, {headers:{Authorization: `Bearer ${window.localStorage.getItem("token")}`}})
-        if(data.hasOwnProperty("url")){
-            window.location= data.url
-        }else{
-            Swal.fire({
-                icon: 'error',
-                title: 'Usuario invalido',
-                text: 'Vuelve a conectarte',
-              }).then(result=>{
-                if(result.isConfirmed){
-                    window.localStorage.removeItem("token")
-                    window.location.reload()
-                    window.location.href = '/'
-                }
-              })
+        const token = window.localStorage.getItem("token");
+        if(token !== undefined && token !== null){
+            const { data } = await axios.post('/payment/secret',{data: array}, {headers:{Authorization: `Bearer ${token}`}})
+            if(data.hasOwnProperty("url")){
+                window.location= data.url
+            }else{
+                Swal.fire({
+                    icon: 'error',
+                    title: 'Usuario invalido',
+                    text: 'Vuelve a conectarte',
+                  }).then(result=>{
+                    if(result.isConfirmed){
+                        window.localStorage.removeItem("token")
+                        window.location.reload()
+                        window.location.href = '/'
+                    }
+                  })
+            }
         }
     }catch(err){
         console.log(err)
@@ -138,24 +150,27 @@ export const stripe = (array) => async() => {
 
 export const getSessionID = (session_id) => async(dispatch) =>{
     try{
-        const {data} = await axios.get(`/payment/secret?session_id=${session_id}`, {headers:{Authorization: `Bearer ${window.localStorage.getItem("token")}`}})
-        if(data.hasOwnProperty("role")){
-            Swal.fire({
-                icon: 'error',
-                title: 'Usuario invalido',
-                text: 'Vuelve a conectarte',
-              }).then(result=>{
-                if(result.isConfirmed){
-                    window.localStorage.removeItem("token")
-                    window.location.reload()
-                    window.location.href = '/'
-                }
-              })
-        }else{
-           dispatch({
-                type: GET_SESSION_ID,
-                payload: data
-            }) 
+        const token = window.localStorage.getItem("token")
+        if(token !== undefined && token !== null){
+            const {data} = await axios.get(`/payment/secret?session_id=${session_id}`, {headers:{Authorization: `Bearer ${token}`}})
+            if(data.hasOwnProperty("role")){
+                Swal.fire({
+                    icon: 'error',
+                    title: 'Usuario invalido',
+                    text: 'Vuelve a conectarte',
+                  }).then(result=>{
+                    if(result.isConfirmed){
+                        window.localStorage.removeItem("token")
+                        window.location.reload()
+                        window.location.href = '/'
+                    }
+                  })
+            }else{
+               dispatch({
+                    type: GET_SESSION_ID,
+                    payload: data
+                }) 
+            }
         }
     }catch(err){
         console.log(err)
@@ -181,22 +196,25 @@ export const soldOut = () => {
 
 export const deleteAllCartBooks = () => async(dispatch) => {
     try{
-        const {data} = await axios.delete('/user/removeallbooks', {headers:{Authorization: `Bearer ${window.localStorage.getItem("token")}`}});
-
-        if(data.hasOwnProperty("role")){
-            Swal.fire({
-                icon: 'error',
-                title: 'Usuario invalido',
-                text: 'Vuelve a conectarte',
-              }).then(result=>{
-                if(result.isConfirmed){
-                    window.localStorage.removeItem("token")
-                    window.location.reload()
-                    window.location.href = '/'
-                }
-              })
-        }else{
-            dispatch({type:DELETE_ALL_CART_BOOKS})
+        const token = window.localStorage.getItem("token")
+        if(token !== undefined && token !== null){
+            const {data} = await axios.delete('/user/removeallbooks', {headers:{Authorization: `Bearer ${token}`}});
+    
+            if(data.hasOwnProperty("role")){
+                Swal.fire({
+                    icon: 'error',
+                    title: 'Usuario invalido',
+                    text: 'Vuelve a conectarte',
+                  }).then(result=>{
+                    if(result.isConfirmed){
+                        window.localStorage.removeItem("token")
+                        window.location.reload()
+                        window.location.href = '/'
+                    }
+                  })
+            }else{
+                dispatch({type:DELETE_ALL_CART_BOOKS})
+            }
         }
     }catch(err){
         console.log(err)
@@ -205,22 +223,25 @@ export const deleteAllCartBooks = () => async(dispatch) => {
 
 export const getUserOrders = () =>async(dispatch) => {
     try {
-        const { data } = await axios.get('/userPanel/orderlist', {headers:{Authorization: `Bearer ${window.localStorage.getItem("token")}`}})
-        if(data.hasOwnProperty("role")){
-            Swal.fire({
-                icon: 'error',
-                title: 'Usuario invalido',
-                text: 'Vuelve a conectarte',
-            }).then(result=>{
-                if(result.isConfirmed){
-                    window.localStorage.removeItem("token")
-                    window.location.reload()
-                    window.location.href = '/'
-                }
-            })
-        }else{
-            dispatch({type: GET_ALL_USER_ORDERS, payload:data})
-        }    
+        const token = window.localStorage.getItem("token")
+        if(token !== undefined && token !== null){
+            const { data } = await axios.get('/userPanel/orderlist', {headers:{Authorization: `Bearer ${token}`}})
+            if(data.hasOwnProperty("role")){
+                Swal.fire({
+                    icon: 'error',
+                    title: 'Usuario invalido',
+                    text: 'Vuelve a conectarte',
+                }).then(result=>{
+                    if(result.isConfirmed){
+                        window.localStorage.removeItem("token")
+                        window.location.reload()
+                        window.location.href = '/'
+                    }
+                })
+            }else{
+                dispatch({type: GET_ALL_USER_ORDERS, payload:data})
+            }    
+        }
     } catch (err) {
         console.log(err)
     }
@@ -228,23 +249,26 @@ export const getUserOrders = () =>async(dispatch) => {
 
 export const getButtonStatus = () => async(dispatch) => {
     try {
-        if(window.localStorage.getItem("token")==='null')return;
-        const { data } = await axios.get('/payment/secret/buttonstate',{headers:{Authorization: `Bearer ${window.localStorage.getItem("token")}`}})
-        if(data.hasOwnProperty("role")){
-            Swal.fire({
-                icon: 'error',
-                title: 'Usuario invalido',
-                text: 'Vuelve a conectarte',
-            }).then(result=>{
-                if(result.isConfirmed){
-                    window.localStorage.removeItem("token")
-                    window.location.reload()
-                    window.location.href = '/'
-                }
-            })
-        }else{
-            dispatch({type: BUTTON_STATUS, payload:data})
-        }    
+        const token = window.localStorage.getItem("token")
+        if(token ==='null')return;
+        if(token !== undefined && token !== null){
+            const { data } = await axios.get('/payment/secret/buttonstate',{headers:{Authorization: `Bearer ${token}`}})
+            if(data.hasOwnProperty("role")){
+                Swal.fire({
+                    icon: 'error',
+                    title: 'Usuario invalido',
+                    text: 'Vuelve a conectarte',
+                }).then(result=>{
+                    if(result.isConfirmed){
+                        window.localStorage.removeItem("token")
+                        window.location.reload()
+                        window.location.href = '/'
+                    }
+                })
+            }else{
+                dispatch({type: BUTTON_STATUS, payload:data})
+            }    
+        }
     } catch (error) {
         console.log(error)
     }
@@ -252,40 +276,44 @@ export const getButtonStatus = () => async(dispatch) => {
 
 export const getUserOrdersById = (id, user_id) => async(dispatch) => {
 try {
-    if(user_id){
-        const { data } = await axios.get(`/userPanel/orderlist/${id}?user_id=${user_id}`,{headers:{Authorization: `Bearer ${window.localStorage.getItem("token")}`}})
-        if(data.hasOwnProperty("role")){
-            Swal.fire({
-                icon: 'error',
-                title: 'Usuario invalido',
-                text: 'Vuelve a conectarte',
-            }).then(result=>{
-                if(result.isConfirmed){
-                    window.localStorage.removeItem("token")
-                    window.location.reload()
-                    window.location.href = '/'
-                }
-            })
-        }else{
-            dispatch({type: GET_USER_ORDERS_BY_ID, payload:data})
+    const token = window.localStorage.getItem("token")
+    if(token !== undefined && token !== null){
+        if(user_id){
+            const { data } = await axios.get(`/userPanel/orderlist/${id}?user_id=${user_id}`,{headers:{Authorization: `Bearer ${token}`}})
+            if(data.hasOwnProperty("role")){
+                Swal.fire({
+                    icon: 'error',
+                    title: 'Usuario invalido',
+                    text: 'Vuelve a conectarte',
+                }).then(result=>{
+                    if(result.isConfirmed){
+                        window.localStorage.removeItem("token")
+                        window.location.reload()
+                        window.location.href = '/'
+                    }
+                })
+            }else{
+                dispatch({type: GET_USER_ORDERS_BY_ID, payload:data})
+            }
         }
+        const { data } = await axios.get(`/userPanel/orderlist/${id}`,{headers:{Authorization: `Bearer ${token}`}})
+            if(data.hasOwnProperty("role")){
+                Swal.fire({
+                    icon: 'error',
+                    title: 'Usuario invalido',
+                    text: 'Vuelve a conectarte',
+                }).then(result=>{
+                    if(result.isConfirmed){
+                        window.localStorage.removeItem("token")
+                        window.location.reload()
+                        window.location.href = '/'
+                    }
+                })
+            }else{
+                dispatch({type: GET_USER_ORDERS_BY_ID, payload:data})
+            }
+
     }
-    const { data } = await axios.get(`/userPanel/orderlist/${id}`,{headers:{Authorization: `Bearer ${window.localStorage.getItem("token")}`}})
-        if(data.hasOwnProperty("role")){
-            Swal.fire({
-                icon: 'error',
-                title: 'Usuario invalido',
-                text: 'Vuelve a conectarte',
-            }).then(result=>{
-                if(result.isConfirmed){
-                    window.localStorage.removeItem("token")
-                    window.location.reload()
-                    window.location.href = '/'
-                }
-            })
-        }else{
-            dispatch({type: GET_USER_ORDERS_BY_ID, payload:data})
-        }
     } catch (error) {
         console.log(error)
     }
@@ -293,22 +321,25 @@ try {
 
 export const getUserSales = () =>async(dispatch) => {
     try {
-        const { data } = await axios.get('/userPanel/sellUser', {headers:{Authorization: `Bearer ${window.localStorage.getItem("token")}`}})
-        if(data.hasOwnProperty("role")){
-            Swal.fire({
-                icon: 'error',
-                title: 'Usuario invalido',
-                text: 'Vuelve a conectarte',
-            }).then(result=>{
-                if(result.isConfirmed){
-                    window.localStorage.removeItem("token")
-                    window.location.reload()
-                    window.location.href = '/'
-                }
-            })
-        }else{
-            dispatch({type: GET_ALL_USER_SALES, payload:data})
-        }    
+        const token = window.localStorage.getItem("token")
+        if(token !== undefined && token !== null){
+            const { data } = await axios.get('/userPanel/sellUser', {headers:{Authorization: `Bearer ${token}`}})
+            if(data.hasOwnProperty("role")){
+                Swal.fire({
+                    icon: 'error',
+                    title: 'Usuario invalido',
+                    text: 'Vuelve a conectarte',
+                }).then(result=>{
+                    if(result.isConfirmed){
+                        window.localStorage.removeItem("token")
+                        window.location.reload()
+                        window.location.href = '/'
+                    }
+                })
+            }else{
+                dispatch({type: GET_ALL_USER_SALES, payload:data})
+            }    
+        }
     } catch (err) {
         console.log(err)
     }
@@ -316,22 +347,25 @@ export const getUserSales = () =>async(dispatch) => {
 
 export const getUserSalesById = (id,libroid)=>async(dispatch)=>{
     try {
-        const { data } = await axios.get(`/userPanel/sellUser/${id}/${libroid}`, {headers:{Authorization: `Bearer ${window.localStorage.getItem("token")}`}})
-        if(data.hasOwnProperty("role")){
-            Swal.fire({
-                icon: 'error',
-                title: 'Usuario invalido',
-                text: 'Vuelve a conectarte',
-            }).then(result=>{
-                if(result.isConfirmed){
-                    window.localStorage.removeItem("token")
-                    window.location.reload()
-                    window.location.href = '/'
-                }
-            })
-        }else{
-            dispatch({type: GET_USER_SALES_BY_ID, payload:data})
-        }    
+        const token = window.localStorage.getItem("token")
+        if(token !== undefined && token !== null){
+            const { data } = await axios.get(`/userPanel/sellUser/${id}/${libroid}`, {headers:{Authorization: `Bearer ${token}`}})
+            if(data.hasOwnProperty("role")){
+                Swal.fire({
+                    icon: 'error',
+                    title: 'Usuario invalido',
+                    text: 'Vuelve a conectarte',
+                }).then(result=>{
+                    if(result.isConfirmed){
+                        window.localStorage.removeItem("token")
+                        window.location.reload()
+                        window.location.href = '/'
+                    }
+                })
+            }else{
+                dispatch({type: GET_USER_SALES_BY_ID, payload:data})
+            }    
+        }
     } catch (err) {
         console.log(err)
     }
@@ -339,22 +373,25 @@ export const getUserSalesById = (id,libroid)=>async(dispatch)=>{
 
 export const getTimer = () => async(dispatch) => {
     try {
-        const { data } = await axios.get('/payment/secret/counter', {headers:{Authorization: `Bearer ${window.localStorage.getItem("token")}`}})
-        if(data.hasOwnProperty("role")){
-            Swal.fire({
-                icon: 'error',
-                title: 'Usuario invalido',
-                text: 'Vuelve a conectarte',
-            }).then(result=>{
-                if(result.isConfirmed){
-                    window.localStorage.removeItem("token")
-                    window.location.reload()
-                    window.location.href = '/'
-                }
-            })
-        }else{
-            dispatch({type: GET_TIMER, payload:data.timer})
-        }    
+        const token = window.localStorage.getItem("token")
+        if(token !== undefined && token !== null){
+            const { data } = await axios.get('/payment/secret/counter', {headers:{Authorization: `Bearer ${token}`}})
+            if(data.hasOwnProperty("role")){
+                Swal.fire({
+                    icon: 'error',
+                    title: 'Usuario invalido',
+                    text: 'Vuelve a conectarte',
+                }).then(result=>{
+                    if(result.isConfirmed){
+                        window.localStorage.removeItem("token")
+                        window.location.reload()
+                        window.location.href = '/'
+                    }
+                })
+            }else{
+                dispatch({type: GET_TIMER, payload:data.timer})
+            }    
+        }
     } catch (error) {
         console.log(error)
     }
