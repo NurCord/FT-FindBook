@@ -256,9 +256,9 @@ export default function CreatePost() {
 
     function GenreSelector() {
         const possibleGenres = [
-            'arte', 'anime', 'biografía', 'biología', 'comic', 'comida',
+            'arte', 'biografía', 'biología', 'comic', 'comida',
             'computación', 'deporte', 'derecho', 'economía', 'estudio', 'ficción',
-            'historia', 'humor', 'infantil', 'juvenil', 'matemática', 'medicina',
+            'historia', 'humor', 'infantil', 'juvenil','manga', 'matemática', 'medicina',
             'novela', 'ocio - tiempo libre', 'política', 'salud - desarrollo personal', 'tecnología', 'terror'
         ];
         return (

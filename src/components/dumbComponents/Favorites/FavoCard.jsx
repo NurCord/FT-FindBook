@@ -47,7 +47,7 @@ function FavoCard({ id, name, author, image, price, language }) {
                             {language}
                         </span>
                         <div>
-                            <button className='px-1 py-1 font-medium text-xs no-underline w-30 text-neutral-900 rounded-2xl bg-stone-400 hover:text-white hover:border-solid hover:border-slate-50 hover:bg-red-500' onClick={handleOnClick}>Quitar del carrito</button>
+                            <button className='px-1 py-1 font-medium text-xs no-underline w-30 text-neutral-900 rounded-2xl bg-stone-400 hover:text-white hover:border-solid hover:border-slate-50 hover:bg-red-500' onClick={handleOnClick}>Quitar de favoritos</button>
                         </div>
                     </div>
                 </div>
