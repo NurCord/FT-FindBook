@@ -1,11 +1,12 @@
-import { DELETE_ALL_CART_BOOKS, DELETE_CART_BOOK, GET_SESSION_ID, SOLD_OUT, USER_CART, GET_ALL_USER_ORDERS, BUTTON_STATUS, GET_ALL_USER_SALES} from "../actions/variables";
+import { DELETE_ALL_CART_BOOKS, DELETE_CART_BOOK, GET_SESSION_ID, SOLD_OUT, USER_CART, GET_ALL_USER_ORDERS, BUTTON_STATUS, GET_ALL_USER_SALES, GET_TIMER} from "../actions/variables";
 
 const initialState = {
     cartBooks: [],
     soldOut: false,
     orderList: [],
     salesList:[],
-    buttonStatus: 'enabled'
+    buttonStatus: 'enabled',
+    timer: ""
 }
 
 export default function shop(state = initialState, actions){
@@ -72,6 +73,11 @@ export default function shop(state = initialState, actions){
                 salesList: actions.payload.ventas
             }
         }
+        case GET_TIMER:
+            return {
+                ...state,
+                timer: actions.payload
+            }
         default:
             return {
                 ...state
