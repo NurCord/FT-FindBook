@@ -35,7 +35,7 @@ export default function root(state = initialState, actions){
         case DELETE_FAVO_BOOK:
             return {
                 ...state,
-                favoBooks: state.cartBooks.filter((book) => book.id !== actions.payload)
+                favoBooks: state.cartBooks?.filter((book) => book.id !== actions.payload)
             }
         case DELETE_ALL_FAVO_BOOKS:
             return{
@@ -44,7 +44,7 @@ export default function root(state = initialState, actions){
             }
         case GET_USER_ORDERS_BY_ID:
             return{
-               ...state,
+                ...state,
                 orderDetail: actions.payload
             }
         case GET_USER_SALES_BY_ID:
