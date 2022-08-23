@@ -152,7 +152,7 @@ export const getSessionID = (session_id) => async(dispatch) =>{
     try{
         const token = window.localStorage.getItem("token")
         if(token !== undefined && token !== null){
-            const {data} = await axios.get(`/payment/secret?session_id=${session_id}`, {headers:{Authorization: `Bearer ${token}`}})
+            const {data} = await axios.get(`/payment/secret/session/${session_id}`, {headers:{Authorization: `Bearer ${token}`}})
             if(data.hasOwnProperty("role")){
                 Swal.fire({
                     icon: 'error',
