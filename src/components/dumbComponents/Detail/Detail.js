@@ -11,9 +11,11 @@ import Buy from './Buy';
 import AddToCart from './AddToCart';
 import clsx from 'clsx'
 import Comment from '../../smartComponents/Comment/Comment';
+import { getUserOrders } from '../../../redux/actions/actionsShop';
 
 export default function Detail() {
     let state = useSelector(s => s.root.bookById)
+    const orderList = useSelector(state => state.shop.orderList)
     let role = useSelector(s => s.root.role)
     let {id} = useParams()
     let dispatch = useDispatch()
@@ -30,6 +32,7 @@ export default function Detail() {
     }
 
     useEffect(() => {
+        dispatch(getUserOrders())
         dispatch(getBookByID(parseInt(id)))
         return () => {
             dispatch(cleanUpDetailState())
@@ -136,7 +139,7 @@ export default function Detail() {
                     <DivDetail>
                         <H1Detail id='descripcion'>Comentarios</H1Detail>
                         {
-                        (role === 'user' || role === 'admin') && 
+                        (role === 'user' || role === 'admin') && (orderList.find(order=>order.status==='complete'&&order.Items.find(item=>item.libro_id==id))) &&
                         <div className='my-6'>
                             <form onSubmit={e => handleOnSubmit (e)} className={clsx(
                                 'mobile:gap-4',
