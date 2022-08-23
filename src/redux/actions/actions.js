@@ -321,11 +321,11 @@ export let putBook = (id, data) => async()=>{
     }
 }
 
-export let deleteUser = (email) => async()=>{
+export let deleteUser = (email,status) => async()=>{
     try {
         const token = window.localStorage.getItem('token')
         if(token !== undefined && token !== null){
-            await axios.delete(`/admin/deleteuser/${email}`, {
+            await axios.delete(`/admin/deleteuser/${email}/${status}`, {
                 headers:{
                     Authorization: `Bearer ${token}`
                 }
