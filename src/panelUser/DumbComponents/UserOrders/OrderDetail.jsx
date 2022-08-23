@@ -29,18 +29,18 @@ export default function OrderDetail() {
         <div class="bg-white rounded-md  shadow-lg">
           <div class="md:flex px-4 leading-none max-w-4xl">
             <div className="flex flex-col ml-3">
-              <span className="flex-col text-gray-900 pt-4 text-2xl font-bold">
+              <span className="flex-col text-gray-900 pt-4 text-xl font-bold">
                 ID de la compra: {orderDetail.compras_id}
               </span>
               <div className="flex-col text-gray-900">
-                  <span className="pt-4 text-2xl font-bold">
+                  <span className="pt-4 text-xl font-bold">
                     Precio total: USD${orderDetail.totalPrice}
                   </span>
               </div>
               {orderDetail.items?.map((item) => {
                 return (
                   <div>
-                    <span className="pt-4 text-2xl font-bold">
+                    <span className="font-bold p-1">
                      Libro: {item.Book.name}
                     </span>
                     <img

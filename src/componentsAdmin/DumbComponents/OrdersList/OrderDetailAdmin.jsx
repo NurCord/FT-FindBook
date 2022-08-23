@@ -29,23 +29,23 @@ export default function OrderDetail() {
         <div className="min-h-screen grid place-items-center font-mono bg-gray-900">
           <div className="bg-white rounded-md  shadow-lg">
             <div className="flex flex-col ml-3">
-              <span className="flex-col text-gray-900 pt-4 text-2xl font-bold">
+              <span className="flex-col text-gray-900 pt-4 text-xl font-bold">
                 ID de la compra: {orderDetail.compras_id}
               </span>
               <div className="flex justify-center items-center">
                 <div className="flex-col text-gray-900">
-                  <span className="pt-4 text-2xl font-bold">
+                  <span className="pt-4 text-xl font-bold">
                     Precio total: USD${orderDetail.totalPrice}
                   </span>
                 </div>
               </div>
-              <span className="flex-col pt-4 text-2xl font-bold text-gray-600">
+              <span className="font-bold p-1">
                 {orderDetail.user?.name}
               </span>
               {orderDetail.items?.map((item) => {
                 return (
                   <div>
-                    <span className="pt-4 text-xl font-bold">
+                    <span className="font-bold p-1">
                       {item.Book.name}
                     </span>
                     <img
