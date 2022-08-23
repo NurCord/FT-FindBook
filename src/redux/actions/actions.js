@@ -681,3 +681,37 @@ export const deleteComment = (id) => async() => {
         console.log(error)
     }
 }
+
+export const eliminarCuenta = (password)=>async()=>{
+    try {
+        const token = window.localStorage.getItem('token')
+        if(token !== undefined && token !== null){
+            await axios.put(`/userPanel/deleteaccount`,{password:password},{
+                headers:{
+                    Authorization: `Bearer ${token}`
+                }
+            }).then(({data})=>{
+                if (data.error){
+                    return Swal.fire({
+                        icon: 'error',
+                        title: data.error,
+                    })
+                }else{
+                    return Swal.fire(
+                        'Eliminado!',
+                        data,
+                        'success'
+                        ).then(()=>{
+                            window.localStorage.removeItem("token")
+                            window.location.reload()
+                            window.location.href = '/'
+                        })
+                }
+            })
+
+        }
+        
+    } catch (error) {
+        console.log(error)
+    }
+} 

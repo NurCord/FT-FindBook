@@ -10,6 +10,7 @@ import Swal from "sweetalert2"
 import { putUserPanel } from '../../../redux/actions/actions';
 import CardBook from '../CardBook/CardBook'
 import UserOrders from '../UserOrders/UserOrders'
+import { eliminarCuenta } from '../../../redux/actions/actions';
 
 import clsx from 'clsx'
 
@@ -59,30 +60,24 @@ function UserHome({ HomeUser }) {
         }).then(resultTwo=>{
           if(resultTwo.isConfirmed){
             return Swal.fire({
-              title: 'Submit your Github username',
+              title: 'Ingresa tu contraseña',
               input: 'text',
               inputAttributes: {
                 autocapitalize: 'off'
               },
               showCancelButton: true,
-              confirmButtonText: 'Look up',
+              confirmButtonText: 'Enviar',
               showLoaderOnConfirm: true,
               preConfirm: (login) => {
-                return fetch(`//api.github.com/users/${login}`)
-                  .then(response => {
-                    if (!response.ok) {
-                      throw new Error(response.statusText)
-                    }
-                    return response.json()
-                  })
-                  .catch(error => {
-                    Swal.showValidationMessage(
-                      `Request failed: ${error}`
-                    )
-                  })
-              },
-              allowOutsideClick: () => !Swal.isLoading()
-            })
+                if(!login.length){
+                  Swal.showValidationMessage(`El campo es obligatorio`)
+                }
+              }
+              }).then(response=>{
+                if(response.isConfirmed){
+                  return dispatch(eliminarCuenta(response.value))
+                }
+              })
           }
         })
       }
