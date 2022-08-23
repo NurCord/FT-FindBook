@@ -25,44 +25,39 @@ export default function OrderDetail() {
     );
   } else {
     return (
-      <div>
-        <div className="flex justify-between items-center mt-6 pt-6">
-          <div className="flex  items-center">
+      <div class="min-h-screen grid place-items-center font-mono bg-gray-900">
+        <div class="bg-white rounded-md  shadow-lg">
+          <div class="md:flex px-4 leading-none max-w-4xl">
             <div className="flex flex-col ml-3">
-              <span className="md:text-md font-medium">
+              <span className="flex-col text-gray-900 pt-4 text-2xl font-bold">
                 ID de la compra: {orderDetail.compras_id}
               </span>
+              <div className="flex-col text-gray-900">
+                  <span className="pt-4 text-2xl font-bold">
+                    Precio total: USD${orderDetail.totalPrice}
+                  </span>
+              </div>
               {orderDetail.items?.map((item) => {
                 return (
                   <div>
-                    <span className="md:text-xs font-light text-gray-400">
-                      {item.Book.name}
+                    <span className="pt-4 text-2xl font-bold">
+                     Libro: {item.Book.name}
                     </span>
                     <img
                       src={item.Book.image}
                       width="60"
-                      className="rounded-full"
+                      className="h-40 w-40 rounded-md border-4 border-gray-300 shadow-lg"
                       alt="Book"
                     />
-                    <span className="md:text-xs font-light text-gray-400">
-                      {item.quantity}
+                    <span className="text-md flex justify-between px-4 my-2 font-bold">
+                      {item.quantity+ ' X '}
                     </span>
-                    <span className="md:text-xs font-light text-gray-400">
-                    USD${item.subTotal}
+                    <span className="text-md flex justify-between px-4 my-2 font-bold">
+                      USD ${item.subTotal}
                     </span>
                   </div>
                 );
               })}
-            </div>
-          </div>
-          <div className="flex justify-center items-center">
-            <div className="pr-8 ">
-              <span className="md:text-sm font-medium">
-                USD${orderDetail.totalPrice}
-              </span>
-            </div>
-            <div>
-              <i className="fa fa-close text-xs font-medium"></i>
             </div>
           </div>
         </div>
