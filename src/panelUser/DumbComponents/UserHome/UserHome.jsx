@@ -10,6 +10,7 @@ import Swal from "sweetalert2"
 import { putUserPanel } from '../../../redux/actions/actions';
 import CardBook from '../CardBook/CardBook'
 import UserOrders from '../UserOrders/UserOrders'
+import { eliminarCuenta } from '../../../redux/actions/actions';
 
 import clsx from 'clsx'
 
@@ -35,6 +36,53 @@ function UserHome({ HomeUser }) {
     setState(state === 'hidden' ? '' : 'hidden')
   }
 
+  function deleteAccount(){
+    return Swal.fire({
+      title: 'Estas seguro?',
+      text: "No podrás revertirlo",
+      icon: 'warning',
+      showCancelButton: true,
+      cancelButtonText: 'No, Cancelar',
+      confirmButtonColor: '#d33',
+      cancelButtonColor: '#3085d6',
+      confirmButtonText: 'Si, Confirmar!'
+    }).then((result) => {
+      if (result.isConfirmed) {
+        return Swal.fire({
+          title: 'Estas COMPLETAMENTE SEGURO?',
+          text: "YA NO PODRAS ACCEDER A TU CUENTA",
+          icon: 'warning',
+          showCancelButton: true,
+          cancelButtonText: 'MEJOR NO, GRACIAS',
+          confirmButtonColor: '#d33',
+          cancelButtonColor: '#3085d6',
+          confirmButtonText: 'Eliminar cuenta'
+        }).then(resultTwo=>{
+          if(resultTwo.isConfirmed){
+            return Swal.fire({
+              title: 'Ingresa tu contraseña',
+              input: 'text',
+              inputAttributes: {
+                autocapitalize: 'off'
+              },
+              showCancelButton: true,
+              confirmButtonText: 'Enviar',
+              showLoaderOnConfirm: true,
+              preConfirm: (login) => {
+                if(!login.length){
+                  Swal.showValidationMessage(`El campo es obligatorio`)
+                }
+              }
+              }).then(response=>{
+                if(response.isConfirmed){
+                  return dispatch(eliminarCuenta(response.value))
+                }
+              })
+          }
+        })
+      }
+  })
+}
   function onSubmit(data) {
     return Swal.fire({
       title: 'Estas seguro?',
@@ -162,6 +210,7 @@ function UserHome({ HomeUser }) {
                     {...register("password")}
                   />
                 </div>
+                <div onClick={deleteAccount} className={state === 'hidden' ?'cursor-pointer px-4 py-2 m-auto font-semibold duration-200 rounded-md bg-greyBlack-400 text-cream-100 hover:bg-red-600':'hidden'}>Eliminar Cuenta</div>
                 <button type="submit" className={state === 'hidden' ? 'hidden' : 'px-4 py-2 m-auto font-semibold duration-200 rounded-md desktop:bg-cream-300 bg-cream-100 hover:bg-greyBlack-400 hover:text-cream-100'}>Confirmar</button>
               </form>
             </div>
