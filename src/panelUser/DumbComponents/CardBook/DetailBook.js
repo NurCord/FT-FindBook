@@ -140,6 +140,16 @@ export default function DetailBook() {
       <div className='grid h-screen uppercase place-content-center text-9xl'>{Book.error}</div>
     )
   }
+  else if(Book.statusBook === 'false'){
+    return Swal.fire({
+        position: 'top',
+        icon: 'warning',
+        title: 'La publicación no existe',
+        showConfirmButton: false,
+        timer: 1500
+    }).then(()=>window.location.href='/')
+  }
+
   return (
     <div className='grid w-full h-full mobile:pt-5 desktop:p-8 bg-cream-100'>
       <div>
