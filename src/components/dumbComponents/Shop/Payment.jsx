@@ -35,15 +35,6 @@ export default function Payment() {
   useEffect(() => {
     if(buttonStatus === "disabled"){
       dispatch(getTimer())
-      // Swal.fire({
-      //   title: `Debes esperar ${timer} para poder comprar`,
-      //   icon: 'warning',
-      //   confirmButtonText: 'ir al inicio'
-      // }).then((result) => {
-      //   if (result.isConfirmed) {
-      //     navigate('/')
-      //   }
-      // })
     }
   })
 
