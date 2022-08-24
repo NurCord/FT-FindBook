@@ -46,22 +46,11 @@ function UserHome({ HomeUser }) {
       confirmButtonColor: '#d33',
       cancelButtonColor: '#3085d6',
       confirmButtonText: 'Si, Confirmar!'
-    }).then((result) => {
-      if (result.isConfirmed) {
-        return Swal.fire({
-          title: 'Estas COMPLETAMENTE SEGURO?',
-          text: "YA NO PODRAS ACCEDER A TU CUENTA",
-          icon: 'warning',
-          showCancelButton: true,
-          cancelButtonText: 'MEJOR NO, GRACIAS',
-          confirmButtonColor: '#d33',
-          cancelButtonColor: '#3085d6',
-          confirmButtonText: 'Eliminar cuenta'
-        }).then(resultTwo=>{
+    }).then(resultTwo=>{
           if(resultTwo.isConfirmed){
             return Swal.fire({
               title: 'Ingresa tu contraseña',
-              input: 'text',
+              input: 'password',
               inputAttributes: {
                 autocapitalize: 'off'
               },
@@ -81,8 +70,7 @@ function UserHome({ HomeUser }) {
           }
         })
       }
-  })
-}
+
   function onSubmit(data) {
     return Swal.fire({
       title: 'Estas seguro?',
