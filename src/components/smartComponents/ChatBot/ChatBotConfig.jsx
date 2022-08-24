@@ -5,12 +5,6 @@ import Overview from "./Overview";
 import MessageParser from "./MessageParser";
 import ActionProviderDocs from "./ActionProviderDocs";
 
-// const config = {
-//     initialMessages: [createChatBotMessage(`Hello world`)],
-// };
-
-// export default config;
-
 const botName = "FindBookBot";
 
 const config = {
@@ -18,10 +12,10 @@ const config = {
     lang: "no",
     customStyles: {
         botMessageBox: {
-            backgroundColor: "#376B7E",
+            backgroundColor: "#c9af7f",
         },
         chatButton: {
-            backgroundColor: "#5ccc9d",
+            backgroundColor: "#c9af7f",
         },
     },
     initialMessages: [
@@ -30,14 +24,6 @@ const config = {
             Estoy aquí para guiarte en lo que necesites.
             Por favor indícame tu nombre para iniciar`
         ),
-        // createChatBotMessage(
-        //     "Here's a quick overview over what I need to function. ask me about the different parts to dive deeper.",
-        //     {
-        //         withAvatar: false,
-        //         delay: 500,
-        //         widget: "overview",
-        //     }
-        // ),
     ],
     state: {
         gist: "",
