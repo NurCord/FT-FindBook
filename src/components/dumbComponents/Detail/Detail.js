@@ -5,17 +5,19 @@ import { useDispatch, useSelector } from 'react-redux';
 import loading from '../../../assets/loading.gif';
 import CardImag from '../Card/CardImag';
 import { useParams } from 'react-router-dom';
-import { cleanUpDetailState, getBookByID, getBooksGenres, postComent } from '../../../redux/actions/actions';
+import { booksPanel, cleanUpDetailState, getBookByID, getBooksGenres, postComent } from '../../../redux/actions/actions';
 import AddToList from './AddToList';
 import Buy from './Buy';
 import AddToCart from './AddToCart';
 import clsx from 'clsx'
 import Comment from '../../smartComponents/Comment/Comment';
 import { getUserOrders } from '../../../redux/actions/actionsShop';
+import Swal from 'sweetalert2';
 
 export default function Detail() {
     let state = useSelector(s => s.root.bookById)
     const orderList = useSelector(state => state.shop.orderList)
+    const owner = useSelector(state => state.user.books)
     let role = useSelector(s => s.root.role)
     let {id} = useParams()
     let dispatch = useDispatch()
@@ -32,7 +34,9 @@ export default function Detail() {
     }
 
     useEffect(() => {
+        dispatch(booksPanel())
         dispatch(getUserOrders())
+        dispatch(booksPanel())
         dispatch(getBookByID(parseInt(id)))
         return () => {
             dispatch(cleanUpDetailState())
@@ -44,7 +48,15 @@ export default function Detail() {
             dispatch(getBooksGenres(state?.generos[0]?.genre))
         }
     }, [state, comment])
-    
+    if(state?.statusBook === 'false'){
+        return Swal.fire({
+            position: 'top',
+            icon: 'warning',
+            title: 'La publicación no existe',
+            showConfirmButton: false,
+            timer: 1500
+        }).then(()=>window.location.href='/')
+    }
     if(state?.hasOwnProperty('generos')){ return (
         <>
         {  
@@ -80,14 +92,14 @@ export default function Detail() {
                                 <img src={state.image} alt='Not found'
                                 className='w-48 rounded-md'
                                 />
-                                <AddToList id={id}/>
+                                {!owner?.find(b=>b.id ==id) && <AddToList id={id}/>}
                         </div>
                         <div className='mobile:grid mobile:grid-rows-2'>
-                            <div className='grid content-center grid-rows-3 pb-10 rounded-md min-h-min min-w-min bg-cream-200 justify-items-center'>
+                            {!owner?.find(b=>b.id ==id) && <div className='grid content-center grid-rows-3 pb-10 rounded-md min-h-min min-w-min bg-cream-200 justify-items-center'>
                                 <h1 className='m-auto'>USD${state.price}</h1>                      
                                 <Buy id={id}/>
                                 <AddToCart id={id}/>
-                            </div>
+                            </div>}
                         </div>
                     </div>
                     <DivDetail>
@@ -139,7 +151,7 @@ export default function Detail() {
                     <DivDetail>
                         <H1Detail id='descripcion'>Comentarios</H1Detail>
                         {
-                        (role === 'user' || role === 'admin') && (orderList.find(order=>order.status==='complete'&&order.Items.find(item=>item.libro_id==id))) &&
+                        (role === 'user') && (role === 'admin'||orderList.find(order=>order.status==='complete'&&order.Items.find(item=>item.libro_id==id))) &&
                         <div className='my-6'>
                             <form onSubmit={e => handleOnSubmit (e)} className={clsx(
                                 'mobile:gap-4',

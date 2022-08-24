@@ -1,13 +1,14 @@
-import React from 'react'
-import { useDispatch } from 'react-redux'
+import React, { useEffect } from 'react'
+import { useDispatch, useSelector } from 'react-redux'
 import { useNavigate } from "react-router-dom"
 import Swal from 'sweetalert2'
-import { getBookByName, getBookByID } from '../../../redux/actions/actions'
+import { getBookByName, getBookByID, booksPanel } from '../../../redux/actions/actions'
 import { addToCart } from '../../../redux/actions/actionsShop.js'
 import clsx from 'clsx'
 import { UilShoppingBag } from '@iconscout/react-unicons'
 export default function Cards({ data }) {
     let colorStar = data.rating
+    const owner = useSelector(s=>s.user.books);
     let navigate = useNavigate()
     let dispatch = useDispatch()
     function handleOnClick(e) {
@@ -15,6 +16,10 @@ export default function Cards({ data }) {
         dispatch(getBookByID(e))
         navigate(`/detail/${parseInt(e)}`)
     }
+
+    useEffect(()=>{
+        dispatch(booksPanel())
+    },[])
 
     let arrayColor = []
     for (let index = 1; index < 6; index++) {
@@ -103,12 +108,12 @@ export default function Cards({ data }) {
                             'mobile:text-sm',
                             "desktop:mx-2 desktop:text-xl desktop:font-bold desktop:min-text-sm desktop:text-greyBlack-300"
                             )}>${data?.price}</span>
-                        <div onClick={handleBuy} className="cursor-pointer">
+                        {!owner?.find(b=>b.id ==data?.id) && <div onClick={handleBuy} className="cursor-pointer">
                             <UilShoppingBag className={clsx(
                                 'mobile:w-5 mobile:h-5 mobile:flex',
                                 "desktop:w-6 desktop:h-6 desktop:mx-2" 
                                 )}/>
-                        </div>
+                        </div>}
                     </div>
                 </div>
             </div>
