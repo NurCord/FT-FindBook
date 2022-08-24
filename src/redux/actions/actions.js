@@ -115,13 +115,14 @@ export let postBook = (data2) => async(dispatch)=>{
                         window.location.href = '/'
                     }
                 })
-            }else if(data.message === "El libro fue creado"){
+            }else if(data === "YES"){
                 Swal.fire({
                     icon: 'success',
                     title: 'Libro posteado',
+                    text: `El libro ${data2.name} se ha posteado correctamente.`,
                     showConfirmButton: false,
-                    timer: 1000
-                })
+                    timer: 3000
+                }).then(()=>window.location.href='/')
             }
         }
         
