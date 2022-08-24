@@ -35,15 +35,6 @@ export default function Payment() {
   useEffect(() => {
     if(buttonStatus === "disabled"){
       dispatch(getTimer())
-      Swal.fire({
-        title: `Debes esperar ${timer} para poder comprar`,
-        icon: 'warning',
-        confirmButtonText: 'ir al inicio'
-      }).then((result) => {
-        if (result.isConfirmed) {
-          navigate('/')
-        }
-      })
     }
   })
 
@@ -156,7 +147,7 @@ export default function Payment() {
                             Volver al carrito
                           </button> 
                           <button className={buttonStatus === "enabled" ? "h-12 w-full mt-4 bg-green-500 rounded focus:outline-none text-white hover:bg-blue-600" : "h-12 w-full mt-4 bg-gray-500 rounded focus:outline-none text-white pointer-events-none"}>
-                            Pagar
+                            {buttonStatus === "enabled" ? "Pagar" : `Debes esperar ${timer} para hacer otra compra`}
                           </button> 
                         </div>
                          :
