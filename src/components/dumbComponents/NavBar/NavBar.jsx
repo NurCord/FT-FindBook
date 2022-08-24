@@ -11,7 +11,7 @@ import { UilEstate } from '@iconscout/react-unicons'
 import { UilUser } from '@iconscout/react-unicons'
 import { useEffect } from 'react'
 import { userCart } from '../../../redux/actions/actionsShop'
-
+import PrimarySearchAppBar from './NavBarDes'
 export default function NavBar() {
   const role = useSelector(state => state.root.role)
   const cartBooks = useSelector(state => state.shop.cartBooks)
@@ -82,44 +82,40 @@ export default function NavBar() {
             'desktop:col-start-2 desktop:col-end-5')}>
             <SearchNavBar setState={()=>setState()}/>
           </div>
-          <div className={clsx('mobile: inline-flex',`${role === 'invalid' ? 'col-start-7' : role === 'user' ? 'grid grid-cols-4 justify-items-center' : 'grid grid-cols-5 justify-items-center'} col-start-5 col-end-8 gap-2`)}>
+          <div className={clsx('mobile: inline-flex',`${role === 'invalid' ? 'col-start-7' : role === 'user' ? 'grid grid-cols-5 justify-items-center' : 'grid grid-cols-5 justify-items-center'} col-start-5 col-end-8 gap-2`)}>
             {
               role !== "invalid" ?
-                <div className={clsx('flex')}>
-                  <svg xmlns="http://www.w3.org/2000/svg" className={clsx("self-center w-6 h-6")} fill="none" viewBox="0 0 24 24" stroke="currentColor" strokeWidth={1.5}>
-                    <path strokeLinecap="round" strokeLinejoin="round" d="M12 9v3m0 0v3m0-3h3m-3 0H9m12 0a9 9 0 11-18 0 9 9 0 0118 0z" />
-                  </svg>
-                  <div className={clsx('self-center')}>
-                    <Link to={'/postbook'}>
-                      <h1 className={clsx('duration-700 border-b-2 border-cream-100 hover:border-cream-300')}>Publicar</h1>
-                    </Link>
-                  </div>
-                </div> : null
+              <div className='col-start-2'>
+                <PrimarySearchAppBar/>
+              </div>
+                : null
             }
 
             {role === 'invalid' ? null : 
-            <div className='relative flex items-center'>
+            <div className='relative flex items-center col-start-3'>
               { cartBooks?.length > 0 ?
                     <span class="flex h-3 absolute -right-5 top-0">
                     <span class="animate-ping absolute inline-flex h-3 w-3 rounded-full bg-cream-300 opacity-75"></span>
                     <span class="relative inline-flex rounded-full h-3 w-3 bg-cream-300"></span>
                   </span> : ''
               }
-            <div className={clsx('flex')}>
-              <svg xmlns="http://www.w3.org/2000/svg" className={clsx("self-center w-6 h-6")} fill="none" stroke="currentColor" strokeWidth={1.5}>
-                <path strokeLinecap="round" strokeLinejoin="round" d="M16 11V7a4 4 0 00-8 0v4M5 9h14l1 12H4L5 9z" />
-              </svg>
-              <div className={clsx('self-center')}>
-                <Link to={'/shop'}>
-                  <h1 className={clsx('duration-700 border-b-2 border-cream-100 hover:border-cream-300')}>Carrito</h1>
-                </Link>
+              <div className={clsx('flex')}>
+                <svg xmlns="http://www.w3.org/2000/svg" className={clsx("self-center w-6 h-6")} fill="none" stroke="currentColor" strokeWidth={1.5}>
+                  <path strokeLinecap="round" strokeLinejoin="round" d="M16 11V7a4 4 0 00-8 0v4M5 9h14l1 12H4L5 9z" />
+                </svg>
+                <div className={clsx('self-center')}>
+                  <Link to={'/shop'}>
+                    <h1 className={clsx('duration-700 border-b-2 border-cream-100 hover:border-cream-300')}>Carrito</h1>
+                  </Link>
+                </div>
               </div>
-            </div>
             </div>}
             {
               role === "user" ?
-                <div className={clsx('flex')}>
-                  <UilUser className='w-6 h-6' />
+                <div className={clsx('flex col-start-4')}>
+                  <div className='flex items-center justify-center'>
+                    <UilUser className='w-5 h-5'/>
+                  </div>
                   <div className={clsx('self-center')}>
                     <Link to={'/panelUser'}>
                       <h1 className={clsx('duration-700 border-b-2 border-cream-100 hover:border-cream-300')}>Usuario</h1>
@@ -128,7 +124,7 @@ export default function NavBar() {
                 </div> : null
             }
 
-            {role === 'admin' ? <div className={clsx('flex')}>
+            {role === 'admin' ? <div className={clsx('flex col-start-4')}>
               <svg className={clsx("self-center w-6 h-6")} version="1.1" id="Capa_1" xmlns="http://www.w3.org/2000/svg" x="0px" y="0px" viewBox="0 0 488.1 488.1">
                 <g>
                   <g>
@@ -163,7 +159,7 @@ export default function NavBar() {
               </div>
             </div> : null}
 
-            {role === 'invalid' ? <div className={clsx('flex')}>
+            {role === 'invalid' ? <div className={clsx('flex col-start-5')}>
               <svg xmlns="http://www.w3.org/2000/svg" className={clsx("self-center w-6 h-6")} fill="none" stroke="currentColor" strokeWidth={1.5}>
                 <path strokeLinecap="round" strokeLinejoin="round" d="M12 6.253v13m0-13C10.832 5.477 9.246 5 7.5 5S4.168 5.477 3 6.253v13C4.168 18.477 5.754 18 7.5 18s3.332.477 4.5 1.253m0-13C13.168 5.477 14.754 5 16.5 5c1.747 0 3.332.477 4.5 1.253v13C19.832 18.477 18.247 18 16.5 18c-1.746 0-3.332.477-4.5 1.253" />
               </svg>
@@ -173,7 +169,7 @@ export default function NavBar() {
             </div> : <div onClick={() => {
               window.localStorage.removeItem('token');
               window.location.reload()
-            }} className={clsx('flex')}>
+            }} className={clsx('flex col-start-5')}>
               <svg xmlns="http://www.w3.org/2000/svg" className={clsx("self-center w-6 h-6")} fill="none" stroke="currentColor" strokeWidth={1.5}>
                 <path strokeLinecap="round" strokeLinejoin="round" d="M17.109,5.454c-0.242-0.289-0.673-0.327-0.962-0.086l-1.894,1.591l-0.871-2.158
                 c-0.031-0.081-0.078-0.149-0.132-0.209c-0.178-0.396-0.487-0.736-0.913-0.933c-0.185-0.084-0.376-0.129-0.567-0.151

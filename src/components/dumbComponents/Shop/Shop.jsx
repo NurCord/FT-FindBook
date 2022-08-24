@@ -47,21 +47,21 @@ export default function Shop() {
   if(role === "user" || role === "admin"){
     return (
     <div>
-      <div className="h-screen bg-gray-300">
+      <div className="h-full bg-gray-300">
         <div className="py-12">
-          <div className="max-w-md mx-auto bg-gray-100 shadow-lg rounded-lg  md:max-w-5xl">
+          <div className="max-w-md mx-auto bg-gray-100 rounded-lg shadow-lg md:max-w-5xl">
             <div className="md:flex ">
               <div className="w-full p-4 px-5 py-5">
-                <div className="md:grid md:grid-cols-3 gap-2 ">
+                <div className="gap-2 md:grid md:grid-cols-3 ">
                   <div className="col-span-2 p-5">
                     <h1 className="text-xl font-medium ">Tu carrito</h1>
                     { cartBooks && cartBooks.length ?
                     <CartCards books={cartBooks}/> :
                     <span>Tu carrito está vacío</span>}
-                    <div className="flex justify-between items-center mt-6 pt-6 border-t">
+                    <div className="flex items-center justify-between pt-6 mt-6 border-t">
                       <div className="flex items-center">
-                        <i className="fa fa-arrow-left text-sm pr-2"></i>
-                        <span className="text-md  font-medium text-blue-500">
+                        <i className="pr-2 text-sm fa fa-arrow-left"></i>
+                        <span className="font-medium text-blue-500 text-md">
                           <Link to={"/"}>Continuar mirando libros</Link>
                         </span>
                       </div>
@@ -69,10 +69,10 @@ export default function Shop() {
                   </div>
                   { cartBooks && cartBooks.length ?
                   <div>
-                    <button onClick={handleOnClick} className="h-12 w-full bg-blue-500 rounded focus:outline-none text-white hover:bg-blue-600">
+                    <button onClick={handleOnClick} className="w-full h-12 text-white bg-blue-500 rounded focus:outline-none hover:bg-blue-600">
                       Comprar
                     </button>
-                    <button onClick={handleDeleteAll} className="h-12 w-full mt-4 bg-red-500 rounded focus:outline-none text-white hover:bg-blue-600">
+                    <button onClick={handleDeleteAll} className="w-full h-12 mt-4 text-white bg-red-500 rounded focus:outline-none hover:bg-blue-600">
                       Vaciar carrito
                     </button>
                   </div>:
