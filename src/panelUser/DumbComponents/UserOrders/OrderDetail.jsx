@@ -25,9 +25,9 @@ export default function OrderDetail() {
     );
   } else {
     return (
-      <div class="min-h-screen grid place-items-center font-mono bg-gray-900">
-        <div class="bg-white rounded-md  shadow-lg">
-          <div class="md:flex px-4 leading-none max-w-4xl">
+      <div className="min-h-screen grid place-items-center font-mono bg-gray-900">
+        <div className="bg-white rounded-md  shadow-lg">
+          <div className="md:flex px-4 leading-none max-w-4xl">
             <div className="flex flex-col ml-3">
               <span className="flex-col text-gray-900 pt-4 text-xl font-bold">
                 ID de la compra: {orderDetail.compras_id}
