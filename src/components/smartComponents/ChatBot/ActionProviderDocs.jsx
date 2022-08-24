@@ -9,7 +9,7 @@ const ActionProvider = ({ createChatBotMessage, setState, children }) => {
          ...prev,
          messages: [...prev.messages, botMessage],
       }));
-      const questionMessage = await createChatBotMessage(`Por favor digita el número de la opción de cuya temática deseas asesoría`,
+      const questionMessage = await createChatBotMessage(`Te dejo estas opciones que pueden ser de tu interés`,
          {
             withAvatar: false,
             delay: 500,
