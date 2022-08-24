@@ -1,10 +1,12 @@
 import React from 'react';
 
-const messageParser = ({ children, actions }) => {
+const messageParser = ({ children, actions}) => {
+   let count = children.props.state.messages.filter(e => e.type !== 'bot')
+   let mess = count[count.length-4]?.message
+   console.log(mess);
    const parse = (message) => {
-      if (message === '0') return actions.handleGoodBye();  
-      if (message.length > 1) return actions.handleHello(message);
-      return actions.handleQuestion(message.split(' ')[0]);
+      if (count.length === 0) return actions.handleHello(message);
+      return actions.handleQuestionFalse()
    }
 
    return (
