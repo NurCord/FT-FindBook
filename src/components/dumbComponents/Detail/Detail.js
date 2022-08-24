@@ -151,7 +151,7 @@ export default function Detail() {
                     <DivDetail>
                         <H1Detail id='descripcion'>Comentarios</H1Detail>
                         {
-                        (role === 'user') && (role === 'admin'||orderList.find(order=>order.status==='complete'&&order.Items.find(item=>item.libro_id==id))) &&
+                        ((role === 'user' && orderList?.find(order=>order.status==='complete'&&order.Items.find(item=>item.libro_id==id))) || (role === 'admin')) &&
                         <div className='my-6'>
                             <form onSubmit={e => handleOnSubmit (e)} className={clsx(
                                 'mobile:gap-4',
