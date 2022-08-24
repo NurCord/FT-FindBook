@@ -168,7 +168,7 @@ export default function NavBar() {
                 </Link>
             </div> : <div onClick={() => {
               window.localStorage.removeItem('token');
-              window.location.reload()
+              window.location.href='/'
             }} className={clsx('flex col-start-5')}>
               <svg xmlns="http://www.w3.org/2000/svg" className={clsx("self-center w-6 h-6")} fill="none" stroke="currentColor" strokeWidth={1.5}>
                 <path strokeLinecap="round" strokeLinejoin="round" d="M17.109,5.454c-0.242-0.289-0.673-0.327-0.962-0.086l-1.894,1.591l-0.871-2.158
