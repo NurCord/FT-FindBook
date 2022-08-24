@@ -3,6 +3,8 @@ import { Link } from 'react-router-dom'
 import clsx from 'clsx'
 import logo from '../../../assets/FindBookLogo.png'
 import { UilTelegramAlt } from '@iconscout/react-unicons'
+import {DivAnimation} from './StyleFooter'
+
 export default function Footer() {
     return (
         <div className={clsx(
@@ -38,7 +40,7 @@ export default function Footer() {
                     </div>
             </div>
             <div className='grid content-center w-full h-full'>
-                <h1 className='text-center'>soy la animacion</h1>
+                <DivAnimation/>
             </div>
         </div>
             <div className='grid content-center w-full justify-items-center bg-cream-200'>
