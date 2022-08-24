@@ -98,6 +98,7 @@ export default function CreatePost() {
 
     // lógica posteo
     function handleSelectCategory (e) {
+        e.preventDefault()
         if (e.target.value !== 'disabled' && !form.category.includes(e.target.value)) {
             setForm({
                 ...form,
@@ -107,6 +108,7 @@ export default function CreatePost() {
     }
 
     function handleSelectRating (e) {
+        e.preventDefault()
         if (e.target.value !== 'disabled' && !form.rating.includes(e.target.value)) {
             setForm({
                 ...form,
@@ -116,6 +118,7 @@ export default function CreatePost() {
     }
 
     function handleSelectLanguage (e) {
+        e.preventDefault()
         if (e.target.value !== 'disabled' && !form.language.includes(e.target.value)) {
             setForm({
                 ...form,
@@ -125,6 +128,7 @@ export default function CreatePost() {
     }
 
     function handleSelectGenre (e) {
+        e.preventDefault()
         if (e.target.value !== 'disabled' && !form.genre.includes(e.target.value)) {
             setForm({
                 ...form,
@@ -142,6 +146,7 @@ export default function CreatePost() {
     }
 
     function handleFormChange (e) {
+        e.preventDefault()
         setForm({
             ...form,
             [e.target.name] : e.target.value
@@ -152,8 +157,8 @@ export default function CreatePost() {
         }))
     };
     function handleFormSubmit (e) {
-        setForbidden(validator(form))
         e.preventDefault();
+        setForbidden(validator(form))
         if(Object.keys(forbidden).length !== 0 || form === state){
             return Swal.fire({
                 icon: 'error',
@@ -182,11 +187,11 @@ export default function CreatePost() {
                 setForm(state)
                 navigate('/');
                 window.location.reload();
-                Swal.fire(
-                    'Confirmar!',
-                    `El libro ${form.name} fue publicado`,
-                    'success'
-                )
+                // Swal.fire(
+                //     'Confirmar!',
+                //     `El libro ${form.name} fue publicado`,
+                //     'success'
+                // )
             }
         })
     }
@@ -305,7 +310,7 @@ export default function CreatePost() {
                             <label>Título:</label>
                             <label className = "text-orange-600 justify-self-center">{forbidden.name && forbidden.name}</label>
                         </div>
-                        <input type = 'text' value = {form.name} name = 'name' onChange={e => handleFormChange (e)} className = "w-56 rounded-lg"/>
+                        <input type = 'text' value = {form.name} name = 'name' autoComplete = 'off' onChange={e => handleFormChange (e)} className = "w-56 rounded-lg"/>
                     </div>
                     <div className ={clsx(   
                         'mobile:grid mobile:justify-items-center', 
@@ -314,7 +319,7 @@ export default function CreatePost() {
                             <label>Autor:</label>
                             <label className = "text-orange-600">{forbidden.author && forbidden.author}</label>
                         </div>
-                        <input type = 'text' value = {form.author} name = 'author' onChange={e => handleFormChange (e)} className = "w-56 rounded-lg"/>
+                        <input type = 'text' value = {form.author} name = 'author' autoComplete = 'off' onChange={e => handleFormChange (e)} className = "w-56 rounded-lg"/>
                     </div>
                     <div className ={clsx(   
                         'mobile:grid mobile:justify-items-center', 
@@ -341,7 +346,7 @@ export default function CreatePost() {
                             <label>Número de páginas:</label>
                             <label className = "text-orange-600">{forbidden.pages && forbidden.pages}</label>
                         </div>
-                        <input type = 'text' value = {form.pages} name = 'pages' onChange={e => handleFormChange (e)} className = "w-56 rounded-lg"/>
+                        <input type = 'text' value = {form.pages} name = 'pages' autoComplete = 'off' onChange={e => handleFormChange (e)} className = "w-56 rounded-lg"/>
                     </div>
                     <div className ={clsx(   
                         'mobile:grid mobile:justify-items-center', 
@@ -350,7 +355,7 @@ export default function CreatePost() {
                             <label>Editorial:</label>
                             <label className = "text-orange-600">{forbidden.publisher && forbidden.publisher}</label>
                         </div>
-                        <input type = 'text' value = {form.publisher} name = 'publisher' onChange={e => handleFormChange (e)} className = "w-56 rounded-lg"/>
+                        <input type = 'text' value = {form.publisher} name = 'publisher' autoComplete = 'off' onChange={e => handleFormChange (e)} className = "w-56 rounded-lg"/>
                     </div>
                     <div className ={clsx(   
                         'mobile:grid mobile:justify-items-center', 
@@ -380,7 +385,7 @@ export default function CreatePost() {
                             <label>Precio:</label>
                             <label className = "text-orange-600">{forbidden.price && forbidden.price}</label>
                         </div>
-                        <input type = 'text' value = {form.price} name = 'price' onChange={e => handleFormChange (e)} className = "w-56 rounded-lg"/>
+                        <input type = 'text' value = {form.price} name = 'price' autoComplete = 'off' onChange={e => handleFormChange (e)} className = "w-56 rounded-lg"/>
                     </div>
                     <div className ={clsx(   
                         'mobile:grid mobile:justify-items-center', 
@@ -407,7 +412,7 @@ export default function CreatePost() {
                             <label className = "flex items-start">Descripción:</label>
                             <label className = "text-orange-600">{forbidden.description && forbidden.description}</label>
                         </div>
-                        <textarea type = 'text' value = {form.description} name = 'description' onChange={e => handleFormChange (e)} className = "w-full rounded-lg"/>
+                        <textarea type = 'text' value = {form.description} name = 'description' autoComplete = 'off' onChange={e => handleFormChange (e)} className = "w-full rounded-lg"/>
                     </div>
                     <div> {/*ErrorDiv*/}
                         {

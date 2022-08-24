@@ -94,9 +94,9 @@ export default function NavBar() {
             {role === 'invalid' ? null : 
             <div className='relative flex items-center col-start-3'>
               { cartBooks?.length > 0 ?
-                    <span class="flex h-3 absolute -right-5 top-0">
-                    <span class="animate-ping absolute inline-flex h-3 w-3 rounded-full bg-cream-300 opacity-75"></span>
-                    <span class="relative inline-flex rounded-full h-3 w-3 bg-cream-300"></span>
+                    <span className="flex h-3 absolute -right-5 top-0">
+                    <span className="animate-ping absolute inline-flex h-3 w-3 rounded-full bg-cream-300 opacity-75"></span>
+                    <span className="relative inline-flex rounded-full h-3 w-3 bg-cream-300"></span>
                   </span> : ''
               }
               <div className={clsx('flex')}>
