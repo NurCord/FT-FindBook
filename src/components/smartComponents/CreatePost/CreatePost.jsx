@@ -184,9 +184,9 @@ export default function CreatePost() {
                 form.released = form.released + '';
                 form.language = form.language[0];
                 dispatch(postBook(form));
-                setForm(state)
-                navigate('/');
-                window.location.reload();
+                // setForm(state)
+                // navigate('/');
+                // window.location.reload();
                 // Swal.fire(
                 //     'Confirmar!',
                 //     `El libro ${form.name} fue publicado`,
