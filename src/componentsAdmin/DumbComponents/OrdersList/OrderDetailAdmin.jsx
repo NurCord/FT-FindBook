@@ -2,6 +2,9 @@ import React, { useEffect } from "react";
 import { useDispatch, useSelector } from "react-redux";
 import { useParams } from "react-router-dom";
 import { getUserOrdersById } from "../../../redux/actions/actionsShop";
+import DetailAdminCard from "./DetailAdminCard";
+import { UilArrowCircleLeft } from '@iconscout/react-unicons'
+import clsx from 'clsx'
 
 export default function OrderDetail() {
   const dispatch = useDispatch();
@@ -10,6 +13,9 @@ export default function OrderDetail() {
   useEffect(() => {
     dispatch(getUserOrdersById(id));
   }, []);
+  const handleOnClick = () => {
+    window.history.back()
+  }
 
   if (orderDetail.hasOwnProperty("message")) {
     return (
@@ -25,44 +31,39 @@ export default function OrderDetail() {
     );
   } else {
     return (
-      <div>
-        <div className="min-h-screen grid place-items-center font-mono bg-gray-900">
-          <div className="bg-white rounded-md  shadow-lg">
+      <div class={clsx(
+        'mobile:grid-cols-2 mobile:w-full',
+        "desktop:min-h-screen desktop:grid-cols-1 grid desktop:place-items-center text-lg font-medium bg-cream-100")}>
+        <div className="absolute z-10 mobile:right-2 desktop:right-8 mobile:top-0">
+          <button onClick={handleOnClick} className="grid w-12 h-12">
+            <UilArrowCircleLeft className="w-9 h-9 place-self-center text-greyBlack-400" />
+          </button>
+        </div>
+        <div class="bg-white rounded-md shadow-lg">
+          <div class="md:flex px-4 leading-none max-w-4xl">
             <div className="flex flex-col ml-3">
-              <span className="flex-col text-gray-900 pt-4 text-xl font-bold">
+              <div className="flex justify-between m-4">
+                <h2>Producto</h2>
+                <h2>Subtotal</h2>
+              </div>
+              <div className="grid gap-4 my-4 grid-rows">
+                {orderDetail.items?.map((item) => 
+                  <DetailAdminCard
+                      name={item.Book.name}
+                      image={item.Book.image} 
+                      cant={item.quantity}
+                      price={item.subTotal}
+                  />
+                )}
+              </div>
+              <div className="flex-col my-4">
+                  <h1 className='text-end'>
+                    Precio total: USD${orderDetail.totalPrice}
+                  </h1>
+              </div>
+              <span className="flex-col my-1">
                 ID de la compra: {orderDetail.compras_id}
               </span>
-              <div className="flex justify-center items-center">
-                <div className="flex-col text-gray-900">
-                  <span className="pt-4 text-xl font-bold">
-                    Precio total: USD${orderDetail.totalPrice}
-                  </span>
-                </div>
-              </div>
-              <span className="font-bold p-1">
-                {orderDetail.user?.name}
-              </span>
-              {orderDetail.items?.map((item) => {
-                return (
-                  <div>
-                    <span className="font-bold p-1">
-                      {item.Book.name}
-                    </span>
-                    <img
-                      src={item.Book.image}
-                      width="60"
-                      className="h-40 w-40 rounded-md border-4 border-gray-300 shadow-lg"
-                      alt="Book"
-                    />
-                    <span className="text-md flex justify-between px-4 my-2 font-bold">
-                      {item.quantity + " X "}
-                    </span>
-                    <span className="text-md flex justify-between px-4 my-2 font-bold">
-                      USD${item.subTotal}
-                    </span>
-                  </div>
-                );
-              })}
             </div>
           </div>
         </div>

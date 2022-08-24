@@ -71,23 +71,3 @@ export default function OrderDetail() {
   }
 }
 
-/* 
-return (
-                  <div>
-                    <span className="p-1 font-bold">
-                     Libro: {item.Book.name}
-                    </span>
-                    <img
-                      src={item.Book.image}
-                      width="60"
-                      className="w-40 h-40 border-4 border-gray-300 rounded-md shadow-lg"
-                      alt="Book"
-                    />
-                    <span className="flex justify-between px-4 my-2 font-bold text-md">
-                      {item.quantity+ ' X '}
-                    </span>
-                    <span className="flex justify-between px-4 my-2 font-bold text-md">
-                      USD ${item.subTotal}
-                    </span>
-                  </div>
-                ); */
