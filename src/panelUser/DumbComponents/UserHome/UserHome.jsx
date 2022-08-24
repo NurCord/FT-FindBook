@@ -204,7 +204,7 @@ function UserHome({ HomeUser }) {
                   <input
                     className={`${state} col-span-2 m-4 rounded-md bg-cream-100`}
                     key='password'
-                    type='text'
+                    type='password'
                     name='password'
                     placeholder={'* * * * * *'}
                     {...register("password")}
