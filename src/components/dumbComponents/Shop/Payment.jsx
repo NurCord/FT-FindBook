@@ -28,6 +28,7 @@ export default function Payment() {
       })
     }
     if(cancel_session){
+      console.log("este es la sesion: " + cancel_session)
       dispatch(getSessionID(cancel_session))
     }
   }, [cartBooks, dispatch, buttonStatus])
