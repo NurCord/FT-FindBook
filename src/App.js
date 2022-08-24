@@ -30,6 +30,7 @@ import Favorites from './components/dumbComponents/Favorites/Favorites';
 import OrderDetail from './panelUser/DumbComponents/UserOrders/OrderDetail';
 import OrderDetailAdmin from './componentsAdmin/DumbComponents/OrdersList/OrderDetailAdmin'
 import SaleDetail from './panelUser/DumbComponents/UserOrders/SaleDetail';
+import About from './components/dumbComponents/About/About';
 
 function App() {
   let dispatch = useDispatch()
@@ -56,6 +57,7 @@ function App() {
           <Route path='detail/:id' element={<Detail/>}/>
           <Route path='shop' element={<Shop/>}/>
           <Route path='favorites' element={<Favorites/>}/>
+          <Route path='about' element={<About/>}/>
           <Route path='postbook' element={<CreatePost/>}/>
           <Route path='login' element={<Login/>}/>
           <Route path='contacto' element={<Contact/>}/>

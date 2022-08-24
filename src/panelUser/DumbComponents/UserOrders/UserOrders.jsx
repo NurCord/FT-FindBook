@@ -20,47 +20,41 @@ export default function UserOrders() {
 
   if(role === "user"){
     return (
-    <div className='flex flex-wrap'>
-      <div>
-      <div className="h-screen bg-gray-300">
-        <div className="py-12">
-          <div className="max-w-md mx-auto bg-gray-100 shadow-lg rounded-lg  md:max-w-5xl">
-            <div className="md:flex ">
-              <div className="w-full p-4 px-5 py-5">
-                <div className="md:grid md:grid-cols-3 gap-2 ">
-                  <div className="col-span-2 p-5">
-                    <h1 className="text-xl font-medium ">Historial de compras</h1>
-                    { orderList && orderList.length ?
-                    <OrderCards orderUser={orderList}/> :
-                    <span>No tienes historial de compra</span>}
-                    <div className="flex justify-between items-center mt-6 pt-6 border-t">
-                      <div className="flex items-center">
-                        <i className="fa fa-arrow-left text-sm pr-2"></i>
+        <div className='flex flex-wrap justify-center bg-gray-300 mobile:h-full desktop:h-screen'>
+            <div className="py-12 desktop:mr-4">
+              <div className="max-w-md mx-auto bg-gray-100 rounded-lg shadow-lg md:max-w-5xl">
+                <div className="md:flex ">
+                  <div className="w-full p-4 px-5 py-5">
+                    <div className="gap-2 md:grid md:grid-cols-3 ">
+                      <div className="col-span-2 p-5">
+                        <h1 className="text-xl font-medium ">Historial de compras</h1>
+                        { orderList && orderList.length ?
+                        <OrderCards orderUser={orderList}/> :
+                        <span>No tienes historial de compra</span>}
+                        <div className="flex items-center justify-between pt-6 mt-6 border-t">
+                          <div className="flex items-center">
+                            <i className="pr-2 text-sm fa fa-arrow-left"></i>
+                          </div>
+                        </div>
                       </div>
                     </div>
                   </div>
                 </div>
               </div>
-            </div>
           </div>
-        </div>
-      </div>
-    </div>
-          <div>
-          <div className="h-screen bg-gray-300">
-            <div className="py-12">
-              <div className="max-w-md mx-auto bg-gray-100 shadow-lg rounded-lg  md:max-w-5xl">
+            <div className="py-12 desktop:ml-4">
+              <div className="max-w-md mx-auto bg-gray-100 rounded-lg shadow-lg md:max-w-5xl">
                 <div className="md:flex ">
                   <div className="w-full p-4 px-5 py-5">
-                    <div className="md:grid md:grid-cols-3 gap-2 ">
+                    <div className="gap-2 md:grid md:grid-cols-3 ">
                       <div className="col-span-2 p-5">
                         <h1 className="text-xl font-medium ">Historial de ventas</h1>
                         { salesList && salesList.length ?
                         <SaleCards salesUser={salesList}/> :
                         <span>No tienes historial de venta</span>}
-                        <div className="flex justify-between items-center mt-6 pt-6 border-t">
+                        <div className="flex items-center justify-between pt-6 mt-6 border-t">
                           <div className="flex items-center">
-                            <i className="fa fa-arrow-left text-sm pr-2"></i>
+                            <i className="pr-2 text-sm fa fa-arrow-left"></i>
                           </div>
                         </div>
                       </div>
@@ -70,8 +64,6 @@ export default function UserOrders() {
               </div>
             </div>
           </div>
-        </div>
-      </div>
   );
   }else{
     Swal.fire({

@@ -4,26 +4,21 @@ import clsx from 'clsx'
 import { UilUser } from '@iconscout/react-unicons'
 import { useSelector } from 'react-redux'
 import { Link } from 'react-router-dom'
-
+import PrimarySearchAppBar from './NavBarDes'
 export default function NavBarRes({handleHidden}) {
     const value = useSelector(state => state.root.role)
     return (
     <div className='grid grid-cols-5 bg-cream-300 h-14'>
         {
             value === 'user' || value === 'admin' ? 
-                <div className='grid grid-cols-1 col-start-1 content-center justify-items-center'>
-                    <Link to='/postbook'>
-                        <svg xmlns="http://www.w3.org/2000/svg" className={clsx("self-center w-6 h-6")} fill="none" viewBox="0 0 24 24" stroke="currentColor" strokeWidth={1.5}>
-                            <path strokeLinecap="round" strokeLinejoin="round" d="M12 9v3m0 0v3m0-3h3m-3 0H9m12 0a9 9 0 11-18 0 9 9 0 0118 0z" />
-                        </svg>
-                    </Link>
-                <h1 className='text-sm'>Publicar</h1>
-                </div>
+            <div className='grid content-center grid-cols-1 col-start-1 justify-items-center'>
+                <PrimarySearchAppBar/>
+            </div>
             : ''
         }
         {
             value === 'user' || value === 'admin' ? 
-                <div className='grid grid-cols-1 col-start-2 content-center justify-items-center'>
+                <div className='grid content-center grid-cols-1 col-start-2 justify-items-center'>
                     <Link to='/shop'>
                         <svg xmlns="http://www.w3.org/2000/svg" className={clsx("self-center w-6 h-6")} fill="none" stroke="currentColor" strokeWidth={1.5}>
                             <path strokeLinecap="round" strokeLinejoin="round" d="M16 11V7a4 4 0 00-8 0v4M5 9h14l1 12H4L5 9z" />
@@ -35,7 +30,7 @@ export default function NavBarRes({handleHidden}) {
         }
         {
             value === 'user' ? 
-                <div className='grid grid-cols-1 col-start-3 content-center justify-items-center'>
+                <div className='grid content-center grid-cols-1 col-start-3 justify-items-center'>
                     <Link to='/panelUser'>
                         <UilUser className='w-6 h-6' />
                     </Link>
@@ -45,7 +40,7 @@ export default function NavBarRes({handleHidden}) {
         }
         {
             value === 'admin' ? 
-                <div className='grid grid-cols-1 col-start-3 content-center justify-items-center'>
+                <div className='grid content-center grid-cols-1 col-start-3 justify-items-center'>
                     <Link to='/layoutAdmin'>
                         <UilUser className='w-6 h-6' />
                     </Link>
@@ -56,7 +51,7 @@ export default function NavBarRes({handleHidden}) {
         {
             value === 'user' || value === 'admin' ? 
             
-            <div className='grid grid-cols-1 col-start-4 content-center justify-items-center' onClick={() => {
+            <div className='grid content-center grid-cols-1 col-start-4 justify-items-center' onClick={() => {
                 window.localStorage.removeItem('token');
                 window.location.reload()
                 }}>
@@ -80,7 +75,7 @@ export default function NavBarRes({handleHidden}) {
         }
         {
             value === 'invalid' ? 
-                <div className='grid grid-cols-1 col-start-4 content-center justify-items-center'>
+                <div className='grid content-center grid-cols-1 col-start-4 justify-items-center'>
                     <Link to={'/login'}>
                         <svg xmlns="http://www.w3.org/2000/svg" className={clsx("self-center w-6 h-6")} fill="none" stroke="currentColor" strokeWidth={1.5}>
                             <path strokeLinecap="round" strokeLinejoin="round" d="M12 6.253v13m0-13C10.832 5.477 9.246 5 7.5 5S4.168 5.477 3 6.253v13C4.168 18.477 5.754 18 7.5 18s3.332.477 4.5 1.253m0-13C13.168 5.477 14.754 5 16.5 5c1.747 0 3.332.477 4.5 1.253v13C19.832 18.477 18.247 18 16.5 18c-1.746 0-3.332.477-4.5 1.253" />
@@ -90,7 +85,7 @@ export default function NavBarRes({handleHidden}) {
                 </div> 
             : ''
         }
-        <div className='grid grid-cols-1 col-start-5 content-center justify-items-center'>
+        <div className='grid content-center grid-cols-1 col-start-5 justify-items-center'>
             <UilFidgetSpinner className='w-8 h-8' onClick={()=>handleHidden('menu')}/>
         </div>
     </div>

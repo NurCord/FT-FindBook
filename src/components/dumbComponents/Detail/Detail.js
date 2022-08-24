@@ -54,19 +54,22 @@ export default function Detail() {
                     'grid w-full grid-cols-1 gap-5 bg-greyBlack-100 justify-items-center'
                 )}>
                 <div className={clsx(
-                    'mobile:px-6 mobile:h-20 mobile:text-sm',
-                    'grid w-full grid-cols-1 desktop:px-20 desktop:pt-2 justify-items-center bg-greyBlack-200 desktop:text-xl'
+                    'mobile:px-6 mobile:h-20 mobile:text-sm mobile:content-center',
+                    'grid w-full grid-cols-1 desktop:px-20 desktop:pt-2 justify-items-center bg-cream-100 desktop:text-xl'
                 )}>
-                    <h1 className='text-center text-white font-black text-2xl'>{state.name}</h1>
-                    <div className={clsx(
-                        'mobile:h-6 mobile:text-sm',
-                        'grid desktop:content-center desktop:text-lg desktop:justify-between w-full desktop:h-12 grid-cols-4 desktop:justify-items-center'
-                        )}>
-                        <span><a href='#descripcion' className='font-bold p-1 hover:bg-white rounded'>Descripción</a></span>
-                        <span><a href='#caracteristicas' className='font-bold p-1 hover:bg-white rounded'>Caracteristicas</a></span>
-                        <span><a href='#recomendados' className='font-bold p-1 hover:bg-white rounded'>Recomendados</a></span>
-                        <span><a href='#recomendados' className='font-bold p-1 hover:bg-white rounded'>Comentarios</a></span>
-                    </div>
+                    <h1 className='text-2xl font-black text-center '>{state.name}</h1>
+                    {
+                        window.matchMedia("(min-width: 700px)").matches ? 
+                        <div className={clsx(
+                            'mobile:h-6 mobile:text-sm',
+                            'grid desktop:content-center desktop:text-lg desktop:justify-between w-full desktop:h-12 grid-cols-4 desktop:justify-items-center'
+                            )}>
+                            <span><a href='#descripcion' className='p-1 font-medium rounded hover:bg-white'>Descripción</a></span>
+                            <span><a href='#caracteristicas' className='p-1 font-medium rounded hover:bg-white'>Caracteristicas</a></span>
+                            <span><a href='#recomendados' className='p-1 font-medium rounded hover:bg-white'>Recomendados</a></span>
+                            <span><a href='#recomendados' className='p-1 font-medium rounded hover:bg-white'>Comentarios</a></span>
+                        </div> : null
+                    }
                 </div>
                 <div className={clsx(
                     'mobile:w-full',
@@ -178,7 +181,7 @@ export default function Detail() {
         </>
     )}else if(state?.hasOwnProperty('error')){
         return(
-        <div className='grid h-screen place-content-center text-9xl uppercase'>{state.error}</div>
+        <div className='grid h-screen uppercase place-content-center text-9xl'>{state.error}</div>
         )
     }
     else{
