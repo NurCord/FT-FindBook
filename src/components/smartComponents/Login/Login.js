@@ -45,12 +45,7 @@ export default function Login() {
     const [ showLogin, setShowLogin ] = useState(true);
     const [ showSignUp, setShowSignUp ] = useState(false);
     const dispatch = useDispatch();
-    const [ createUserForm, setCreateUserForm ] = useState({
-        username: '',
-        mail: '',
-        password: '',
-        password2: '',
-    });
+    const [ createUserForm, setCreateUserForm ] = useState(createUserState);
     const [ userForm, setUserForm ] = useState({
         mail: '',
         password: '',
@@ -67,11 +62,13 @@ export default function Login() {
     function handleCreateUserFormChange (e) {
         setCreateUserForm({
             ...createUserForm,
-            [e.target.name] : e.target.value
+            [e.target.name] : e.target.value,
+            url: `https://ui-avatars.com/api/?name=${createUserForm.name}+${createUserForm.lastname}?background=F0EDE5`,
         });
         setCreateUserForbidden(createUserValidator({
             ...createUserForm,
-            [e.target.name]: e.target.value
+            [e.target.name]: e.target.value,
+            url: `https://ui-avatars.com/api/?name=${createUserForm.name}+${createUserForm.lastname}?background=F0EDE5`,
         }))
     };
 
