@@ -26,7 +26,7 @@ export default function Footer() {
                                 </Link>
                             </div>
                             <div className='flex ml-4'>
-                                <UilTelegramAlt classname={clsx(
+                                <UilTelegramAlt className={clsx(
                                     'mobile:w-5 mobile:h-5',
                                     "desktop:w-6 desktop:h-6"
                                     )}/>
