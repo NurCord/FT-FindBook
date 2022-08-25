@@ -28,7 +28,7 @@ function CardUser({ data }) {
           'El Usuario fue ELIMINADO',
           'success'
         ).then(() => {
-          dispatch(putUser(email, { status: 'deleted'}))
+          dispatch(deleteUser(email, 'deleted'))
           window.location.reload();
         })
       }
@@ -51,7 +51,7 @@ function CardUser({ data }) {
           `${data.status === 'true' ? 'El Usuario fue BANEADO' : 'El Usuario fue DESBANEADO'}`,
           'success'
         ).then(() => {
-          dispatch(putUser(email, { status: data.status === 'true' ? 'false' : 'true' }))
+          dispatch(deleteUser(email, data.status === 'true' ? 'false' : 'true' ))
           window.location.reload();
         })
       }
@@ -66,7 +66,7 @@ function CardUser({ data }) {
         <h5 className="mb-1 text-xl font-medium text-white">{data.username.includes('@')?data.username.split('@')[0]:data.username}</h5>
         <div className="flex mt-4 space-x-3 md:mt-6">
           {
-            data.status === 'deleted'?<h5 className="mb-1 text-xl font-medium text-white text-center">EL USUARIO ESTA ELIMINADO</h5>:<div><button className={`inline-flex items-center px-2 py-2 text-sm font-medium text-center mx-1  ${data.status === 'true' ? 'text-gray-800' : 'text-cream-100'} ${data.status === 'false' ? 'border' : ''} duration-300 rounded-lg ${data.status === 'true' ? 'bg-cream-100' : 'bg-red-600'} ${data.status === 'true' ? 'hover:bg-red-600' : 'hover:bg-gray-800'} hover:text-cream-100`} onClick={() => updateBan(data.email)}>{data.status === 'true' ? 'Banear' : 'Quitar BAN'}</button>
+            data.status === 'deleted'?<h5 className="mb-1 text-xl font-medium text-center text-white">EL USUARIO ESTA ELIMINADO</h5>:<div><button className={`inline-flex items-center px-2 py-2 text-sm font-medium text-center mx-1  ${data.status === 'true' ? 'text-gray-800' : 'text-cream-100'} ${data.status === 'false' ? 'border' : ''} duration-300 rounded-lg ${data.status === 'true' ? 'bg-cream-100' : 'bg-red-600'} ${data.status === 'true' ? 'hover:bg-red-600' : 'hover:bg-gray-800'} hover:text-cream-100`} onClick={() => updateBan(data.email)}>{data.status === 'true' ? 'Banear' : 'Quitar BAN'}</button>
             <button className='inline-flex items-center px-4 py-2 text-sm font-medium text-center duration-300 bg-gray-800 rounded-lg text-cream-200 hover:bg-red-600 hover:text-cream-100 focus:ring-gray-800' onClick={() => erase(data.email)}>Eliminar</button></div>
           }
         </div>
