@@ -29,7 +29,7 @@ function CardUser({ data }) {
           'success'
         ).then(() => {
           dispatch(putUser(email, { status: 'deleted'}))
-          window.location.reload();
+          // window.location.reload();
         })
       }
     })
