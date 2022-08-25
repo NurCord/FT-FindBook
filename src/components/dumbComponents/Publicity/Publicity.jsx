@@ -7,8 +7,14 @@ import 'swiper/css/pagination';
 import 'swiper/css/autoplay';
 import publi1 from '../../../assets/After.png'
 import publi2 from '../../../assets/Harry.png'
+import publi3 from '../../../assets/propagada.jpg'
+import publi4 from '../../../assets/propaganda1.jpg'
+import publi5 from '../../../assets/propaganda2.jpg'
+import publi6 from '../../../assets/propaganda3.jpg'
+import publi7 from '../../../assets/propaganda4.jpeg'
+
 import clsx from 'clsx'
-let pictures = [publi1, publi2];
+let pictures = [publi6, publi3, publi1, publi4, publi2, publi5, publi7];
 
 function slidecreator() {
     return (
@@ -20,7 +26,6 @@ function slidecreator() {
                           "desktop:w-screen desktop:mb-4 desktop:h-96"
                         )}
                         alt="Not Found"
-                        /*src = {`https://picsum.photos/id/${pic}/800/600`}*/
                         src={e}
                     ></img>
                 </SwiperSlide>
