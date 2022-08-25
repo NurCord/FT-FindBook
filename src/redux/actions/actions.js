@@ -295,11 +295,14 @@ export let putUser = (email, data) => async()=>{
     try {
         const token = window.localStorage.getItem('token')
         if(token !== undefined && token !== null){
-            await axios.put(`/admin/putuser/${email}`, data, {
+            const {data} = await axios.put(`/admin/putuser/${email}`, data, {
                 headers:{
                     Authorization: `Bearer ${token}`
                 }
             })   
+        }
+        if(data){
+            window.location.reload();
         }
         
     } catch (error) {
