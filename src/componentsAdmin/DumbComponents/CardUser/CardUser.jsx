@@ -29,7 +29,7 @@ function CardUser({ data }) {
           'success'
         ).then(() => {
           dispatch(deleteUser(email, 'deleted'))
-          window.location.reload();
+          //window.location.reload();
         })
       }
     })
@@ -52,7 +52,7 @@ function CardUser({ data }) {
           'success'
         ).then(() => {
           dispatch(deleteUser(email, data.status === 'true' ? 'false' : 'true' ))
-          window.location.reload();
+          //window.location.reload();
         })
       }
     })
