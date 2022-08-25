@@ -17,7 +17,7 @@ export default function Contacto() {
             <input type = 'hidden' name = '_next' value = 'https://findbookapp.netlify.app/contacto/agradecimiento'></input>
             <input type = 'hidden' name = '_captcha' value = 'false'></input>
             <input type = 'hidden' name = '_subject' value = 'New submission!'></input>
-            <input type = 'hidden' name = '_cc' value = 'nunyypin@gmail.com,nelnico008@gmail.com,rmauriciocastilla@gmail.com'></input> 
+            <input type = 'hidden' name = '_cc' value = 'customerfindbook@gmail.com,nunyypin@gmail.com,nelnico008@gmail.com,rmauriciocastilla@gmail.com'></input> 
         </form>
     )
 }
