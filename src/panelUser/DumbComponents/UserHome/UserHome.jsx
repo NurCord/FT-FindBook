@@ -214,7 +214,18 @@ function UserHome({ HomeUser }) {
           'grid desktop:grid-cols-4 desktop:gap-4 justify-items-center'
         )}>
           {
-            books.length > 0 && books?.map(e => <CardBook data={e} />)
+            books.length > 0 ? books?.map(e => <CardBook key={e.id} data={e} />)
+            : <div className="col-span-4 p-5 m-auto rounded-lg bg-cream-300">
+                    <h1 className="text-xl font-medium ">Libros</h1>
+                    <span>No tienes libros publicados</span>
+                    <div className="flex items-center justify-between pt-6 mt-6 border-t">
+                      <div className="flex items-center">
+                        <i className="pr-2 text-sm fa fa-arrow-left"></i>
+                        <span className="font-medium text-blue-500 text-md">
+                        </span>
+                      </div>
+                    </div>
+                  </div>
           }
         </div>
       </div>

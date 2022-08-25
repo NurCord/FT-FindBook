@@ -3,7 +3,7 @@ import { useDispatch } from "react-redux";
 import { registerUser, loginUser, googleLogRes } from '../../../redux/actions/actions';
 import Swal from "sweetalert2";
 import jwt_decode from "jwt-decode";
-
+import clsx from 'clsx'
 function createUserValidator (createUserForm) {
     const re = /^[a-z0-9!#$%&'*+/=?^_`{|}~-]+(?:\.[a-z0-9!#$%&'*+/=?^_`{|}~-]+)*@(?:[a-z0-9](?:[a-z0-9-]*[a-z0-9])?\.)+[a-z0-9](?:[a-z0-9-]*[a-z0-9])?$/;
     const createUserForbidden = {};
@@ -163,39 +163,61 @@ export default function Login() {
     
     if (showSignUp) {
         return (
-            <div className = 'bg-cream-100 w-11/12 m-auto max-w-xl rounded-2xl px-14 py-6'>
+            <div className = {clsx(
+                'mobile:w-full',
+                'desktop:w-11/12 desktop:max-w-xl desktop:py-6 desktop:m-auto bg-cream-100 rounded-2xl desktop:px-14')}>
                 <div>
                     <div>
                         <form className = 'flex flex-col justify-center' onSubmit={e => handleCreateUserFormSubmit (e)}>
-                            <h1 className = 'flex justify-center pb-1'>Registrarse</h1>
+                            <h1 className = {clsx( 
+                                'mobile:py-4',
+                                'flex justify-center desktop:pb-5')}>Registrarse</h1>
                             {/* <div id = "signInDiv"></div> */}
-                            <div className = 'flex flex-row'>
-                                <div className = 'px-2'>
+                            <div className ={clsx( 
+                                'mobile:flex-col',
+                                'flex desktop:flex-row')}>
+                                <div className = {clsx( 
+                                    'mobile:m-auto mobile:flex mobile:flex-col mobile:items-center',
+                                    'desktop:px-2')}>
                                     <label>Nombre</label><br></br>
                                     <input type = 'text' name = 'name' value = {createUserForm.name} onChange={e => handleCreateUserFormChange (e)} className = 'text-center rounded-lg text-slate-600' /><br></br>
                                 </div>
-                                <div className = 'px-2'>
+                                <div className = {clsx( 
+                                    'mobile:m-auto mobile:flex mobile:flex-col mobile:items-center',
+                                    'desktop:px-2')}>
                                     <label>Apellido</label><br></br>
                                     <input type = 'text' name = 'lastname' value = {createUserForm.lastname} onChange={e => handleCreateUserFormChange (e)} className = 'text-center rounded-lg text-slate-600' /><br></br>
                                 </div>
                             </div>
-                            <div className = 'flex flex-row'>
-                                <div className = 'px-2'>
+                            <div className ={clsx( 
+                                'mobile:flex-col mobile:justify-center mobile:',
+                                'flex desktop:flex-row')}>
+                                <div className = {clsx( 
+                                    'mobile:m-auto mobile:flex mobile:flex-col mobile:items-center',
+                                    'desktop:px-2')}>
                                     <label>Nick Usuario</label><br></br>
                                     <input type = 'text' name = 'username' value = {createUserForm.username} onChange={e => handleCreateUserFormChange (e)} className = 'text-center rounded-lg text-slate-600' /><br></br>
                                 </div>
-                                <div className = 'px-2'>
+                                <div className = {clsx( 
+                                    'mobile:m-auto mobile:flex mobile:flex-col mobile:items-center',
+                                    'desktop:px-2')}>
                                     <label>E-mail</label><br></br>
                                     <input type = 'email' name = 'mail' value = {createUserForm.mail} onChange={e => handleCreateUserFormChange (e)} className = 'text-center rounded-lg text-slate-600' /><br></br>
                                 </div>
                             </div>
                             {createUserForbidden.mail && ( <p key = 'mailError' className = "text-center text-orange-600">{createUserForbidden.mail}</p> )}
-                            <div className = 'flex flex-row'>
-                                <div className = 'px-2'>
+                            <div className ={clsx( 
+                                'mobile:flex-col',
+                                'flex desktop:flex-row')}>
+                                <div className = {clsx( 
+                                    'mobile:m-auto mobile:flex mobile:flex-col mobile:items-center',
+                                    'desktop:px-2')}>
                                     <label>Contraseña</label><br></br>
                                     <input type = 'password' name = 'password' value = {createUserForm.password} onChange={e => handleCreateUserFormChange (e)} className = 'text-center rounded-lg text-slate-600'/><br></br>
                                 </div>
-                                <div className = 'px-2'>
+                                <div className = {clsx( 
+                                    'mobile:m-auto mobile:flex mobile:flex-col mobile:items-center',
+                                    'desktop:px-2')}>
                                     <label>Confirmar contraseña</label><br></br>
                                     <input type = 'password' name = 'password2' value = {createUserForm.password2} onChange={e => handleCreateUserFormChange (e)} className = 'text-center rounded-lg text-slate-600'/><br></br>
                                 </div>
@@ -205,11 +227,11 @@ export default function Login() {
                                 <label>Avatar</label><br></br>
                                 <img id='avatar' src = {`https://ui-avatars.com/api/?name=${createUserForm.name ? createUserForm.name : ' '}+${createUserForm.lastname ? createUserForm.lastname : ' '}${createUserForm.lastname ? '?background=F0EDE5' : ' '}`} alt = 'Avatar' className = 'rounded-3xl'/>
                                 {Object.entries(createUserForbidden).length === 0 ? 
-                                <input type = 'submit' value = 'Crear cuenta'  onClick = { (e) => handleCreateUserFormSubmit(e) }className = 'w-1/2 font-sans bg-sky-500 text-slate-50 border-none font-normal px-2 py-2 my-3 rounded cursor-pointer hover:text-white hover:border-solid hover:border-slate-50 hover:bg-stone-400'/>
+                                <input type = 'submit' value = 'Crear cuenta'  onClick = { (e) => handleCreateUserFormSubmit(e) }className = 'w-1/2 px-2 py-2 my-3 font-sans font-normal border-none rounded cursor-pointer bg-sky-500 text-slate-50 hover:text-white hover:border-solid hover:border-slate-50 hover:bg-stone-400'/>
                                 :
-                                <input type = 'submit' value = 'Crear cuenta'  onClick = { (e) => handleCreateUserFormSubmit(e) }className = 'text-gray-800 no-underline pointer-events-none bg-zinc-600 w-1/2 font-sans border-none font-normal px-2 py-2 my-3 rounded'/>}
+                                <input type = 'submit' value = 'Crear cuenta'  onClick = { (e) => handleCreateUserFormSubmit(e) }className = 'w-1/2 px-2 py-2 my-3 font-sans font-normal text-gray-800 no-underline border-none rounded pointer-events-none bg-zinc-600'/>}
                                 <label className = 'flex justify-center'>¿Ya tienes cuenta?</label><br></br>
-                                <input type = 'submit' value = 'Iniciar sesión' onClick = { (e) => handleClick(e) } className = 'w-1/2 font-sans bg-sky-500 text-slate-50 border-none font-normal px-2 py-2 my-3 rounded cursor-pointer hover:text-white hover:border-solid hover:border-slate-50 hover:bg-stone-400'></input>
+                                <input type = 'submit' value = 'Iniciar sesión' onClick = { (e) => handleClick(e) } className = 'w-1/2 px-2 py-2 my-3 font-sans font-normal border-none rounded cursor-pointer bg-sky-500 text-slate-50 hover:text-white hover:border-solid hover:border-slate-50 hover:bg-stone-400'></input>
                             </div>
                         </form>
                     </div>
@@ -220,7 +242,7 @@ export default function Login() {
 
     if (showLogin) {
         return (
-            <div className = 'bg-cream-100 w-11/12 m-auto max-w-sm rounded-2xl px-14 py-6'>
+            <div className = 'w-11/12 max-w-sm py-6 m-auto bg-cream-100 rounded-2xl px-14'>
                 <div>
                     <div>
                         <form className = 'flex flex-col justify-center' onSubmit={e => handleUserFormSubmit (e)}>
@@ -230,12 +252,12 @@ export default function Login() {
                             {userForbidden.mail && ( <p key = 'mailError' className = "flex text-orange-600">{userForbidden.mail}</p> )}
                             <label>Contraseña</label><br></br>
                             <input type = 'password' name = 'password' value = {userForm.password} onChange={e => handleUserFormChange (e)} className = 'text-center rounded-lg text-slate-600'/><br></br>
-                            <input type = 'submit' value = 'Ingresar' className = 'font-sans bg-sky-500 text-slate-50 border-none font-normal px-2 py-2 my-3 rounded cursor-pointer hover:text-white hover:border-solid hover:border-slate-50 hover:bg-stone-400'/>
+                            <input type = 'submit' value = 'Ingresar' className = 'px-2 py-2 my-3 font-sans font-normal border-none rounded cursor-pointer bg-sky-500 text-slate-50 hover:text-white hover:border-solid hover:border-slate-50 hover:bg-stone-400'/>
                             <label className = 'flex justify-center'>¿Tienes cuenta google?</label><br></br>
-                            <div id = "signInDiv" className = 'w-5/6 self-center py-2'></div>
+                            <div id = "signInDiv" className = 'self-center w-5/6 py-2'></div>
                             <label className = 'flex justify-center'>¿Aún no tienes cuenta?</label><br></br>
                             <label className = 'flex justify-center'>Puedes registrarte gratis</label><br></br>
-                            <input type = 'submit' value = 'Crear cuenta' onClick = { (e) => handleClick(e) } className = 'font-sans bg-sky-500 text-slate-50 border-none font-normal px-2 py-2 my-3 rounded cursor-pointer hover:text-white hover:border-solid hover:border-slate-50 hover:bg-stone-400'></input>
+                            <input type = 'submit' value = 'Crear cuenta' onClick = { (e) => handleClick(e) } className = 'px-2 py-2 my-3 font-sans font-normal border-none rounded cursor-pointer bg-sky-500 text-slate-50 hover:text-white hover:border-solid hover:border-slate-50 hover:bg-stone-400'></input>
                         </form>
                     </div>
                 </div>

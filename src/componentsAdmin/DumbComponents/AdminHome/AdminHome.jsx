@@ -30,7 +30,7 @@ function AdminHome({ HomeAdmin }) {
           'mobile:grid-cols-2',
           'grid desktop:grid-cols-4 gap-4 justify-items-center')}>
           {
-            users ? users.map((e, i) =><CardUser key={i} data={e} />) : <h2>No Hay Usuarios</h2>
+            users ? users.map((e, i) =><CardUser key={i} data={e} />) : <h2>No hay usuarios</h2>
           }
         </div>
       </div>
@@ -43,7 +43,7 @@ function AdminHome({ HomeAdmin }) {
           'mobile:grid-cols-2 mobile:pb-20',
           'grid desktop:grid-cols-4 desktop:pb-0 gap-4 justify-items-center')}>
           {
-            Books?.map((b, i) => <CardBooks key={i} data={b} />)
+            Books ? Books?.map((b, i) => <CardBooks key={i} data={b} />): <h2>No hay libros</h2>
           }
         </div>
       </div>

@@ -32,32 +32,32 @@ export default function CartCard({ id, name, author, image, price, language}) {
 
   return (
     <div>
-        <div className="flex justify-between items-center mt-6 pt-6">
-          <div className="flex  items-center">
-            <img src={image} alt='Img Producto' width="60" className="rounded-full " />
+        <div className="flex items-center justify-between pt-6 mt-6">
+          <div className="flex items-center">
+            <img src={image} alt='Img Producto' className="w-20 h-32 rounded-sm" />
             <div className="flex flex-col ml-3">
               <Link to={`/detail/${id}`}>
-                <span className="md:text-md font-medium">
+                <span className="font-medium md:text-md">
                   {name}
                 </span>
               </Link>
-              <span className="md:text-xs font-light text-gray-400">
+              <span className="font-light text-gray-400 md:text-xs">
                 {author}
               </span>
-              <span className="md:text-xs font-light text-gray-400">
+              <span className="font-light text-gray-400 md:text-xs">
                 {language}
               </span>
               <div>
-                <button className = 'px-1 py-1 font-medium text-xs no-underline w-30 text-neutral-900 rounded-2xl bg-stone-400 hover:text-white hover:border-solid hover:border-slate-50 hover:bg-red-500' onClick={handleOnClick}>Quitar del carrito</button>
+                <button className = 'px-1 py-1 text-xs font-medium no-underline w-30 text-neutral-900 rounded-2xl bg-stone-400 hover:text-white hover:border-solid hover:border-slate-50 hover:bg-red-500' onClick={handleOnClick}>Quitar del carrito</button>
               </div>
             </div>
           </div> 
-          <div className="flex justify-center items-center">
+          <div className="flex items-center justify-center">
             <div className="pr-8 ">
-              <span className="md:text-sm font-medium">USD${price}</span>
+              <span className="font-medium md:text-sm">USD${price}</span>
             </div>
             <div>
-              <i className="fa fa-close text-xs font-medium"></i>
+              <i className="text-xs font-medium fa fa-close"></i>
             </div>
           </div>
         </div>
