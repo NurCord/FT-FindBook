@@ -153,7 +153,7 @@ export default function AdminBooK() {
   return (
     <div className='grid w-full h-full mobile:pt-5 desktop:p-8 bg-cream-100'>
       <div>
-        <div className="absolute z-10  mobile:right-2 desktop:right-8 mobile:top-0">
+        <div className="absolute z-10 mobile:right-2 desktop:right-8 mobile:top-0">
           <button onClick={handleOnClick} className="grid w-12 h-12">
             <UilArrowCircleLeft className="w-9 h-9 place-self-center text-greyBlack-400" />
           </button>

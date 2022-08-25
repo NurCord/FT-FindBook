@@ -22,8 +22,8 @@ export default function SaleDetail() {
   if (saleDetail.hasOwnProperty("message")) {
     return (
       <div>
-        <div className="flex justify-between items-center mt-6 pt-6">
-          <div className="flex  items-center">
+        <div className="flex items-center justify-between pt-6 mt-6">
+          <div className="flex items-center">
             <div className="flex flex-col ml-3">
               <h1>{saleDetail.message}</h1>
             </div>
@@ -33,15 +33,15 @@ export default function SaleDetail() {
     );
   } else {
     return (
-      <div class={clsx(
-        'mobile:grid-cols-2 mobile:w-full',
-        "desktop:min-h-screen desktop:grid-cols-1 grid desktop:place-items-center text-lg font-medium bg-cream-100")}>
+      <div className={clsx(
+        'mobile:grid-cols-1 mobile:w-full  mobile:h-screen',
+        "desktop:min-h-screen desktop:h-auto grid desktop:place-items-center text-lg font-medium bg-cream-100")}>
         <div className="absolute z-10 mobile:right-2 desktop:right-8 mobile:top-0">
           <button onClick={handleOnClick} className="grid w-12 h-12">
             <UilArrowCircleLeft className="w-9 h-9 place-self-center text-greyBlack-400" />
           </button>
         </div>
-        <div class="bg-white rounded-md shadow-lg">
+        <div class="mobile:pt-8 mobile:pb-10 desktop:pt-0 bg-white rounded-md shadow-lg">
           <div class="md:flex px-4 leading-none max-w-4xl">
             <div className="flex flex-col ml-3">
               <div className="flex justify-between m-4">
@@ -49,7 +49,6 @@ export default function SaleDetail() {
                 <h2>Subtotal</h2>
               </div>
               <div className="grid gap-4 my-4 grid-rows">
-                 
                   <DetailSaleCard
                       name={saleDetail.bookName}
                       image={saleDetail.bookUrl} 
@@ -64,10 +63,13 @@ export default function SaleDetail() {
                   <h1 className='text-end'>
                     Precio total: USD${saleDetail.total}
                   </h1>
+              <p className="my-1 desktop:flex-col mobile:w-auto">
+                ID de la compra: 
+              </p>
+              <h1 className="w-full overflow-hidden mobile:h-20 desktop:h-auto columns-1">
+                {saleDetail.id}
+              </h1>
               </div>
-              <span className="flex-col my-1">
-                ID de la compra: {saleDetail.id}
-              </span>
             </div>
           </div>
         </div>

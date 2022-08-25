@@ -6,7 +6,7 @@ import img3 from '../../../assets/HeiPhoto.jpg'
 import img4 from '../../../assets/MauPhoto.jpg'
 import img5 from '../../../assets/NelPhoto.jpg'
 import img6 from '../../../assets/NuPhoto.jpeg'
-
+import clsx from 'clsx'
 let data = [
     {
         id: 1,
@@ -53,7 +53,9 @@ let data = [
 ]
 export default function About() {
   return (
-    <div className='grid content-center grid-cols-3 gap-6 my-10 justify-items-center'>{
+    <div className={clsx(
+        '',
+        'grid content-center desktop:grid-cols-3 gap-6 my-10 justify-items-center')}>{
         data?.map(e => <CardAbout
             key={e.id}
             name={e.name}

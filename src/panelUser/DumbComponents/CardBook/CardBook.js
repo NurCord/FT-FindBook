@@ -1,7 +1,7 @@
 import React from 'react'
 import { useDispatch } from 'react-redux';
 import { useNavigate } from 'react-router-dom';
-import { deleteBookPanel, bookDetailPanel } from '../../../redux/actions/actions';
+import { deleteBookPanel } from '../../../redux/actions/actions';
 import clsx from 'clsx'
 
 
@@ -13,7 +13,6 @@ export default function CardBook({ data }) {
     dispatch(deleteBookPanel(id))
   }
   const handleOnClick = (id)=>{
-    // dispatch(bookDetailPanel(id))
     navigate(`/paneluser/book/${id}`)
   }
 
