@@ -14,7 +14,7 @@ export default function Contacto() {
                 <textarea name = 'comments' placeholder = 'Mensaje...' className = 'px-6 py-2 rounded resize-none'></textarea> {/*form_input form_input-message*/}
                 <input type = 'submit' value = 'Enviar' className = 'px-2 py-3 font-sans font-normal border-none rounded cursor-pointer bg-sky-500 text-slate-50 hover:text-white hover:border-solid hover:border-slate-50 hover:bg-stone-400'></input> {/*form_cta*/}
             </div>
-            <input type = 'hidden' name = '_next' value = 'http://localhost:3000/contacto/agradecimiento'></input>
+            <input type = 'hidden' name = '_next' value = 'https://findbookapp.netlify.app/contacto/agradecimiento'></input>
             <input type = 'hidden' name = '_captcha' value = 'false'></input>
             <input type = 'hidden' name = '_subject' value = 'New submission!'></input>
             <input type = 'hidden' name = '_cc' value = 'nunyypin@gmail.com,nelnico008@gmail.com,rmauriciocastilla@gmail.com'></input> 
