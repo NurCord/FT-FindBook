@@ -31,7 +31,8 @@ export let getBookByID = (id)=> async(dispatch)=>{
 
 export let getBookByName = (name)=> async(dispatch)=>{
     try {
-        let bookByName = (await axios.get(`/books?name=${name}`)).data;
+        let totalBooks = (await axios.get(`/books?name=${name}`)).data.totalBooks;
+        let bookByName = (await axios.get(`/books?name=${name}&size=${totalBooks}`)).data;
         dispatch({
             type: GET_BOOKS_BY_NAME,
             payload: {Books: bookByName.content, name} 
