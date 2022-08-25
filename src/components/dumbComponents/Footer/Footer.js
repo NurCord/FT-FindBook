@@ -3,7 +3,7 @@ import { Link } from 'react-router-dom'
 import clsx from 'clsx'
 import logo from '../../../assets/FindBookLogo.png'
 import { UilTelegramAlt } from '@iconscout/react-unicons'
-//import {DivAnimation} from './StyleFooter'
+import {DivAnimation} from './StyleFooter'
 
 export default function Footer() {
     return (
@@ -12,7 +12,8 @@ export default function Footer() {
             'w-full desktop:text-base desktop:h-44 grid grid-rows-3'
         )}>
         <div  className={clsx(
-            'grid grid-cols-1 justify-items-start content-center row-span-2 bg-[#c5b081]')}>
+            'mobile:grid-cols-1',
+            'grid desktop:grid-cols-2 justify-items-start content-center row-span-2 bg-[#c5b081]')}>
             <div className='w-full'>
                     <div className='flex flex-col items-center justify-center w-full h-full'>
                         <img src={logo} className='z-10 h-16' alt='Not found'/>
@@ -40,11 +41,11 @@ export default function Footer() {
                         </div>
                     </div>
             </div>
-            {/* {
+            {
                 window.matchMedia("(min-width: 700px)").matches ? <div className='grid content-center w-full h-full'>
                     <DivAnimation/>
                 </div> : null
-            } */}
+            }
         </div>
             <div className='grid content-center w-full justify-items-center bg-cream-200'>
                 <p className='col-span-2'>© 2022 Copyright: FindBook.com</p>
