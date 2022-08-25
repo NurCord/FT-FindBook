@@ -14,21 +14,10 @@ export default function Payment() {
 
   const queryParams = new URLSearchParams(window.location.search);
   const cancel_session = queryParams.get("cancel_session")
-  const [quantity, setQuantity] = useState({})
 
   useEffect(() => {
     dispatch(getButtonStatus())
-    if(cartBooks?.length){
-      let state
-      cartBooks.forEach(book =>{
-        setQuantity(prevState =>{
-          state = {...prevState, [book.id]: 1};
-          return state
-        }) 
-      })
-    }
     if(cancel_session){
-      console.log("este es la sesion: " + cancel_session)
       dispatch(getSessionID(cancel_session))
     }
   }, [cartBooks, dispatch, buttonStatus])
@@ -39,14 +28,6 @@ export default function Payment() {
     }
   })
 
-  
-  const handleOnChange = (e) => {
-    e.preventDefault();
-    setQuantity({
-      ...quantity,
-      [e.target.name]: e.target.value
-    })
-  }
 
   const handleOnClick = () => {
     navigate('/');
@@ -72,22 +53,10 @@ export default function Payment() {
         cancelButtonText: 'No'
       }).then((result) => {
         if (result.isConfirmed) {
-          let bookQuantityArray = []
-
-          for(let i=0; i<cartBooks.length; i++){
-            let bookQuantity= {
-              id: cartBooks[i].id,
-              quantity: quantity[cartBooks[i].id]
-            }
-            bookQuantityArray.push(bookQuantity)
-          }
-
-          dispatch(stripe(bookQuantityArray))
+          dispatch(stripe(cartBooks))
         }
       })
-      
-    }
-    
+    } 
   }
 
   if(role === "user" || role === "admin"){
@@ -113,23 +82,8 @@ export default function Payment() {
                                   </div>
                                 </div> 
                                 <div className="flex items-center justify-evenly">
-                                  <div>
-                                    <label>Cantidad: </label>
-                                    <input 
-                                      type="number" 
-                                      min={1} 
-                                      placeholder="Cantidad" 
-                                      name={book?.id} 
-                                      value={quantity[book?.id]} 
-                                      onChange={(e) => handleOnChange(e)}
-                                      className="w-16 h-6 mr-8 rounded-lg"
-                                      />
-                                  </div>
                                   <div className="pr-8 ">
-                                    <span className="font-medium md:text-sm">Precio por unidad: USD${book.price}</span>
-                                  </div>
-                                  <div>
-                                    <span className="font-medium md:text-sm">Subtotal: USD${Number(parseFloat(book.price * quantity[book.id]).toFixed(2))}</span>                                    
+                                    <span className="font-medium md:text-sm">Precio: USD${book.price}</span>
                                   </div>
                                 </div>
                               </div>
