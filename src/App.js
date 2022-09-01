@@ -31,6 +31,7 @@ import OrderDetail from './panelUser/DumbComponents/UserOrders/OrderDetail';
 import OrderDetailAdmin from './componentsAdmin/DumbComponents/OrdersList/OrderDetailAdmin'
 import SaleDetail from './panelUser/DumbComponents/UserOrders/SaleDetail';
 import About from './components/dumbComponents/About/About';
+import VideoPlayer from './components/smartComponents/VideoPlayer/VideoPlayer';
 
 function App() {
   let dispatch = useDispatch()
@@ -60,7 +61,7 @@ function App() {
           <Route path='about' element={<About/>}/>
           <Route path='postbook' element={<CreatePost/>}/>
           <Route path='login' element={<Login/>}/>
-          <Route path='contacto' element={<Contact/>}/>
+          <Route path='contacto' element={<Contact/>}/>          
           <Route path='contacto/agradecimiento' element={<ThanksPage/>}/>
           <Route path='busqueda/:name' element={<SearchByName/>}/>
           <Route path='categoria/:genre' element={<SearchByCategory/>}/>
@@ -68,6 +69,7 @@ function App() {
         </Route>
 
         <Route>
+          <Route path='video' element={<VideoPlayer/>}/>
           <Route path='payment' element={<Payment/>}/>
           <Route path='payment/success/:session_id' element={<PaymentSuccess/>} />
         </Route>
