@@ -18,14 +18,14 @@ let data = [
     {
         id: 2,
         name: 'Nelson Nicolás Escurra',
-        Linkedin: 'https://www.linkedin.com/in/nelson-n-escurra-966a50213/',
+        Linkedin: 'https://www.linkedin.com/in/nnescurra/',
         gitHub: 'https://github.com/Nelnico08',
         img: img5
     },
     {
         id: 3,
         name: 'Cesar',
-        Linkedin: 'Linkedin',
+        Linkedin: 'https://www.linkedin.com/in/cesarcatalancantillo/',
         gitHub: 'https://github.com/catalancesar',
         img: img1
     },
@@ -33,7 +33,7 @@ let data = [
         id: 4,
         name: 'Robert Mauricio Castilla Cruz',
         Linkedin: 'https://www.linkedin.com/in/rmauriciocastilla/',
-        gitHub: 'https://www.linkedin.com/in/rmauriciocastilla',
+        gitHub: 'https://github.com/rmauriciocastilla',
         img: img4
     },
     {
