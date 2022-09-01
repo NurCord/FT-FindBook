@@ -3,7 +3,7 @@ import ReactPlayer from 'react-player';
 import Swal from "sweetalert2";
 import { useNavigate, Link } from "react-router-dom";
 import clsx from 'clsx';
-// import './VideoPlayer.css';
+import './VideoPlayer.css';
 
 export default function VideoPlayer() {
 
@@ -11,10 +11,11 @@ export default function VideoPlayer() {
 
     return (
         <div>
-            <div className='relative pt-96'>
+            <div className='player-wrapper'>
                 <ReactPlayer
-                    className='absolute top-0 left-0'
-                    url = {require('../../../assets/FindBook_Overview.mp4')}
+                    className='react-player'
+                    // url = {require('../../../assets/FindBook_Overview.mp4')}
+                    url = 'https://vimeo.com/745212249'
                     width = '100%'
                     height = '100%'
                     controls
