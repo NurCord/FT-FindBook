@@ -32,26 +32,27 @@ function validator(form) {
     return forbidden;
 }
 
-let state = {
-    name: '',
-    author: '',
-    genre: [],
-    category: '',
-    pages: '',
-    publisher: '',
-    description: '',
-    image: '',
-    rating: '',
-    price: '',
-    released: '',
-    language: ''
-}
+// let state = {
+//     name: '',
+//     author: '',
+//     genre: [],
+//     category: '',
+//     pages: '',
+//     publisher: '',
+//     description: '',
+//     image: '',
+//     rating: '',
+//     price: '',
+//     released: '',
+//     language: ''
+// }
 
 export default function CreatePost() {
     // const { register, handleSubmit, errors } = useForm({
     //     resolver: yupResolver(bookSchema),
     // });
     // Declaración de estados
+    const datePickerIdmax = new Date().toISOString().split("T")[0];
     const dispatch = useDispatch();
     const navigate = useNavigate();
     const role = useSelector(state => state.root.role);
@@ -159,7 +160,7 @@ export default function CreatePost() {
     function handleFormSubmit (e) {
         e.preventDefault();
         setForbidden(validator(form))
-        if(Object.keys(forbidden).length !== 0 || form === state){
+        if(Object.keys(forbidden).length !== 0 || form.name === ''){
             return Swal.fire({
                 icon: 'error',
                 title: 'Oops...',
@@ -394,7 +395,7 @@ export default function CreatePost() {
                             <label>Fecha de publicación:</label>
                             <label className = "text-orange-600">{forbidden.released && forbidden.released}</label>
                         </div>
-                        <input type = 'date' value = {form.released} name = 'released' onChange={e => handleFormChange (e)} className = "w-56 text-center rounded-lg text-slate-600"/>
+                        <input id = 'datePickerId' type = 'date' value = {form.released} min = '1980-01-01' max = {datePickerIdmax} name = 'released' onChange={e => handleFormChange (e)} className = "w-56 text-center rounded-lg text-slate-600"/>
                     </div>
                     <div className ={clsx(   
                         'mobile:grid mobile:justify-items-center', 
@@ -458,7 +459,6 @@ export default function CreatePost() {
             confirmButtonText: 'Inicio',
             denyButtonText: `Conectar`,
             }).then((result) => {
-            /* Read more about isConfirmed, isDenied below */
             if (result.isConfirmed) {
                 navigate('/')
             } else if (result.isDenied) {
